@@ -3,14 +3,19 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\RolesEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -44,5 +49,53 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Assign a role to the user based on RolesEnum enum
+     */
+    public function assignUserRole(RolesEnum $role): void
+    {
+        $this->assignRole($role->value);
+    }
+
+    /**
+     * Check if user has a specific role
+     */
+    public function hasUserRole(RolesEnum $role): bool
+    {
+        return $this->hasRole($role->value);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->hasAnyRole([
+            RolesEnum::VENDOR->value,
+            RolesEnum::ADMIN->value,
+            RolesEnum::MASTER_ADMIN->value
+        ]);
+    }
+    
+    /**
+     * Get the user's highest role
+     */
+    public function getHighestRole(): ?RolesEnum
+    {
+        $roles = $this->roles->pluck('name')->toArray();
+
+        if (in_array(RolesEnum::MASTER_ADMIN->value, $roles)) {
+            return RolesEnum::MASTER_ADMIN;
+        }
+        if (in_array(RolesEnum::ADMIN->value, $roles)) {
+            return RolesEnum::ADMIN;
+        }
+        if (in_array(RolesEnum::VENDOR->value, $roles)) {
+            return RolesEnum::VENDOR;
+        }
+        if (in_array(RolesEnum::CLIENT->value, $roles)) {
+            return RolesEnum::CLIENT;
+        }
+
+        return null;
     }
 }
