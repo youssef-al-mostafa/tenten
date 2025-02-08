@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Database\Eloquent\Model;
 
 class YoussAdminPanelProvider extends PanelProvider
 {
@@ -50,10 +51,11 @@ class YoussAdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-            ])
-            ->authMiddleware([
-                Authenticate::class,
-                'auth',
+                'auth'
             ]);
+    }
+    public function boot()
+    {
+        Model::unguard();
     }
 }
