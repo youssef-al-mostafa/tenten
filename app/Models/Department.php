@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Category;
 
 class Department extends Model
 {
-    use HasRoles;
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
 }

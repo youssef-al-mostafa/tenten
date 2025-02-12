@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\RolesEnum;
 use App\Filament\Resources\DepartmentResource\Pages;
 use App\Filament\Resources\DepartmentResource\RelationManagers;
+use App\Filament\Resources\DepartmentResource\RelationManagers\CategoriesRelationManager;
 use App\Models\Department;
 use Filament\Facades\Filament;
 use Filament\Forms;
@@ -69,14 +70,14 @@ class DepartmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CategoriesRelationManager::class 
         ];
     }
 
     public static function canViewAny(): bool
     {
         $user = Filament::auth()->user();
-        return $user && $user->hasRole(RolesEnum::ADMIN->value);
+        return $user && $user->roles->contains(fn($role) => in_array($role->name, [RolesEnum::ADMIN->value, RolesEnum::MASTER_ADMIN->value]));
     }
 
     public static function getPages(): array
