@@ -18,6 +18,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\RolesEnum;
+use Filament\Facades\Filament;
+use App\Models\User;
 
 class YoussAdminPanelProvider extends PanelProvider
 {
@@ -51,7 +54,9 @@ class YoussAdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                'auth'
+                'auth',
+                Authenticate::class,
+            
             ]);
     }
     public function boot()
