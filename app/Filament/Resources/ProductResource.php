@@ -5,7 +5,9 @@ namespace App\Filament\Resources;
 use App\Enums\Enums\ProductStatusEnum;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
-use App\Models\Category;
+use App\Filament\Resources\ProductResource\Pages\ProductImages;
+use App\Filament\Resources\ProductResource\Pages\EditProduct;
+use Filament\Resources\Pages\Page;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,14 +18,17 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\Str;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
+use Filament\Pages\SubNavigationPosition;
 use Illuminate\Database\Eloquent\Builder;
-
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
+
+    protected static ?string $navigationIcon = 'heroicon-s-shopping-cart';
 
     public static function form(Form $form): Form
     {
@@ -105,6 +110,12 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make(name: 'id'),
+                SpatieMediaLibraryImageColumn::make('images')
+                    ->label('Image')
+                    ->collection('images')
+                    ->limit(1)
+                    ->conversion('thumb'),
                 TextColumn::make(name: 'title')
                     ->sortable()
                     ->searchable()
@@ -159,6 +170,14 @@ class ProductResource extends Resource
             'index' => Pages\ListProducts::route('/'),
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'images' => Pages\ProductImages::route('/{record}/images'),
         ];
+    }
+    public static function getRecordSubNavigation(Page $page): array{
+        return 
+            $page->generateNavigationItems([
+                EditProduct::class,
+                ProductImages::class,
+            ]);
     }
 }
