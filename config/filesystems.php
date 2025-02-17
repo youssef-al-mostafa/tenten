@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'public'),
 
     /*
     |--------------------------------------------------------------------------
@@ -46,6 +46,7 @@ return [
             'throw' => false,
             'report' => false,
         ],
+        
 
         's3' => [
             'driver' => 's3',

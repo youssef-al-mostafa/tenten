@@ -6,6 +6,7 @@ use App\Enums\Enums\ProductStatusEnum;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
 use App\Filament\Resources\ProductResource\Pages\ProductImages;
+use App\Filament\Resources\ProductResource\Pages\ProductVariationTypes;
 use App\Filament\Resources\ProductResource\Pages\EditProduct;
 use Filament\Resources\Pages\Page;
 use Filament\Forms;
@@ -171,13 +172,15 @@ class ProductResource extends Resource
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
             'images' => Pages\ProductImages::route('/{record}/images'),
+            'variation-types' => Pages\ProductVariationTypes::route('/{record}/variation-types'),
         ];
     }
     public static function getRecordSubNavigation(Page $page): array{
-        return 
+        return
             $page->generateNavigationItems([
                 EditProduct::class,
                 ProductImages::class,
+                ProductVariationTypes::class,
             ]);
     }
 }
