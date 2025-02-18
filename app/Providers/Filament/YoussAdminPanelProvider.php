@@ -30,6 +30,7 @@ class YoussAdminPanelProvider extends PanelProvider
             ->default()
             ->id('youss-admin')
             ->path('youss-admin')
+            ->sidebarWidth('14rem')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
@@ -56,7 +57,7 @@ class YoussAdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
                 'auth',
                 Authenticate::class,
-            
+
             ]);
     }
     public function boot()
