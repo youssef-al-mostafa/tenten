@@ -11,6 +11,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\Section;
 
 class ProductVariation extends EditRecord
 {
@@ -23,11 +24,48 @@ class ProductVariation extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+    public function form(Form $form): Form
+    {
+        $types = $this->record->variationTypes;
+        $fields = [];
+        foreach ($types as $i => $type) {
+            $fields[] = TextInput::make("variation_type_" . ($type) . ".id")
+                ->hidden();
+            $fields[] = TextInput::make("variation_type_" . ($type) . ".name")
+                ->label($type->name);
+        }
+        return $form->schema([
+            Repeater::make('variations')
+                ->label('Variations')
+                ->collapsible()
+                ->defaultItems(1)
+                ->columns(2)
+                ->columnSpan(2)
+                ->schema([
+                    Section::make()->schema($fields)
+                        ->columns(3),
+                    TextInput::make('quantity')->label('Quantity')
+                        ->numeric(),
+                    TextInput::make('price')->label('Price')
+                        ->numeric(),
+                ])
+        ]);
+    }
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        $variations = $this->record->variations->toArray();
-        $data['variations'] = $this->mergeCartesianWithExisting($this->record->variationTypes, $variations);
-        return [];
+        if (!$this->record) {
+            return $data;
+        }
+
+        $variations = $this->record->variations?->toArray() ?? [];
+        $variationTypes = $this->record->variationTypes;
+
+        if (!$variationTypes->count()) {
+            return $data;
+        }
+
+        $data['variations'] = $this->mergeCartesianWithExisting($variationTypes, $variations);
+        return $data;
     }
     private function mergeCartesianWithExisting($variationTypes, $existingData): array
     {
@@ -37,29 +75,52 @@ class ProductVariation extends EditRecord
 
         $mergedResult = [];
         foreach ($cartesianProduct as $product) {
-           $optionsIds = collect($product)
-              ->filter(fn ($key,$value) => str_starts_with($key, 'variation_type_'))
-              ->map(fn ($option) => $option['id'])
-              ->values()
-              ->toArray();
+            $optionsIds = collect($product)
+                ->filter(function ($value, $key) {
+                    return str_starts_with((string) $key, 'variation_type_');
+                })
+                ->map(fn($option) => $option['id'])
+                ->values()
+                ->toArray();
 
-            $match = array_filter($existingData , function ($existingOption) use ($optionsIds) {
-                   return $existingOption['variation_type_option_ids'] === $optionsIds;
+            $match = array_filter($existingData, function ($existingOption) use ($optionsIds) {
+                return $existingOption['variation_type_option_ids'] === $optionsIds;
             });
 
             if (!empty($match)) {
                 $existingEntry = reset($match);
                 $product['quantity'] = $existingEntry['quantity'];
                 $product['price'] = $existingEntry['price'];
-            }else {
+            } else {
                 $product['quantity'] = $defaultQuantity;
                 $product['price'] = $defaultPrice;
             }
-            $mergedResult[] = $product ;
+            $mergedResult[] = $product;
         }
         return $mergedResult;
     }
-    private function cartesianProduct($variationTypes, $defaultQuantity = null, $defaultPrice = null): array{
-        return [[]];
+    private function cartesianProduct($variationTypes, $defaultQuantity = null, $defaultPrice = null): array
+    {
+        $result = [[]];
+
+        foreach ($variationTypes as $index => $variationType) {
+            $temp = [];
+            foreach ($variationType->options as $option) {
+                foreach ($result as $combination) {
+                    $newCombination = $combination + [
+                        'variation_type_' . ($variationType->id) =>
+                        ['id' => $option->id, 'name' => $option->name, 'label' => $variationType->name],
+                    ];
+                    $temp[] = $newCombination;
+                }
+            }
+            $result = $temp;
+        }
+        foreach ($result as &$combination) {
+            $combination['quantity'] = $defaultQuantity;
+            $combination['price'] = $defaultPrice;
+        }
+
+        return $result;
     }
 }
