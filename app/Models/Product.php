@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use PhpParser\Node\Expr\Cast;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -13,14 +14,18 @@ class Product extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    public function registerMediaConversions (Media $media = null): void
+    protected $casts = [
+        'variations' => 'array',
+    ];
+
+    public function registerMediaConversions(Media $media = null): void
     {
-          $this->addMediaConversion('thumb')
-               ->width(100);
-          $this->addMediaConversion('small')
-               ->width(480);
-          $this->addMediaConversion('large')
-               ->width(1200);
+        $this->addMediaConversion('thumb')
+            ->width(100);
+        $this->addMediaConversion('small')
+            ->width(480);
+        $this->addMediaConversion('large')
+            ->width(1200);
     }
 
     protected $fillable = [
@@ -35,12 +40,12 @@ class Product extends Model implements HasMedia
     {
         return $this->belongsTo(Category::class);
     }
+    public function variation(): HasMany
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
     public function variationTypes(): HasMany
     {
         return $this->hasMany(VariationType::class);
-    }
-    public function variation(): HasMany
-    {
-        return $this->hasMany(ProductVariation::class, 'product_id');
     }
 }
