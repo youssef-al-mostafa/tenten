@@ -32,6 +32,10 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-shopping-cart';
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery();
+    }
     public static function form(Form $form): Form
     {
         return $form
@@ -107,7 +111,6 @@ class ProductResource extends Resource
                     ->default(ProductStatusEnum::Draft),
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table
@@ -158,14 +161,12 @@ class ProductResource extends Resource
                 ]),
             ]);
     }
-
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-
     public static function getPages(): array
     {
         return [
