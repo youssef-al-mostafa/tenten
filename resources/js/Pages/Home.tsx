@@ -4,7 +4,7 @@ import Head from '@/Components/Core/Head';
 import GuestLayout from '@/Layouts/GuestLayout';
 import NavBar from '@/Components/App/NavBar';
 
-export default function Welcome({
+export default function Home({
     auth,
     laravelVersion,
     phpVersion,
@@ -13,7 +13,6 @@ export default function Welcome({
     return (
         <>
             <NavBar />
-            {/* <Head>Youss</Head> */}
             <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
                 <main>
                     <div className="hero bg-gray-800 h-[300px]">

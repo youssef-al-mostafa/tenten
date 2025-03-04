@@ -32,6 +32,10 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-shopping-cart';
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->forVendor();
+    }
     public static function form(Form $form): Form
     {
         return $form

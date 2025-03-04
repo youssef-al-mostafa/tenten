@@ -12,14 +12,14 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
-use Spatie\Permission\Models\Role; 
+use Spatie\Permission\Models\Role;
 /**
  * @mixin \Spatie\Permission\Traits\HasRoles
  */
 class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles ,HasRoles;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -83,7 +83,7 @@ class User extends Authenticatable implements FilamentUser
             RolesEnum::MASTER_ADMIN->value
         ]);
     }
-    
+
     /**
      * Get the user's highest role
      */

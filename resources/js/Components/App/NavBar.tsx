@@ -8,7 +8,7 @@ function NavBar() {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
-                <Link className="btn btn-ghost text-xl" href={'/'}>Shop Cove</Link>
+                <Link className="btn btn-ghost text-xl" href={'/'}>Tenten</Link>
             </div>
             <div className="flex-none gap-4">
                 <div className="dropdown dropdown-end">
@@ -62,7 +62,7 @@ function NavBar() {
                             as='button'>Logout</Link></li>
                     </ul>
                 </div>}
-                {!user && <> 
+                {!user && <>
                 <Link href={route('login')} className='btn'>Login</Link>
                 <Link href={route('register')} className='btn btn-primary'>Sign Up</Link>
                  </>}
