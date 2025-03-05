@@ -57,6 +57,10 @@ class Product extends Model implements HasMedia
     {
         return $this->belongsTo(Department::class);
     }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class , 'created_by');
+    }
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

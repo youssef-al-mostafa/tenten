@@ -1,19 +1,19 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { PageProps } from '@/types';
+import { PageProps, PaginationProps, Product } from '@/types';
 import Head from '@/Components/Core/Head';
 import GuestLayout from '@/Layouts/GuestLayout';
 import NavBar from '@/Components/App/NavBar';
+import { ProductItem } from '@/Components/App/ProductItem';
 
 export default function Home({
     auth,
-    laravelVersion,
-    phpVersion,
-}: PageProps<{ laravelVersion: string; phpVersion: string }>) {
+    products
+}: PageProps<{ products: PaginationProps<Product>}>) {
     const Layout = auth.user ? AuthenticatedLayout : GuestLayout;
     return (
         <>
             <NavBar />
-            <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
+            <div className="bg-gray-100 dark:bg-gray-900 h-[300px]">
                 <main>
                     <div className="hero bg-gray-800 h-[300px]">
                         <div className="hero-content text-center">
@@ -29,7 +29,11 @@ export default function Home({
                     </div>
                 </main>
             </div>
-
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 p-8">
+               {products.data.map(product => (
+                  <ProductItem product={product} key={product.id}/>
+               ))}
+            </div>
         </>
     );
 }
