@@ -1,0 +1,21 @@
+Things to fix :
+_Title of the page in the home page is ugly
+
+----------------------------------------------------------------
+Admin page :
+_client cannot enter it, only vendor, admin, master_admin
+_vendor cannot edit the departement or see the departement page he can choose his product
+  of what departement they belong to and they only can see their product they cannot see other
+  products
+_master_admin, admin can see all the products in all the departement can edit any product
+  delete it or put it in draft if he want it, edit on it if need it to, full access
+
+----------------------------------------------------------------------
+Variation Type :
+_when u creat a product u give him the most child category, they are some variation type u
+  can add as many as u can and it will create a combination between them (3colors with 3sizes will
+  be 9 combination) and u can define later the price and quantity of each combination, by default it
+  will take the original price and quantity of the product.
+
+----------------------------------------------------------------------
+
