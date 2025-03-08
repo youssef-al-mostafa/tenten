@@ -8,7 +8,9 @@ function NavBar() {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
-                <Link className="btn btn-ghost text-xl" href={'/'}>Tenten</Link>
+                <Link className="logo btn bg-transparent text-[33px] hover:bg-transparent border-0" href={'/'}>
+                  Tenten
+                </Link>
             </div>
             <div className="flex-none gap-4">
                 <div className="dropdown dropdown-end">

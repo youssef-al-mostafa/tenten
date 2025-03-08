@@ -13,9 +13,9 @@ export default function Home({
     return (
         <>
             <NavBar />
-            <div className="bg-gray-100 dark:bg-gray-900 h-[300px]">
+            <div className="bg-gray-100 h-[300px]">
                 <main>
-                    <div className="hero bg-gray-800 h-[300px]">
+                    <div className="hero  h-[300px]">
                         <div className="hero-content text-center">
                             <div className="max-w-md">
                                 <h1 className="text-5xl font-bold">Hello there</h1>
