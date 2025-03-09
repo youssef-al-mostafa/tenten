@@ -50,7 +50,7 @@ export type Product = {
 export type VariationType = {
     id: number;
     name: string;
-    type: 'select' | 'radio' | 'image';
+    type: 'Select' | 'Radio' | 'Image';
     options: VariationTypeOption[];
 }
 
@@ -65,6 +65,5 @@ export type Image = {
     id: number;
     thumb: string;
     small: string;
-    medium: string;
     large: string;
 }
