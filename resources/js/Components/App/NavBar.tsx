@@ -6,13 +6,18 @@ function NavBar() {
     const { user } = auth
 
     return (
-        <div className="navbar bg-base-100">
+        <div className="nav flex justify-between my-[20px] bg-base-100">
             <div className="flex-1">
-                <Link className="logo btn bg-transparent text-[33px] hover:bg-transparent border-0" href={'/'}>
+                <Link className="logo btn bg-transparent hover:bg-transparent border-0" href={'/'}>
                   Tenten
                 </Link>
             </div>
-            <div className="flex-none gap-4">
+            <div className="menu-nav flex gap-4">
+                <Link className='btn bg-transparent hover:bg-transparent border-0' href="/">On Sale</Link>
+                <Link className='btn bg-transparent hover:bg-transparent border-0' href="/">New Arrivals</Link>
+                <Link className='btn bg-transparent hover:bg-transparent border-0' href="/">Brands</Link>
+            </div>
+            <div className="flex gap-4">
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                         <div className="indicator">
