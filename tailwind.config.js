@@ -8,12 +8,20 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.tsx',
     ],
-    plugins: [
-        forms,
-        require('daisyui'),
-    ],
+    theme: {
+        extend: {
+            fontFamily: {
+                oswald: ['Oswald', 'sans-serif'],
+                satoshi: ['satoshi', 'sans-serif'],
+            },
+            width: {
+                'webkit': '-webkit-fill-available'
+              }
+        },
+    },
+    plugins: [forms, require('daisyui')],
     daisyui: {
-        themes: ["light"], 
-        darkTheme: "light",
+        themes: ['light'],
+        darkTheme: 'light',
     },
 };
