@@ -12,11 +12,15 @@ export default {
         extend: {
             fontFamily: {
                 oswald: ['Oswald', 'sans-serif'],
-                satoshi: ['satoshi', 'sans-serif'],
+                satoshi: ['Satoshi', 'sans-serif'],
+                integral_cf: ['Integral CF', 'sans-serif'],
             },
             width: {
-                'webkit': '-webkit-fill-available'
-              }
+                webkit: '-webkit-fill-available',
+            },
+            height: {
+                webkit: '-webkit-fill-available',
+            },
         },
     },
     plugins: [forms, require('daisyui')],

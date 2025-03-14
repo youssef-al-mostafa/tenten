@@ -1,25 +1,32 @@
 import { Product } from '@/types';
 
 interface Props {
-    product?: Product;
+    img?: string;
+    banner_header?: string;
+    banner_text?: string;
+    button_text?: string;
+
+    property_1_nb?: string;
+    property_1_text?: string;
+
+    property_2_nb?: string;
+    property_2_text?: string;
+
+    property_3_nb?: string;
+    property_3_text?: string;
 }
 
-export const Banner = ({ product }: Props) => {
+export const Banner = ({ img, banner_header, property_1_nb, property_1_text,  property_2_nb, property_2_text,  property_3_nb, property_3_text }: Props) => {
     return (
         <>
-            <div className="hero bg-base-200 min-h-screen">
-                <div className="hero-content flex-col lg:flex-row-reverse">
-                    {/* <img
-                        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-                        className="max-w-sm rounded-lg shadow-2xl" /> */}
-                    <div>
-                        <h1 className="text-5xl font-bold">Box Office News!</h1>
-                        <p className="py-6">
-                            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                            quasi. In deleniti eaque aut repudiandae et a id nisi.
-                        </p>
-                        <button className="btn btn-primary">Get Started</button>
+            <div className="bg-base-200 h-[600px]">
+                <div className="flex max-w-full p-0 h-full">
+                    <div className="banner-content font-integral_cf font-extrabold">
+                        Youssef
                     </div>
+                    <img alt="Banner Image"
+                         src="/storage/banners/banner_main.png"
+                         className="h-webkit w-1/2"/>
                 </div>
             </div>
         </>
