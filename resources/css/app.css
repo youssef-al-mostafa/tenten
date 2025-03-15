@@ -5,9 +5,6 @@
 @import './Website/wysiwyg.css';
 @import './Website/fonts.css';
 
-@import './Components/NavBar.css';
-
-
 
 [type='radio']:checked {
     background-image: unset !important;
