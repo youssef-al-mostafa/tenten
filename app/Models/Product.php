@@ -16,11 +16,14 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Product extends Model implements HasMedia
 {
     use InteractsWithMedia;
-
+    protected $fillable = [
+        'created_by',
+        'updated_by'
+    ];
     protected $casts = [
         'variations' => 'array',
     ];
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(100);
@@ -49,10 +52,6 @@ class Product extends Model implements HasMedia
     {
         return $query->where('status', ProductStatusEnum::Published);
     }
-    protected $fillable = [
-        'created_by',
-        'updated_by'
-    ];
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
@@ -72,5 +71,17 @@ class Product extends Model implements HasMedia
     public function variationTypes(): HasMany
     {
         return $this->hasMany(VariationType::class);
+    }
+    public function getPriceForOptions($optionIds = []){
+        $optionIds = array_values($optionIds);
+        sort($optionIds);
+        foreach ($this->variations as $variation) {
+            $a = $variation->variation_type_option_ids;
+            sort($a);
+            if ($a == $optionIds) {
+                return $variation->price;
+            }
+        }
+        return $this->price ; 
     }
 }

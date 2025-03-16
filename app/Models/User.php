@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\Permission\Models\Role;
 /**
  * @mixin \Spatie\Permission\Traits\HasRoles
@@ -41,10 +42,6 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'remember_token',
     ];
-    // public function roles(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Role::class);
-    // }
 
     /**
      * Get the attributes that should be cast.
@@ -105,5 +102,9 @@ class User extends Authenticatable implements FilamentUser
         }
 
         return null;
+    }
+
+    public function vendor(): HasOne{
+        return $this->hasOne(Vendor::class, 'user_id');
     }
 }
