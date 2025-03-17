@@ -25,9 +25,28 @@ class CartService
         if ($optionIds === null) {
             $optionIds = $product->variationTypes->mapWithKeys(fn(VariationType $type)=> [$type->id => $type->options[0]?->id])->toArray();
         }
+        $price = $product->getPriceForOptions($optionIds);
+
+        if (Auth::check()) {
+            $this->saveItemToDatabase($product->id,$quantity ,$price ,$optionIds);
+        }else {
+            $this->saveItemToCookies($product->id,$quantity,$price,$optionIds);
+        }
     }
-    public function updateItemQuantity(int $productId, int $quantity, $optionsIds = null) {}
-    public function removeItemFromCart(int $productId, $optionsIds = null) {}
+    public function updateItemQuantity(int $productId, int $quantity, $optionsIds = null) {
+        if (Auth::check()) {
+            $this->updateItemQuantityInDatabase($productId, $quantity, $optionsIds);
+        }else {
+            $this->updateItemQuantityInCookies($productId, $quantity, $optionsIds);
+        }
+    }
+    public function removeItemFromCart(int $productId, $optionsIds = null) {
+        if (Auth::check()) {
+            $this->removeItemFromDatabase($productId, $optionsIds);
+        }else {
+            $this->removeItemFromCookies($productId, $optionsIds);
+        }
+    }
     /*
        Some Helper methods
     */
@@ -41,6 +60,7 @@ class CartService
                     $cartItems = $this->getCartItemsFromDatabase();
                 } else {
                     $cartItems = $this->getCartItemsFromCookies();
+                    //dd($cartItems);
                 }
                 $productIds = collect($cartItems)->map(fn($item) => $item['product_id']);
                 $products = Product::whereIn('id', $productIds)
@@ -61,7 +81,7 @@ class CartService
                         ->keyBy('id');
 
                     $imageUrl = null;
-                    foreach ($cartItems['option_ids'] as $option_id) {
+                    foreach ($cartItem['option_ids'] as $option_id) {
                         $option = data_get($options, $option_id);
                         if (!$imageUrl) {
                             $imageUrl = $option->getFirstMediaUrl('images', 'small');
@@ -100,6 +120,7 @@ class CartService
 
             return $this->cachedCartItems;
         } catch (\Exception $e) {
+            //throw $e;
             FacadesLog::error($e->getMessage() . PHP_EOL . $e->getTraceAsString());
         }
         return [];
@@ -144,7 +165,7 @@ class CartService
         }
         Cookie::queue(self::COOKIE_NAME, json_encode($cartItems), self::COOKIE_LIEFTIME);
     }
-    protected function saveItemToDatabase(int $productId, int $quantity, $price): void{
+    protected function saveItemToDatabase(int $productId, int $quantity, $price,array $optionIds): void{
         $userId = Auth::id();
         ksort($optionIds);
 
@@ -155,20 +176,23 @@ class CartService
 
         if ($cartItem) {
             $cartItem->update([
-                'quantity' => DB::raw('quantity + ', $quantity)
+                'quantity' => DB::raw('quantity + ' . $quantity)
             ]);
         } else {
-            CartItem::creat([
+            CartItem::create([
                 'user_id' => $userId,
                 'product_id' => $productId,
-                'variation_type_option_ids' => $optionIds,
+                'variation_type_option_ids' => json_encode($optionIds),
                 'quantity' => $quantity,
                 'price' => $price,
             ]);
         }
     }
-    protected function saveItemToCookies(int $productId, int $quantity, $price): void{
+    protected function saveItemToCookies(int $productId, int $quantity, $price, array $optionIds): void{
         $cartItems = $this->getCartItemsFromCookies();
+
+        //dd($cartItems,$productId,$quantity,$price,$optionIds);
+
         ksort($optionIds);
         $itemKey = $productId . '_' . json_encode($optionIds);
         if (isset($cartItems[$itemKey])) {
@@ -208,7 +232,7 @@ class CartService
                 'product_id' => $cartItem->product_id,
                 'quantity' => $cartItem->quantity,
                 'price' => $cartItem->price,
-                'option_ids' => $cartItem->variation_type_option_id,
+                'option_ids' => json_decode($cartItem->variation_type_option_ids, true),
             ];
         })->toArray();
         return $cartItems;

@@ -20,14 +20,14 @@ class CartController extends Controller
         ]);
 
         $data = $request->validate([
-            'options_ids' => ['nullable', 'array'],
+            'option_ids' => ['nullable', 'array'],
             'quantity' => ['required', 'integer', 'min:1'],
         ]);
 
         $cartService->addItemToCart(
             $product,
             $data['quantity'],
-            $data['options_ids']
+            $data['option_ids']
         );
 
         return back()->with('success', 'Product added to cart successfully');
