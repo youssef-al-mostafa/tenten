@@ -18,6 +18,9 @@ export type PageProps<
         user: User;
     };
     ziggy: Config & { location: string };
+    totalPrice: number;
+    totalQuantity: number;
+    cartItems: CartItem[];
 };
 
 export type Product = {
@@ -59,6 +62,18 @@ export type VariationTypeOption = {
     name: string;
     images: Image[];
     type: VariationType;
+}
+
+export type CartItem = {
+    id: number;
+    product_id: number;
+    title: string;
+    slug: string;
+    price: number;
+    quantity: number;
+    image: string;
+    option_ids: Record<string, number>;
+    options: VariationTypeOption[];
 }
 
 export type Image = {

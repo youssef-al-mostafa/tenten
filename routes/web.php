@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', [ProductController::class,'index']);
-Route::get('/product/{product:slug}', [ProductController::class,'show'])->name('product.show');
+Route::get('/product/{product:id}', [ProductController::class,'show'])->name('product.show');
 
 Route::controller(CartController::class)->group(function(){
     Route::get('/cart', 'index')->name('cart.index');

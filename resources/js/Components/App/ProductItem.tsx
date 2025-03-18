@@ -10,7 +10,7 @@ interface Props {
 export const ProductItem = ({product} : Props) => {
     return (
         <div className='card bg-base-100 shadow-xl'>
-          <Link href={route('product.show', product.slug)}>
+          <Link href={route('product.show', product.id)}>
              <figure>
                 <img src={product.image}
                      alt={product.title}
