@@ -3,7 +3,7 @@ import { CurrencyFormatter } from '../Core/CurrencyFormatter';
 
 export const MiniCartDropDowm = () => {
 
-    const { totalPrice, totalQuantity, cartItems } = usePage().props;
+    const { totalPrice, totalQuantity, miniCartItems } = usePage().props;
 
     return (
         <>
@@ -13,12 +13,12 @@ export const MiniCartDropDowm = () => {
                 <div className="card-body">
                     <span className="text-lg font-bold">{totalQuantity} Items</span>
                     <div className="my-4 max-h-[300px] overflow-auto">
-                        {cartItems.length === 0 && (
+                        {miniCartItems.length === 0 && (
                             <div className="py-2 text-gray-500 text-center">
                                 You don't have any items yet
                             </div>
                         )}
-                        {cartItems.map((item) => (
+                        {miniCartItems.map((item) => (
                             <div key={item.id} className="flex gap-4 p-3">
                                 <Link href={route('product.show', item.id)} className='w-16 h-16 flex justify-center items-center'>
                                  <img src={item.image} alt='Item Image' className='max-w-full max-h-full'/>
