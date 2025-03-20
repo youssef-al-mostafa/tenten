@@ -10,9 +10,9 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => {
-        if (window.location.href == import.meta.env.VITE_FULL_URL) {
-            return import.meta.env.VITE_APP_NAME;
-        }
+        // if (window.location.href == import.meta.env.VITE_FULL_URL) {
+        //     return import.meta.env.VITE_APP_NAME;
+        // }
         return `${title} - ${appName}`;
     },
     resolve: (name) =>
