@@ -10,18 +10,18 @@ function NavBar() {
     return (
         <>
             <Offer isLoggedIn={!!user} />
-            <div className="nav flex gap-[28px] my-[20px] bg-base-100 items-baseline w-[90%] mx-auto">
-                <div className="flex">
-                    <Link className="logo bg-transparent hover:bg-transparent border-0 font-oswald font-normal text-[40px]" href={'/'}>
+            <div className=" flex my-[20px] gap-6 bg-base-100 items-baseline w-[90%] mx-auto">
+                <div className="flex text-black">
+                    <Link className="logo bg-transparent hover:bg-transparent border-0 font-integral_cf font-extrabold text-[40px]" href={'/'}>
                         Tenten
                     </Link>
                 </div>
-                <div className="menu-nav w-[fit-content] min-w-max flex gap-4 flex-row items-center p-0 font-satoshi font-medium text-[21px]">
+                <div className="menu-nav w-[fit-content] min-w-max flex gap-4 flex-row items-center p-0 font-satoshi font-medium text-[21px] my-auto">
                     <Link className='bg-transparent hover:bg-transparent border-0' href="/">On Sale</Link>
                     <Link className='bg-transparent hover:bg-transparent border-0' href="/">New Arrivals</Link>
                     <Link className='bg-transparent hover:bg-transparent border-0' href="/">Brands</Link>
                 </div>
-                <div className="search-bar min-w-[200px] my-auto w-webkit translate-y-1/4">
+                <div className="search-bar min-w-[200px] my-auto w-webkit">
                     <div className="relative flex items-center w-full ">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
                             <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd" />
@@ -32,7 +32,7 @@ function NavBar() {
                             placeholder="Search" />
                     </div>
                 </div>
-                <div className="flex gap-4 my-auto">
+                <div className="flex gap-4 my-auto w-[38%]">
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                             <div className="indicator">
