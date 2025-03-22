@@ -47,7 +47,6 @@ class CartController extends Controller
 
         return back()->with('success', 'Quantity was updated successfully');
     }
-
     public function destroy(Request $request, Product $product, CartService $cartService){
         $optionIds = $request->input('option_ids');
 
@@ -55,5 +54,7 @@ class CartController extends Controller
 
         return back()->with('success', 'Product was removed from cart successfully');
     }
-
+    public function checkout(){
+        
+    }
 }

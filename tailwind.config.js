@@ -1,14 +1,16 @@
 import forms from '@tailwindcss/forms';
 
-/** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: false,
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.tsx',
     ],
+
     theme: {
+        darkMode: false,
         extend: {
             fontFamily: {
                 oswald: ['Oswald', 'sans-serif'],
@@ -23,9 +25,13 @@ export default {
             },
         },
     },
-    plugins: [forms, require('daisyui')],
+    plugins: [
+        forms,
+        require('daisyui'),
+    ],
     daisyui: {
         themes: ['light'],
-        darkTheme: 'light',
+        darkTheme: false,
+        darkMode: false,
     },
 };
