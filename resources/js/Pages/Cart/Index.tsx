@@ -1,4 +1,4 @@
-import { CartItem } from "@/Components/App/CartItem"
+import  CartItem  from "@/Components/App/CartItem"
 import { CurrencyFormatter } from "@/Components/Core/CurrencyFormatter"
 import PrimaryButton from "@/Components/Core/PrimaryButton"
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
@@ -17,7 +17,7 @@ export default function Index({
             <Head title="Product" />
             <AuthenticatedLayout>
                 <div className="container mx-auto p-8 flex flex-col lg:flex-row gap-4">
-                    <div className="card flex-1 bg-white  bg-gray-800 order-2 lg:order-1">
+                    <div className="card flex-1 bg-white order-2 lg:order-1">
                         <div className="card-body">
                             <h2 className="text-lg font-bold">
                                 Shopping Cart
@@ -46,16 +46,14 @@ export default function Index({
                                             </div>
                                         </div>
                                         {cartItem.items.map(item => (
-                                            <>
-                                                {JSON.stringify(item, undefined, 2)}
-                                            </>
+                                           <CartItem item={item} key={item.id} />
                                         ))}
                                     </div>
                                 ))}
                             </div>
                         </div>
                     </div>
-                    <div className="card bg-white  bg-gray-800 lg:min-w-[260px] order-1 lg:order-2">
+                    <div className="card bg-white lg:min-w-[260px] order-1 lg:order-2">
                         <div className="card-body">
                             Subtotal ({totalQuantity} items): &nbsp;
                             <CurrencyFormatter amount={totalPrice} />

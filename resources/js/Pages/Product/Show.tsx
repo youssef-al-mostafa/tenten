@@ -165,7 +165,7 @@ function Show({ product, variationOptions }: Props) {
         );
         console.log('the ids Map form the use Effect :', idsMap)
         form.setData('option_ids', idsMap);
-    }, [selectedOptions]);
+    }, [selectedOptions, form]);
     return (
         <>
             <Head title={product.title} />

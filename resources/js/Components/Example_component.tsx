@@ -1,13 +1,15 @@
-import { Product } from '@/types';
+import type { CartItem } from '@/types';
 
 interface Props {
-    product: Product;
+    item: CartItem;
 }
 
-export const ProductItem = ({product} : Props) => {
+const CartItem = ({item} : Props) => {
     return (
        <>
 
        </>
     )
 }
+
+export default CartItem;

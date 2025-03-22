@@ -61,6 +61,7 @@ export type VariationType = {
 export type VariationTypeOption = {
     id: number;
     name: string;
+    option_name: string;
     images: Image[];
     type: VariationType;
 }

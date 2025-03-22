@@ -30,6 +30,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('youssef'),
         ]);
         $vendor->assignRole(RolesEnum::VENDOR->value);
+
         Vendor::factory()->create([
             'user_id' => $vendor->id,
             'status' => VendorStatusEnum::Approved,
