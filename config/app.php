@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'currency' => env('APP_CURRENCY', 'USD'),
+    
+    'stripe_secret_key' => env('STRIPE_SECRET_KEY'),
+
 ];

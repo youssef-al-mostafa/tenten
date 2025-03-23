@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Enums\RolesEnum;
+use App\Services\CartService;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,7 +29,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request, CartService $cartService)
     {
         $request->authenticate();
 
@@ -38,10 +39,12 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
         $route = '/';
         if ($user->hasAnyRole([RolesEnum::MASTER_ADMIN ,RolesEnum::ADMIN, RolesEnum::VENDOR])) {
+            $cartService->moveCartItemsToDatabase($user->id);
             return Inertia::location(url: route('filament.youss-admin.pages.dashboard'));
         }else {
             return Inertia::location(url: '/');
         }
+        $cartService->moveCartItemsToDatabase($user->id);
     }
 
     /**

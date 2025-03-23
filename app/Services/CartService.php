@@ -252,4 +252,31 @@ class CartService
                 'totalPrice' => $items->sum(fn ($item) => $item['price'] * $item['quantity']),
                ])->toArray();
     }
+    public function moveCartItemsToDatabase($userId): void {
+        $cartItems = $this->getCartItemsFromCookies();
+
+        foreach ($cartItems as $itemKey => $cartItem) {
+            $existingItem = CartItem::where('user_id', $userId)
+                                ->where('product_id', $cartItem['product_id'])
+                                ->where('variation_type_option_ids', json_encode($cartItem['option_ids']))
+                                ->first();
+
+            if ($existingItem) {
+                $existingItem->update([
+                    'quantity' => $existingItem->quantity + $cartItem['quantity'],
+                    'price' => $cartItem['price']
+                ]);
+            } else{
+                CartItem::create([
+                    'user_id' => $userId,
+                    'product_id' => $cartItem['product_id'],
+                    'variation_type_option_ids' => json_encode($cartItem['option_ids']),
+                    'quantity' => $cartItem['quantity'],
+                    'price' => $cartItem['price'],
+                ]);
+            }
+        }
+
+        Cookie::queue(self::COOKIE_NAME, '', -1);
+    }
 }
