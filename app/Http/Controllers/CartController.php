@@ -17,12 +17,14 @@ use function Pest\Laravel\options;
 
 class CartController extends Controller
 {
-    public function index(CartService $cartService){
-        return Inertia::render('Cart/Index' , [
+    public function index(CartService $cartService)
+    {
+        return Inertia::render('Cart/Index', [
             'cartItems' => $cartService->getCartItemsGrouped(),
         ]);
     }
-    public function store(Request $request,Product $product, CartService $cartService){
+    public function store(Request $request, Product $product, CartService $cartService)
+    {
         $request->mergeIfMissing([
             'quantity' => 1,
         ]);
@@ -40,7 +42,8 @@ class CartController extends Controller
 
         return back()->with('success', 'Product added to cart successfully');
     }
-    public function update(Request $request, Product $product, CartService $cartService){
+    public function update(Request $request, Product $product, CartService $cartService)
+    {
 
         $request->validate([
             'quantity' => ['integer', 'min:1'],
@@ -53,14 +56,16 @@ class CartController extends Controller
 
         return back()->with('success', 'Quantity was updated successfully');
     }
-    public function destroy(Request $request, Product $product, CartService $cartService){
+    public function destroy(Request $request, Product $product, CartService $cartService)
+    {
         $optionIds = $request->input('option_ids');
 
         $cartService->removeItemFromCart($product->id, $optionIds);
 
         return back()->with('success', 'Product was removed from cart successfully');
     }
-    public function checkout(Request $request, CartService $cartService){
+    public function checkout(Request $request, CartService $cartService)
+    {
         \Stripe\Stripe::setApiKey(config('app.stripe_secret_key'));
 
         $vendorId = $request->input('vendor_id');
@@ -77,14 +82,14 @@ class CartController extends Controller
             $lineItems = [];
             foreach ($checkoutCartItems as $item) {
                 $user = $item['user'];
-                $cartItems = $user['items'];
+                $cartItems = $item['items'];
 
                 $order = Order::create([
-                   'stripe_session_id' => null,
-                   'user_id' => $request->user()->id,
-                   'vendor_user_id' => $user['id'],
-                   'total_price' => $item['total_price'],
-                   'status' => OrderStatusEnum::Draft->value,
+                    'stripe_session_id' => null,
+                    'user_id' => $request->user()->id,
+                    'vendor_user_id' => $user['id'],
+                    'total_price' => $item['totalPrice'],
+                    'status' => OrderStatusEnum::Draft->value,
                 ]);
 
                 $orders[] = $order;
@@ -97,9 +102,10 @@ class CartController extends Controller
                         'variation_type_option_ids' => $cartItem['option_ids'],
                         'price' => $cartItem['price'],
                     ]);
+                    //dd($cartItem['options']);
 
-                    $desciption = collect($cartItem['options'])->map(function($item) {
-                        return "{$item['type']['name']}: {$item['name']}";
+                    $description = collect($cartItem['options'])->map(function ($item) {
+                        return "{$item['type']['name']}: {$item['option_name']}";
                     })->implode(', ');
 
                     $lineItem = [
@@ -113,8 +119,8 @@ class CartController extends Controller
                         ],
                         'quantity' => $cartItem['quantity'],
                     ];
-                    if ($desciption) {
-                        $lineItem['price_data']['product_data']['description'] = $desciption;
+                    if ($description) {
+                        $lineItem['price_data']['product_data']['description'] = $description;
                     }
                     $lineItems[] = $lineItem;
                 }
@@ -135,7 +141,6 @@ class CartController extends Controller
 
             DB::commit();
             return redirect($session->url);
-
         } catch (\Exception $e) {
             Log::error($e);
             DB::rollBack();
