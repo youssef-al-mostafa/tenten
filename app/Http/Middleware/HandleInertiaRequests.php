@@ -34,26 +34,26 @@ class HandleInertiaRequests extends Middleware
         $cartService = app(CartService::class);
         $totalQuantity = $cartService->getTotalQuantity();
         $totalPrice = $cartService->getTotalPrice();
-
         $cartItems = $cartService->getCartItems();
 
-        //dd($totalPrice , $totalQuantity , $cartItems);
-
-        return [
-            ...parent::share($request),
+        return array_merge(parent::share($request), [
             'csrf_token' => csrf_token(),
             'auth' => [
                 'user' => $request->user(),
             ],
-            'ziggy' => fn () => [
-                ...(new Ziggy)->toArray(),
-                'location' => $request->url(),
+            'ziggy' => function () use ($request) {
+                return array_merge((new Ziggy)->toArray(), [
+                    'location' => $request->url(),
+                ]);
+            },
+            'success' => [
+                'message' => session('success'),
+                'time' => microtime(true),
             ],
-            'success' => session('success'),
             'error' => session('error'),
             'totalQuantity' => $totalQuantity,
             'totalPrice' => $totalPrice,
             'miniCartItems' => $cartItems,
-        ];
+        ]);
     }
 }

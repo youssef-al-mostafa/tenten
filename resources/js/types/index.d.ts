@@ -13,10 +13,13 @@ export type PaginationProps<T> = {
 
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
- > = T & {
+    > = T & {
     csrf_token: string;
     error: string;
-    success: string;
+    success: {
+        message: string;
+        time: number;
+    };
     auth: {
         user: User;
     };
@@ -107,7 +110,6 @@ export type OrderItem = {
         image: string;
     }
 }
-
 
 export type Order = {
     id: number;

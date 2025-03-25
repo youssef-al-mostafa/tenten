@@ -14,12 +14,13 @@ use Inertia\Inertia;
 
 class StripeController extends Controller
 {
-    public function success(Request $request){
+    public function success(Request $request)
+    {
         $user = Auth::user();
         $session_id = $request->get('session_id');
         $orders = Order::where('stripe_session_id', $session_id)->get();
 
-        if ($orders->count() === 0 ) {
+        if ($orders->count() === 0) {
             abort(404);
         }
 
@@ -29,16 +30,17 @@ class StripeController extends Controller
             }
         }
 
+        session()->flash('success', 'Payment was completed successfully.');
+
         return Inertia::render('Stripe/Success', [
             'orders' => OrderViewResource::collection($orders)->collection->toArray(),
         ]);
     }
 
-    public function failure(){
+    public function failure() {}
 
-    }
-
-    public function webhook(Request $request){
+    public function webhook(Request $request)
+    {
         $stripe = new StripeClient(config('app.stripe_secret_key'));
 
         $endpoint_secret = config('app.stripe_webhook_key');
@@ -57,7 +59,7 @@ class StripeController extends Controller
         } catch (\UnexpectedValueException $e) {
             Log::error($e);
             return response('Invalid Payload', 400);
-        } catch (\Stripe\Exception\SignatureVerificationException $e){
+        } catch (\Stripe\Exception\SignatureVerificationException $e) {
             Log::error($e);
             return response('Invalid Signature', 400);
         }
@@ -70,7 +72,7 @@ class StripeController extends Controller
         switch ($event->type) {
             case 'charge.updated':
                 $charge = $event->data->object;
-                Log::info('Charge updated: '. $charge->id);
+                Log::info('Charge updated: ' . $charge->id);
                 $transactionId = $charge['balance_transaction'];
                 $paymentIntent = $charge['payment_intent'];
                 $balanceTransaction = $stripe->balanceTransactions->retrieve($transactionId);
@@ -103,13 +105,13 @@ class StripeController extends Controller
 
             case 'checkout.session.completed':
                 $session = $event->data->object;
-                Log::info('Checkout session completed: '. $session->id);
+                Log::info('Checkout session completed: ' . $session->id);
                 $pi = $session['payment_intent'];
 
                 $orders = Order::query()
-                                 ->with(['orderItems'])
-                                 ->where(['stripe_session_id' => $session['id']])
-                                 ->get();
+                    ->with(['orderItems'])
+                    ->where(['stripe_session_id' => $session['id']])
+                    ->get();
 
                 $productsToDeletedFromCart = [];
 
@@ -131,22 +133,22 @@ class StripeController extends Controller
                         if ($options) {
                             sort($options);
                             $variation = $product->variation()
-                            ->where('variation_type_option_ids', $options)
-                            ->first();
+                                ->where('variation_type_option_ids', $options)
+                                ->first();
                             if ($variation && $variation->quantity != null) {
                                 $variation->quantity -= $orderItem->quantity;
                                 $variation->save();
                             }
-                        }else if ($product->quantity != null) {
+                        } else if ($product->quantity != null) {
                             $product->quantity -= $orderItem->quantity;
                             $product->save();
                         }
                     }
 
                     CartItem::query()->where('user_id', $order->user_id)
-                                     ->whereIn('product_id', $productsToDeletedFromCart)
-                                     ->where('saved_for_later', false)
-                                     ->delete();
+                        ->whereIn('product_id', $productsToDeletedFromCart)
+                        ->where('saved_for_later', false)
+                        ->delete();
                 }
             default:
                 echo 'Received unknown event type ' . $event->type;
