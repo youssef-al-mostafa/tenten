@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatusEnum;
 use App\Http\Resources\OrderViewResource;
+use App\Mail\CheckoutCompleted;
+use App\Mail\NewOrderMail;
 use App\Models\CartItem;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Stripe\StripeClient;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class StripeController extends Controller
@@ -64,10 +67,11 @@ class StripeController extends Controller
             return response('Invalid Signature', 400);
         }
 
-        Log::info('======================================');
-        Log::info('======================================');
-        Log::info($event->type);
-        Log::info($event);
+        // Some useful logs
+        // Log::info('======================================');
+        // Log::info('======================================');
+        // Log::info($event->type);
+        // Log::info($event);
 
         switch ($event->type) {
             case 'charge.updated':
@@ -98,10 +102,11 @@ class StripeController extends Controller
                     $order->vendor_subtotal = $order->total_price - $order->online_payment_commission - $order->website_commission;
                     $order->save();
 
-                    # TODO Send Email to vendor
-
+                    # Email
+                    Mail::to($order->vendorUser())->send(new NewOrderMail($order));
                 }
 
+                Mail::to($orders[0]->user)->send(new CheckoutCompleted($orders));
 
             case 'checkout.session.completed':
                 $session = $event->data->object;
