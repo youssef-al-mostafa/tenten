@@ -64,3 +64,8 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## todo 
+when the user is not auth and he add some product to the cart 
+then auth the product in the cart are gone they needed to be 
+moved to the database to the cart in the auth phase

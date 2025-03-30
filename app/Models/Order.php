@@ -31,7 +31,8 @@ class Order extends Model
         return $this->belongsTo(Vendor::class, 'vendor_user_id');
     }
 
-    public function vendorUser(): BelongsTo {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+    public function vendorUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'vendor_user_id', 'id');
     }
 }

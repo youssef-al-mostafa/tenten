@@ -1,13 +1,13 @@
 <x-mail::message>
     <h1 style="text-align:center; font-size:24px;">
-        You have new Order
+        You have a new order!
     </h1>
 
-    <x-mail::button :url="$order->id">
-        Order Details
+    <x-mail::button :url="route('home')">
+        View Order Details
     </x-mail::button>
 
-    <h3 style="font-size: 20px; margin-bottom: 15px">Order Summary</h3>
+    <h3 style="font-size: 20px; margin-bottom: 15px;">Order Summary</h3>
     <x-mail::table>
         <table>
             <tbody>
@@ -17,7 +17,7 @@
                 </tr>
                 <tr>
                     <td>Order Date</td>
-                    <td>{{ $order->created_at }}</td>
+                    <td>{{ $order->created_at->format('Y-m-d H:i:s') }}</td>
                 </tr>
                 <tr>
                     <td>Order Total</td>
@@ -29,7 +29,7 @@
                 </tr>
                 <tr>
                     <td>Platform Fee</td>
-                    <td>{{ \Illuminate\Support\Number::currency($order->website_commission ?: 0) }}
+                    <td>{{ \Illuminate\Support\Number::currency($order->website_commission ?: 0) }}</td>
                 </tr>
                 <tr>
                     <td>Your Earnings</td>
@@ -57,11 +57,13 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td padding='5' style="padding: 5px">
-                                            <img style="width: 60px" src="{{ $orderItem->product->getImageForOptions($orderItem->variation_type_option_ids) }}" alt="">
+                                        <td style="padding: 5px;">
+                                            <img style="width: 60px;"
+                                                src="{{ $orderItem->product?->getImageForOptions($orderItem->variation_type_option_ids) ?? asset('img/default-product.png') }}"
+                                                alt="Product Image">
                                         </td>
-                                        <td style="font-size: 15px; padding:5px;">
-                                            {{ $orderItem->product->title}}
+                                        <td style="font-size: 15px; padding: 5px;">
+                                            {{ $orderItem->product->title ?? 'N/A' }}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -76,9 +78,9 @@
     </x-mail::table>
 
     <x-mail::panel>
-        Thanks for having business with us
+        Thank you for doing business with us!
     </x-mail::panel>
 
-    Thanks,
-    {{ config('app.name')}}
+    Thanks,<br>
+    {{ config('app.name') }}
 </x-mail::message>

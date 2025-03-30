@@ -102,11 +102,18 @@ class StripeController extends Controller
                     $order->vendor_subtotal = $order->total_price - $order->online_payment_commission - $order->website_commission;
                     $order->save();
 
-                    # Email
-                    Mail::to($order->vendorUser())->send(new NewOrderMail($order));
+                    # Email - FIX: Get the actual vendor user model
+                    $vendorUser = $order->vendorUser()->first();
+                    if ($vendorUser) {
+                        Mail::to($vendorUser)->send(new NewOrderMail($order));
+                    } else {
+                        Log::error("Vendor user not found for order: " . $order->id);
+                    }
                 }
 
-                Mail::to($orders[0]->user)->send(new CheckoutCompleted($orders));
+                Mail::to($orders[0]->user()->first())->send(new CheckoutCompleted($orders));
+
+               // Mail::to($orders[0]->user)->send(new CheckoutCompleted($orders));
 
             case 'checkout.session.completed':
                 $session = $event->data->object;

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Guest Routes
-Route::get('/', [ProductController::class,'index']);
+Route::get('/', [ProductController::class,'index'])->name('home');
 Route::get('/product/{product:id}', [ProductController::class,'show'])->name('product.show');
 
 Route::controller(CartController::class)->group(function(){
@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware(['verified'])->group(function(){
-        
+
         Route::get('/dashboard', function () {
             return Inertia::render('Dashboard');
         })->name('dashboard');
