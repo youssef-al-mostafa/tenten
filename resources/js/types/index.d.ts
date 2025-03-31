@@ -5,6 +5,14 @@ export interface User {
     name: string;
     email: string;
     email_verified_at?: string;
+    strip_account_active: boolean;
+    vendor: {
+        status: string;
+        status_label: string;
+        store_name: string;
+        store_address: string;
+        cover_image: string;
+    }
 }
 
 export type PaginationProps<T> = {
