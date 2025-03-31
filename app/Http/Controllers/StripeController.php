@@ -9,6 +9,7 @@ use App\Mail\NewOrderMail;
 use App\Models\CartItem;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Log;
 use Stripe\StripeClient;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +45,7 @@ class StripeController extends Controller
 
     public function webhook(Request $request)
     {
-        $stripe = new StripeClient(config('app.stripe_secret_key'));
+        $stripe = new StripeClient(config('app.stripe_secret'));
 
         $endpoint_secret = config('app.stripe_webhook_key');
 
@@ -166,5 +167,19 @@ class StripeController extends Controller
                 echo 'Received unknown event type ' . $event->type;
         }
         return response('', 200);
+    }
+
+    public function connect(){
+        Route::get('/connect', function () {
+            if (!Auth::user()->getStripeAccountId()) {
+                Auth::user()->createStripeAccount(['type' => 'express']);
+            }
+
+            if (!Auth::user()->isStripeAccountActive()) {
+                return redirect(Auth::user()->getStripeAccountLink());
+            }
+
+            return back()->with('success', 'Your account is already connected');
+        });
     }
 }

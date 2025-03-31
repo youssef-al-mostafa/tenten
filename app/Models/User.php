@@ -14,6 +14,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use SimonHamp\LaravelStripeConnect\Traits\Payable;
 use Spatie\Permission\Models\Role;
 /**
  * @mixin \Spatie\Permission\Traits\HasRoles
@@ -21,7 +22,7 @@ use Spatie\Permission\Models\Role;
 class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, Payable;
 
     /**
      * The attributes that are mass assignable.

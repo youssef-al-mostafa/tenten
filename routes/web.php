@@ -1,4 +1,6 @@
 <?php
+
+use App\Enums\RolesEnum;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -36,6 +38,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success');
         Route::get('/stripe/failure', [StripeController::class, 'failure'])->name('stripe.failure');
+        Route::get('/stripe/connect', [StripeController::class, 'connect'])
+               ->name('stripe.connect')
+               ->middleware(['role:' . RolesEnum::VENDOR->value]);
     });
 });
 

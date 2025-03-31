@@ -3,7 +3,7 @@
         You have a new order!
     </h1>
 
-    <x-mail::button :url="route('home')">
+    <x-mail::button :url="config('app.url')">
         View Order Details
     </x-mail::button>
 

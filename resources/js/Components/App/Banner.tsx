@@ -29,7 +29,7 @@ export const Banner = ({ img, banner_header, property_1_nb, property_1_text, pro
                         </h1>
                     </div>
                     <img alt="Banner Image"
-                        src="/storage/banners/banner_main.png"
+                        src="/img/banner.png"
                         className="h-webkit" />
                 </div>
             </div>

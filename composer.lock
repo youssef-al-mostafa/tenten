@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de8be432d7a8c0836df088f16f7f8d90",
+    "content-hash": "c92f3d1ffa318eb112e7a52448a23572",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -5049,6 +5049,72 @@
                 }
             ],
             "time": "2024-02-26T18:08:49+00:00"
+        },
+        {
+            "name": "simonhamp/laravel-stripe-connect",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/simonhamp/laravel-stripe-connect.git",
+                "reference": "fcb087f3bb60598e0f7df65e62a9fe7db0952faa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/simonhamp/laravel-stripe-connect/zipball/fcb087f3bb60598e0f7df65e62a9fe7db0952faa",
+                "reference": "fcb087f3bb60598e0f7df65e62a9fe7db0952faa",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^10.0|^11.0",
+                "illuminate/support": "^10.0|^11.0",
+                "stripe/stripe-php": ">=10.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SimonHamp\\LaravelStripeConnect\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SimonHamp\\LaravelStripeConnect\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "rap2h",
+                    "email": "raphaelht@gmail.com"
+                },
+                {
+                    "name": "Simon Hamp",
+                    "email": "simon.hamp@me.com"
+                }
+            ],
+            "keywords": [
+                "billing",
+                "laravel",
+                "stripe"
+            ],
+            "support": {
+                "issues": "https://github.com/simonhamp/laravel-stripe-connect/issues",
+                "source": "https://github.com/simonhamp/laravel-stripe-connect/tree/v0.5.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/simonhamp",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-07-09T17:19:10+00:00"
         },
         {
             "name": "spatie/color",

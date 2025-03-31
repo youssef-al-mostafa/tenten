@@ -66,7 +66,7 @@ class CartController extends Controller
     }
     public function checkout(Request $request, CartService $cartService)
     {
-        \Stripe\Stripe::setApiKey(config('app.stripe_secret_key'));
+        \Stripe\Stripe::setApiKey(config('app.stripe_secret'));
 
         $vendorId = $request->input('vendor_id');
 
