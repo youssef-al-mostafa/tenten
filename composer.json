@@ -14,7 +14,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "simonhamp/laravel-stripe-connect": "^0.5.0",
-        "spatie/laravel-permission": "^6.12",
+        "spatie/laravel-permission": "^6.16",
         "stripe/stripe-php": "^16.6",
         "symfony/css-selector": "*",
         "tightenco/ziggy": "^2.0"

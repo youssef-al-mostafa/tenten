@@ -9,11 +9,11 @@ use App\Mail\NewOrderMail;
 use App\Models\CartItem;
 use App\Models\Order;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Log;
 use Stripe\StripeClient;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class StripeController extends Controller
