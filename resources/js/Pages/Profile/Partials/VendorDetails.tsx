@@ -8,7 +8,7 @@ import { useForm, usePage } from '@inertiajs/react';
 import React, { FormEventHandler, useState } from 'react'
 
 interface Props {
-    className: string;
+    className?: string;
 }
 
 function VendorDetails({ className }: Props) {
@@ -21,7 +21,7 @@ function VendorDetails({ className }: Props) {
     const {
         data, setData, post, errors, processing, recentlySuccessful
     } = useForm({
-        store_name: user.vendor?.store_name || user.name,
+        store_name: user.vendor?.store_name || user.name.toLowerCase().replace(/\s+/g, '-'),
         store_address: user.vendor?.store_address,
     });
 

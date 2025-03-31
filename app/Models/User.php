@@ -18,6 +18,10 @@ use SimonHamp\LaravelStripeConnect\Traits\Payable;
 use Spatie\Permission\Models\Role;
 /**
  * @mixin \Spatie\Permission\Traits\HasRoles
+ * @method string|null getStripeAccountId()
+ * @method void createStripeAccount(array $options)
+ * @method string getStripeAccountLink()
+ * @method bool isStripeAccountActive()
  */
 class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
@@ -108,5 +112,10 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function vendor(): HasOne{
         return $this->hasOne(Vendor::class, 'user_id');
+    }
+
+    public function getStripeAccountId()
+    {
+        return $this->stripe_account_id;
     }
 }

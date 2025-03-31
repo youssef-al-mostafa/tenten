@@ -114,7 +114,7 @@ class StripeController extends Controller
 
                 Mail::to($orders[0]->user()->first())->send(new CheckoutCompleted($orders));
 
-               // Mail::to($orders[0]->user)->send(new CheckoutCompleted($orders));
+                // Mail::to($orders[0]->user)->send(new CheckoutCompleted($orders));
 
             case 'checkout.session.completed':
                 $session = $event->data->object;
@@ -169,17 +169,17 @@ class StripeController extends Controller
         return response('', 200);
     }
 
-    public function connect(){
-        Route::get('/connect', function () {
-            if (!Auth::user()->getStripeAccountId()) {
-                Auth::user()->createStripeAccount(['type' => 'express']);
-            }
+    public function connect()
+    {
 
-            if (!Auth::user()->isStripeAccountActive()) {
-                return redirect(Auth::user()->getStripeAccountLink());
-            }
+        if (!Auth::user()->getStripeAccountId()) {
+            Auth::user()->createStripeAccount(['type' => 'express']);
+        }
 
-            return back()->with('success', 'Your account is already connected');
-        });
+        if (!Auth::user()->isStripeAccountActive()) {
+            return redirect(Auth::user()->getStripeAccountLink());
+        }
+
+        return back()->with('success', 'Your account is already connected');
     }
 }

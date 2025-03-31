@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,9 +39,11 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/stripe/success', [StripeController::class, 'success'])->name('stripe.success');
         Route::get('/stripe/failure', [StripeController::class, 'failure'])->name('stripe.failure');
-        Route::get('/stripe/connect', [StripeController::class, 'connect'])
+        Route::post('/stripe/connect', [StripeController::class, 'connect'])
                ->name('stripe.connect')
                ->middleware(['role:' . RolesEnum::VENDOR->value]);
+
+        Route::post('/become-vendor', [VendorController::class, 'store'])->name('vendor.store');
     });
 });
 

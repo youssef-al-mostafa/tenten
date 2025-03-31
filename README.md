@@ -69,3 +69,13 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 when the user is not auth and he add some product to the cart 
 then auth the product in the cart are gone they needed to be 
 moved to the database to the cart in the auth phase
+----------------------------------------------------------------
+when the success message appear when u become a vendor, the number on the cart the number of the item has a zindex high so he appear in top of it to look so much ugly 
+--------------------------------------------------------------------
+in profile page when i customer become a vendor, approved message ma ttl3 frontend problem and 
+when he finish the strip process he become connected but the "Your succfully connected to stripe" 
+ma 3am shofa 
+-------------------------------------------------------------------
+fi shwyt button 3endon dark mode hone w honik
+-------------------------------------------------------------------
+kel docs bas t5als byn2alo 3al readme file 

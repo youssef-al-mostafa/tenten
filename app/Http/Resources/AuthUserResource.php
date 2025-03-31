@@ -33,17 +33,6 @@ class AuthUserResource extends JsonResource
                 'store_address' => $this->vendor->store_address,
                 'cover_image' => $this->vendor->cover_image
             ],
-
-            'store_name' => $this->vendor->store_name,
-            'store_address' => $this->vendor->store_address,
-            'orders_count' => $this->orders()->count(),
-            'products_count' => $this->products()->count(),
-            'reviews_count' => $this->reviews()->count(),
-            'favorites_count' => $this->favorites()->count(),
-            'ratings_average' => $this->ratings()->avg('rating'),
-            'last_login_at' => $this->last_login_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }
