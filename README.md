@@ -79,3 +79,6 @@ ma 3am shofa
 fi shwyt button 3endon dark mode hone w honik
 -------------------------------------------------------------------
 kel docs bas t5als byn2alo 3al readme file 
+-------------------------------------------------------------------
+command PayoutVendor will excute once every month to pay to all the vendor their money
+
