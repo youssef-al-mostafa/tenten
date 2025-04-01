@@ -81,4 +81,8 @@ fi shwyt button 3endon dark mode hone w honik
 kel docs bas t5als byn2alo 3al readme file 
 -------------------------------------------------------------------
 command PayoutVendor will excute once every month to pay to all the vendor their money
+----------------------------------------------------------------
+Scheduler u should review it because when u go production u should set them the cron job 
+for the outomation scheduling for the payout of vendors 
+https://laravel.com/docs/11.x/scheduling#running-the-scheduler
 
