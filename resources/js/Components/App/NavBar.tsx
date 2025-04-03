@@ -32,7 +32,7 @@ function NavBar() {
                             placeholder="Search" />
                     </div>
                 </div>
-                <div className="flex gap-4 my-auto w-[38%]">
+                <div className="flex justify-end gap-4 my-auto w-[38%]">
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                             <div className="indicator">
