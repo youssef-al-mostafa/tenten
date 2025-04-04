@@ -1,7 +1,6 @@
 import { Product } from '@/types';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
-import 'swiper/css';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import ReactDOM from 'react-dom';
 
 interface Props {
     product?: Product;
@@ -17,33 +16,29 @@ const Brands = ({ product }: Props) => {
     ];
 
     return (
-        <div className='flex bg-black w-full h-[112px] items-center'>
-            <div className='w-[90%] mx-auto'>
-                <Swiper
-                    modules={[Autoplay]}
-                    spaceBetween={50}
-                    slidesPerView={5}
-                    loop={true}
-                    autoplay={{
-                        delay: 0,
-                        disableOnInteraction: false,
-                        pauseOnMouseEnter: true,
-                    }}
-                    speed={1500}
-                    className="BrandsSwiper">
-                    {[...brands, ...brands, ...brands].map((brand, index) => (
-                        <SwiperSlide key={index} className='text-center mx-auto!'>
-                            <img
-                                src={brand.src}
-                                alt={brand.alt}
-                                className='h-6 w-fit mx-auto transition-all hover:scale-110'
-                            />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
+        <div className='flex gap-[50%] bg-black w-full h-[112px] items-center overflow-hidden'>
+            <div
+              className="flex gap-24 animate-[brands_20s_linear_infinite] whitespace-nowrap" >
+              {brands.map((brand, index) => (
+                <img
+                  key={`set1-${index}`}
+                  src={brand.src}
+                  alt={brand.alt}
+                  className='h-6 w-auto inline-block' />
+              ))}
+            </div>
+            <div
+              className="flex gap-24 animate-[brands_20s_linear_infinite] whitespace-nowrap" >
+              {brands.map((brand, index) => (
+                <img
+                  key={`set1-${index}`}
+                  src={brand.src}
+                  alt={brand.alt}
+                  className='h-6 w-auto inline-block' />
+              ))}
             </div>
         </div>
-    );
+      );
 };
 
 export default Brands;

@@ -16,7 +16,7 @@ interface Props {
     property_3_text?: string;
 }
 
-export const Banner = ({ img, banner_header, property_1_nb, property_1_text, property_2_nb, property_2_text, property_3_nb, property_3_text }: Props) => {
+const Banner = ({ img, banner_header, property_1_nb, property_1_text, property_2_nb, property_2_text, property_3_nb, property_3_text }: Props) => {
     return (
         <>
             <div className="bg-base-200 h-[calc(100vh-110px)] ">
@@ -90,3 +90,5 @@ export const Banner = ({ img, banner_header, property_1_nb, property_1_text, pro
         </>
     )
 }
+
+export default Banner;
