@@ -4,8 +4,15 @@
 
 @import './Website/wysiwyg.css';
 @import './Website/fonts.css';
+@import './Website/animation.css';
 
 
 [type='radio']:checked {
     background-image: unset !important;
 }
+
+:root {
+    --animation-duration: 2000ms;
+}
+
+
