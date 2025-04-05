@@ -11,6 +11,10 @@ class Vendor extends Model
 {
     protected $primaryKey = 'user_id';
 
+    public function getRouteKeyName()
+    {
+        return 'store_name';
+    }
     public function scopeEligibleForPayout(\Illuminate\Database\Eloquent\Builder $query): \Illuminate\Database\Eloquent\Builder {
         return $query->where('status', VendorStatusEnum::Approved)
                      ->join('users', 'users.id', '=', 'vendors.user_id')

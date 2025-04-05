@@ -15,6 +15,12 @@ export interface User {
     }
 }
 
+export type Vendor = {
+    id: number;
+    store_name: string;
+    store_address: string;
+}
+
 export type PaginationProps<T> = {
     data : Array<T>;
 }
@@ -50,6 +56,7 @@ export type Product = {
     user: {
         id:number;
         name:string;
+        store_name:string;
     };
     department: {
         id: number;

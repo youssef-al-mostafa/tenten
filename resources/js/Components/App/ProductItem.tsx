@@ -44,11 +44,11 @@ export const ProductItem = ({ product }: Props) => {
                 <h2 className="card-title">
                     {product.title}
                     <p>
-                        by
-                        <Link href='/' className='hover:underline'>
-                            {product.user.name}
+                        by&nbsp;
+                        <Link href={route('vendor.profile', product.user.store_name)} className='hover:underline'>
+                            {product.user.store_name}
                         </Link>
-                        &nbsp; in
+                        &nbsp; in&nbsp;
                         <Link href='/' className='hover:underline'>
                             {product.department.name}
                         </Link>

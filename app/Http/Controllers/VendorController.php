@@ -4,25 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Enums\RolesEnum;
 use App\Enums\VendorStatusEnum;
+use App\Http\Resources\ProductListResource;
+use App\Models\Product;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class VendorController extends Controller
 {
-    public function profile(Vendor $vendor){
-
+    public function profile(Vendor $vendor)
+    {
+        $products = Product::query()
+            ->published()
+            ->where('created_by', $vendor->user_id)
+            ->paginate();
+        return Inertia::render('Vendor/Profile', [
+            'vendor' => $vendor,
+            'products' => ProductListResource::collection($products),
+        ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $user = $request->user();
         $request->validate([
             'store_name' => [
                 'required',
                 'regex:/^[a-z0-9-]+$/',
-                Rule::unique('vendors', 'store_name')->ignore($user->id, 'user_id')],
+                Rule::unique('vendors', 'store_name')->ignore($user->id, 'user_id')
+            ],
             'store_address' => 'nullable',
-        ],[
+        ], [
             'store_name.regex' => 'Store name must only contain lowercase alphanumeric characters and hyphens.',
             'store_name.unique' => 'Store name already exists.',
         ]);
