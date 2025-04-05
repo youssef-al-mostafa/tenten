@@ -1,10 +1,10 @@
 import { Link, usePage } from '@inertiajs/react'
 import React from 'react'
 import Offer from '../Core/Offer';
-import MiniCartDropDown  from './MiniCartDropDown';
+import MiniCartDropDown from './MiniCartDropDown';
 
 function NavBar() {
-    const { auth, totalPrice, totalQuantity} = usePage().props;
+    const { auth, departments, totalQuantity } = usePage().props;
     const { user } = auth
 
     return (
@@ -42,7 +42,7 @@ function NavBar() {
                                 <span className="badge badge-sm indicator-item">{totalQuantity}</span>
                             </div>
                         </div>
-                        <MiniCartDropDown/>
+                        <MiniCartDropDown />
                     </div>
                     {user && <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -69,6 +69,20 @@ function NavBar() {
                         <Link href={route('login')} className='btn'>Login</Link>
                         <Link href={route('register')} className='btn btn-primary'>Sign Up</Link>
                     </>}
+                </div>
+            </div>
+            <div className="navbar bg-base-100 border-t min-h-4">
+                <div className="navbar-center hidden lg:flex">
+                    <ul className="menu menu-horizontal px-1 z-20 py-0">
+                        {departments.map((department) => (
+                            <li key={department.id}>
+                                {/* /departments/${department.id} */}
+                                <Link href={route('product.byDepartment', department.slug)} className="font-medium text-sm text-gray-600 hover:text-gray-800">
+                                    {department.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </>

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-//use App\Filament\Resources\PagesResource\Pages;
+use App\Filament\Resources\PagesResource\Pages;
+use App\Models\Pages as PageModel;
 use App\Filament\Resources\PagesResource\RelationManagers;
-use App\Models\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PagesResource extends Resource
 {
-    protected static ?string $model = Pages::class;
+    protected static ?string $model = PageModel::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -56,9 +56,9 @@ class PagesResource extends Resource
     public static function getPages(): array
     {
         return [
-            // 'index' => Pages\ListPages::route('/'),
-            // 'create' => Pages\CreatePages::route('/create'),
-            // 'edit' => Pages\EditPages::route('/{record}/edit'),
+             'index' => Pages\ListPages::route('/'),
+             'create' => Pages\CreatePages::route('/create'),
+             'edit' => Pages\EditPages::route('/{record}/edit'),
         ];
     }
 }

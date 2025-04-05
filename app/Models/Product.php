@@ -51,8 +51,9 @@ class Product extends Model implements HasMedia
     }
     public function scopePublished(Builder $query): Builder
     {
-        return $query->where('products.status', ProductStatusEnum::Published)->vendorApproved();
+        return $query->where('products.status', ProductStatusEnum::Published);
     }
+
     public function scopeForWebsite(Builder $query): Builder
     {
         return $query->published()->vendorApproved();

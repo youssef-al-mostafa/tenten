@@ -28,6 +28,7 @@ export type PaginationProps<T> = {
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
     > = T & {
+    appName: string;
     csrf_token: string;
     error: string;
     success: {
@@ -41,6 +42,7 @@ export type PageProps<
     totalPrice: number;
     totalQuantity: number;
     miniCartItems: CartItem[];
+    departments: Department[];
 };
 
 export type Product = {
@@ -61,6 +63,7 @@ export type Product = {
     department: {
         id: number;
         name: string;
+        slug: string;
     };
     variationTypes: VariationType[];
     variation: Array<{
@@ -139,4 +142,17 @@ export type Order = {
         store_address: string;
     };
     orderItems: OrderItem[];
+}
+
+export type Category = {
+    id: number;
+    name: string;
+}
+    export type Department = {
+    id: number;
+    name: string;
+    slug: string;
+    meta_title: string;
+    meta_description: string;
+    categories: Category [];
 }
