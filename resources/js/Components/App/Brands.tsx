@@ -16,19 +16,8 @@ const Brands = ({ product }: Props) => {
     ];
 
     return (
-        <div className='flex gap-[50%] bg-black w-full h-[112px] items-center overflow-hidden'>
-            <div
-              className="flex gap-24 animate-[brands_20s_linear_infinite] whitespace-nowrap" >
-              {brands.map((brand, index) => (
-                <img
-                  key={`set1-${index}`}
-                  src={brand.src}
-                  alt={brand.alt}
-                  className='h-6 w-auto inline-block' />
-              ))}
-            </div>
-            <div
-              className="flex gap-24 animate-[brands_20s_linear_infinite] whitespace-nowrap" >
+        <div className='brands-cont flex gap-[50%] bg-black w-full h-[112px] items-center overflow-hidden'>
+            <div className="brands-animate flex gap-24 w-fit whitespace-nowrap justify-center">
               {brands.map((brand, index) => (
                 <img
                   key={`set1-${index}`}

@@ -4,14 +4,26 @@ import React from 'react'
 const Footer = () => {
     return (
         <>
-            <div className="footer relative flex flex-col gap-4 bg-base-200 w-full h-fit py-7">
-                {/* <div className="newsletter absolute w-[85%] mx-auto right-0 left-0 -top-24 bg-black rounded-lg h-48 px-4">
+            <div className="newsletters-wrapper bg-gradient-to-b from-transparent from-0% via-transparent via-50% to-base-200 to-50%">
+                <div className="newsletter w-[85%] flex mx-auto bg-black rounded-3xl h-fit px-5 py-7">
                     <h1 className="text-white font-integral_cf font-extrabold
-                                     text-4xl w-[50%] flex h-fit my-auto">
-                            STAY UPTO DATE ABOUT OUR LATEST OFFERS
+                                     text-3xl w-[50%] flex h-fit my-auto">
+                        STAY UP TO DATE ABOUT OUR LATEST OFFERS
                     </h1>
-                </div> */}
-                <div className="footer-main flex justify-between w-[85%] mx-auto">
+                    <div className='flex flex-col w-[50%] h-fit my-auto items-center justify-center gap-3'>
+                        <div className='w-full max-w-72'>
+                            <label className="input validator flex justify-center align-middle items-center h-fit w-full rounded-3xl">
+                                <svg className="h-[1em] opacity-50 border-transparent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
+                                <input className='border-transparent w-full focus:border-transparent focus:shadow-none focus:ring-transparent' type="email" placeholder="mail@site.com" required />
+                            </label>
+                            <div className="validator-hint hidden">Enter valid email address</div>
+                        </div>
+                        <button className="btn rounded-3xl w-full max-w-72">Subscribe to Newsletter</button>
+                    </div>
+                </div>
+            </div>
+            <div className="footer relative flex flex-col gap-2 bg-base-200 w-full h-fit pt-10 pb-5">
+                <div className="footer-main flex justify-between w-[85%] mx-auto mb-3">
                     <div className="footer-col w-[22%] flex flex-col gap-7">
                         <Link className="logo bg-transparent hover:bg-transparent
                         border-0 font-integral_cf font-extrabold text-[33px] text-black" href={'/'}>
@@ -127,7 +139,7 @@ const Footer = () => {
                 <div className="divider w-[85%] mx-auto flex gap-0 my-0 items-center"></div>
                 <div className="rights-footer w-[85%] mx-auto flex justify-center items-center">
                     <div className='text-xs text-black opacity-60'>
-                        &copy; Youssef Al Mostafa, Tenten {new Date().getFullYear()}, All rights reserved
+                        &copy; Youssef Al Mostafa, Tenten - {new Date().getFullYear()}, All rights reserved
                     </div>
                 </div>
             </div>

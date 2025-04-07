@@ -6,3 +6,27 @@
       transform: translateX(-100%);
     }
   }
+.brands-cont {
+
+}
+/* HTML: <div class="loader"></div> */
+.brands-animate {
+    -webkit-mask: linear-gradient(90deg,#00000059 ,#000 10% 90%,#eb000067);
+    background: radial-gradient(closest-side at 37.5% 50%,#000 94%,#0000) 0/calc(80%/3) 100%;
+    margin-inline: auto;
+    animation-play-state: running;
+    animation-delay: 1.5s;
+    animation-duration: 15s !important;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  @keyframes ticker {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
+    }
+  }
