@@ -4,6 +4,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import { ProductItem } from '@/Components/App/ProductItem';
 import Banner from '@/Components/App/Banner';
 import Brands from '@/Components/App/Brands';
+import Carousel_Horizental from '@/Components/Core/Carousel_Horizental';
 
 export default function Home({
     auth,
@@ -19,6 +20,7 @@ export default function Home({
                   <ProductItem product={product} key={product.id}/>
                ))}
             </div>
+            <Carousel_Horizental />
         </AppLayout>
     );
 }

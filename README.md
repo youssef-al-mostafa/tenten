@@ -90,12 +90,3 @@ https://laravel.com/docs/11.x/scheduling#running-the-scheduler
 ----------------------------------------------------------------
 make something about the variation type like the first variation type are the default one
 ----------------------------------------------------------------
-fix this 
-    public function scopePublished(Builder $query): Builder
-    {
-        return $query->where('products.status', ProductStatusEnum::Published)->vendorApproved();
-    }
-    public function scopeForWebsite(Builder $query): Builder
-    {
-        return $query->published()->vendorApproved();
-    }
