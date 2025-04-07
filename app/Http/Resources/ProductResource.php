@@ -36,10 +36,12 @@ class ProductResource extends JsonResource
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name,
+                'store_name' => $this->user->vendor->store_name,
             ],
             'department' => [
                 'id' => $this->department->id,
                 'name' => $this->department->name,
+                'slug' => $this->department->slug,
             ],
             'variationTypes' => $this->variationTypes->map(function($variationType){
                 return [

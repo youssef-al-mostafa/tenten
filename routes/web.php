@@ -21,6 +21,12 @@ Route::controller(CartController::class)->group(function(){
     Route::delete('cart/remove/{product}', 'destroy')->name('cart.destroy');
 });
 
+Route::get('/d/{department:slug}/products',[ProductController::class, 'byDepartment' ])
+->name('product.byDepartment');
+
+Route::get('/s/{vendor:store_name}', [VendorController::class, 'profile'])
+    ->name('vendor.profile');
+
 Route::post('/stripe/webhook', [StripeController::class, 'webhook'])->name('stripe.webhook');
 
 // Auth Routes

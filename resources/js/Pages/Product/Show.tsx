@@ -4,7 +4,7 @@ import { Carousel } from '@/Components/Core/Carousel';
 import { CurrencyFormatter } from '@/Components/Core/CurrencyFormatter';
 import { arraysAreEqual } from '@/helpers';
 import { Product, VariationTypeOption } from '@/types'
-import { Head, router, useForm, usePage } from '@inertiajs/react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import { error } from 'console';
 import React, { useEffect, useMemo, useState } from 'react';
 
@@ -116,7 +116,7 @@ function Show({ product, variationOptions }: Props) {
                         {/* <pre>{JSON.stringify(product.variationTypes, undefined, 2)}</pre> */}
                         {type.options.map((option) => (
                             <div key={option.id} onClick={() => chooseOption(type.id, option)}>
-                                 {option.images && <img src={option.images[0].thumb}
+                                {option.images && <img src={option.images[0].thumb}
                                     className={'w-[50px] ' + (selectedOptions[type.id]?.id === option.id ?
                                         'outline outline-4 outline-primary' : ''
                                     )} />}
@@ -125,18 +125,18 @@ function Show({ product, variationOptions }: Props) {
                     </div>
                 }
                 {type.type === 'Radio' &&
-                  <div className="flex join mb-4">
-                    {type.options.map(option => (
-                        <input key={option.id}
-                               onChange={() => chooseOption(type.id,option)}
-                               className='join-item btn w-fit'
-                               type='radio'
-                               value={option.id}
-                               checked={selectedOptions[type.id]?.id === option.id}
-                               name={'variation_type_' + type.id}
-                               aria-label={option.name}/>
-                    ))}
-                  </div>
+                    <div className="flex join mb-4">
+                        {type.options.map(option => (
+                            <input key={option.id}
+                                onChange={() => chooseOption(type.id, option)}
+                                className='join-item btn w-fit'
+                                type='radio'
+                                value={option.id}
+                                checked={selectedOptions[type.id]?.id === option.id}
+                                name={'variation_type_' + type.id}
+                                aria-label={option.name} />
+                        ))}
+                    </div>
                 }
             </div>
         )));
@@ -146,13 +146,13 @@ function Show({ product, variationOptions }: Props) {
         return (
             <div className="mb-8 flex gap-4">
                 <select value={form.data.quantity}
-                        onChange={onQuantityChange}
-                        className='select select-bordered w-full'>
-                            {Array.from({
-                                length: Math.min(10, computedProduct.quantity)
-                            }).map((el, i)=>(
-                                <option key={i} value={i + 1}>Quantity: {i + 1}</option>
-                            ))}
+                    onChange={onQuantityChange}
+                    className='select select-bordered w-full'>
+                    {Array.from({
+                        length: Math.min(10, computedProduct.quantity)
+                    }).map((el, i) => (
+                        <option key={i} value={i + 1}>Quantity: {i + 1}</option>
+                    ))}
                 </select>
                 <button onClick={addToCart} className='btn btn-primary'>Add to Cart</button>
             </div>
@@ -165,11 +165,12 @@ function Show({ product, variationOptions }: Props) {
         );
         console.log('the ids Map form the use Effect :', idsMap)
         form.setData('option_ids', idsMap);
-    }, [selectedOptions, form]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedOptions, form.setData]);
     return (
         <>
             <Head title={product.title} />
-            <NavBar/>
+            <NavBar />
             <div className="container mx-auto p-8">
                 <div className="grid gap-8 grid-cols-1 lg:grid-cols-12">
                     <div className="col-span-7">
@@ -177,6 +178,16 @@ function Show({ product, variationOptions }: Props) {
                     </div>
                     <div className="col-span-5">
                         <h1 className="text-2xl mb-8">{product.title}</h1>
+                        <p>
+                            by&nbsp;
+                            <Link href={route('vendor.profile', product.user.store_name)} className='hover:underline'>
+                                {product.user.store_name}
+                            </Link>
+                            &nbsp; in&nbsp;
+                            <Link href='/' className='hover:underline'>
+                                {product.department.name}
+                            </Link>
+                        </p>
                         <div className="mb-8">
                             <div className="text-3xl font-semiblod">
                                 <CurrencyFormatter amount={computedProduct.price} />

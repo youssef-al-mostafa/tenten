@@ -5,12 +5,12 @@ const Footer = () => {
     return (
         <>
             <div className="footer relative flex flex-col gap-4 bg-base-200 w-full h-fit py-7">
-                <div className="newsletter absolute w-[85%] mx-auto right-0 left-0 -top-24 bg-black rounded-lg h-48 px-4">
+                {/* <div className="newsletter absolute w-[85%] mx-auto right-0 left-0 -top-24 bg-black rounded-lg h-48 px-4">
                     <h1 className="text-white font-integral_cf font-extrabold
                                      text-4xl w-[50%] flex h-fit my-auto">
                             STAY UPTO DATE ABOUT OUR LATEST OFFERS
                     </h1>
-                </div>
+                </div> */}
                 <div className="footer-main flex justify-between w-[85%] mx-auto">
                     <div className="footer-col w-[22%] flex flex-col gap-7">
                         <Link className="logo bg-transparent hover:bg-transparent
