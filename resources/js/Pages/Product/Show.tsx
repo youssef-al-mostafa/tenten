@@ -11,6 +11,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 interface Props {
     product: Product;
     variationOptions: number[];
+    appName: string; 
 }
 
 type ProductForm = {
@@ -19,7 +20,7 @@ type ProductForm = {
     price: number | null;
 }
 
-function Show({ product, variationOptions }: Props) {
+function Show({ appName, product, variationOptions }: Props) {
     // console.log('variation options : ',variationOptions);
     // console.log('product : ',product);
     const form = useForm<ProductForm>({
@@ -165,11 +166,23 @@ function Show({ product, variationOptions }: Props) {
         );
         console.log('the ids Map form the use Effect :', idsMap)
         form.setData('option_ids', idsMap);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedOptions, form.setData]);
     return (
         <>
-            <Head title={product.title} />
+            <Head>
+                <title>{product.title}</title>
+                <meta name="title" content={(product.meta_title || product.title).toString()} />
+                <meta name="description" content={product.meta_description} />
+                <link rel="canonical" href={route('product. show', product.slug)} />
+
+                <meta property="og:title" content={product.meta_title} />
+                <meta property="og:description" content={product.meta_description} />
+                <meta property="og:image" content={images[0]?.small} />
+                <meta property="og:url" content={route('product.show', product.slug)} />
+                <meta property="og:type" content="product" />
+                <meta property="og :site_name" content={appName} />
+            </Head>
             <NavBar />
             <div className="container mx-auto p-8">
                 <div className="grid gap-8 grid-cols-1 lg:grid-cols-12">

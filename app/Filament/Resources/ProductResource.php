@@ -11,6 +11,7 @@ use App\Filament\Resources\ProductResource\Pages\EditProduct;
 use App\Filament\Resources\ProductResource\Pages\ProductVariation;
 use Filament\Resources\Pages\Page;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -109,6 +110,12 @@ class ProductResource extends Resource
                     ->label('Status')
                     ->options(ProductStatusEnum::labels())
                     ->default(ProductStatusEnum::Draft),
+                Section::make('SEO')
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\TextInput::make(name: 'meta_title'),
+                        Forms\Components\Textarea::make(name: 'meta_description')
+                    ])
             ]);
     }
 

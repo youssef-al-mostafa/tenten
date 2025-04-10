@@ -47,6 +47,7 @@ export type PageProps<
 };
 
 export type Product = {
+    meta_title: string;
     id: number;
     title : string;
     slug : string;
@@ -56,6 +57,8 @@ export type Product = {
     images: Image[];
     short_description: string;
     description: string;
+    meta_title: string;
+    meta_description: string;
     user: {
         id:number;
         name:string;

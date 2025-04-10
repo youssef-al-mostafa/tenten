@@ -22,10 +22,12 @@ class ProductResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,
+            'meta_title' => $this->meta_title,
+            'meta_description' => $this->meta_description,
             'price' => $this->price,
             'quantity' => $this->quantity,
             'image' => $this->getFirstMediaUrl('images'),
-            'images' => $this->getMedia('images')->map(function($image){
+            'images' => $this->getMedia('images')->map(function ($image) {
                 return [
                     'id' => $image->id,
                     'thumb' => $image->getUrl('thumb'),
@@ -43,16 +45,16 @@ class ProductResource extends JsonResource
                 'name' => $this->department->name,
                 'slug' => $this->department->slug,
             ],
-            'variationTypes' => $this->variationTypes->map(function($variationType){
+            'variationTypes' => $this->variationTypes->map(function ($variationType) {
                 return [
                     'id' => $variationType->id,
                     'name' => $variationType->name,
                     'type' => $variationType->type,
-                    'options' => $variationType->options->map(function($option){
+                    'options' => $variationType->options->map(function ($option) {
                         return [
                             'id' => $option->id,
                             'name' => $option->name,
-                            'images' => $option->getMedia('images')->map(function($image){
+                            'images' => $option->getMedia('images')->map(function ($image) {
                                 return [
                                     'id' => $image->id,
                                     'thumb' => $image->getUrl('thumb'),
@@ -64,9 +66,9 @@ class ProductResource extends JsonResource
                     }),
                 ];
             }),
-            'variation' => $this->variation->map(function($variation){
+            'variation' => $this->variation->map(function ($variation) {
                 return [
-                    'id'=>$variation->id,
+                    'id' => $variation->id,
                     'variation_type_option_ids' => $variation->variation_type_option_ids,
                     'quantity' => $variation->quantity,
                     'price' => $variation->price,
