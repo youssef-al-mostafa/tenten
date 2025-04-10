@@ -12,10 +12,17 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $keyword = $request->query(key: 'keyword');
         $products = Product::query()
             ->published()
+            ->when($keyword, function ($query, $keyword) {
+                $query->where(function ($query) use ($keyword) {
+                    $query->where('title', 'LIKE', "%{$keyword}%")
+                        ->orWhere('description', 'LIKE', "%{$keyword}%");
+                });
+            })
             ->paginate(12);
 
         return Inertia::render('Home', [
@@ -49,7 +56,6 @@ class ProductController extends Controller
             return Inertia::render ('Department/Index', [
                 'department' => new DepartmentResource ($department),
                 'products' => ProductListResource::collection($products),
-                'keyword' => $keyword
             ]);
     }
 }

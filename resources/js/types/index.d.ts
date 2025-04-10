@@ -43,6 +43,7 @@ export type PageProps<
     totalQuantity: number;
     miniCartItems: CartItem[];
     departments: Department[];
+    keyword: string;
 };
 
 export type Product = {
