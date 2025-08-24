@@ -7,7 +7,8 @@ import ProductsGrid from '@/Components/App/ProductsGrid';
 import ReviewCarousel from '@/Components/App/ReviewCarousel';
 import TopVendors from '@/Components/App/TopVendors';
 import FeaturedCategories from '@/Components/App/FeaturedCategories';
-import CuratedCollections from '@/Components/App/CuratedCollections';
+import SeasonalMustHaves from '@/Components/App/SeasonalMustHaves';
+import NewsLetter from '@/Components/App/NewsLetter';
 
 export default function Home({
     auth,
@@ -18,7 +19,7 @@ export default function Home({
             <Head title="Home" />
             <Banner />
             <Brands />
-            <CuratedCollections/>
+            <SeasonalMustHaves />
             <ProductsGrid
                 products={products}
                 sectionTitle="NEW ARRIVALS"
@@ -34,6 +35,7 @@ export default function Home({
             <TopVendors />
             <FeaturedCategories />
             <ReviewCarousel />
+            <NewsLetter />
         </AppLayout>
     );
 }

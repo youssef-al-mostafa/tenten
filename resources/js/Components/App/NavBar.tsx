@@ -1,9 +1,8 @@
 import { Link, useForm, usePage } from '@inertiajs/react'
-import React, { ChangeEvent, FormEventHandler } from 'react'
-import Offer from '../Core/Offer';
+import { ChangeEvent, FormEventHandler } from 'react'
 import MiniCartDropDown from './MiniCartDropDown';
 import { PageProps } from '@/types';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { Route } from 'lucide-react';
 
 function NavBar() {
     const { auth, departments, totalQuantity, keyword } = usePage<PageProps>().props;
@@ -20,9 +19,23 @@ function NavBar() {
         });
     };
 
+    const NavLinks = [
+        {
+            Name: 'Seasonal',
+            Route: 'seasonal'
+        },
+        {
+            Name: 'New Arrivals',
+            Route: 'products.new'
+        },
+        {
+            Name: 'Help',
+            Route: 'help'
+        }
+    ];
+
     return (
         <>
-            <Offer isLoggedIn={!!user} />
             <div className="flex my-[20px] gap-6 bg-base-200 items-center w-[90%] mx-auto">
                 <div className="flex text-black">
                     <Link className="logo bg-transparent hover:bg-transparent border-0 font-integral_cf font-extrabold text-[40px]" href={'/'}>
@@ -30,9 +43,9 @@ function NavBar() {
                     </Link>
                 </div>
                 <div className="menu-nav w-[fit-content] min-w-max flex gap-4 flex-row items-center p-0 font-satoshi font-medium text-[21px] my-auto">
-                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">On Sale</Link>
+                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">Seasonal</Link>
                     <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">New Arrivals</Link>
-                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">Brands</Link>
+                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">Help</Link>
                 </div>
                 <div className="search-bar min-w-[200px] my-auto w-webkit">
                     <form onSubmit={onSubmit} className="relative flex items-center w-full mt-[0.4rem]">
@@ -45,7 +58,7 @@ function NavBar() {
                             onChange={(e: ChangeEvent<HTMLInputElement>) => searchForm.setData('keyword', e.target.value)}
                             className="w-full bg-transparent placeholder:text-slate-400 text-slate-700
                                        text-sm border-[2px] border-slate-800 pl-10 pr-12 py-2 rounded-[50px]
-                                       transition duration-300 ease 
+                                       transition duration-300 ease
                                        shadow-sm focus:shadow"
                             placeholder="Search"
                         />

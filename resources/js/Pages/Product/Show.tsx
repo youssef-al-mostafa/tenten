@@ -174,7 +174,7 @@ function Show({ appName, product, variationOptions }: Props) {
                 <title>{product.title}</title>
                 <meta name="title" content={(product.meta_title || product.title).toString()} />
                 <meta name="description" content={product.meta_description} />
-                <link rel="canonical" href={route('product. show', product.slug)} />
+                <link rel="canonical" href={route('product.show', product.slug)} />
 
                 <meta property="og:title" content={product.meta_title} />
                 <meta property="og:description" content={product.meta_description} />
