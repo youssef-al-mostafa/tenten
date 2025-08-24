@@ -1,3 +1,5 @@
+import { PageProps } from '@/types';
+import { usePage } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 
 interface FeaturedCategory {
@@ -11,6 +13,8 @@ interface FeaturedCategory {
 }
 
 const FeaturedCategories = () => {
+
+    const { departments } = usePage<PageProps>().props;
     const categories: FeaturedCategory[] = [
         {
             id: 1,

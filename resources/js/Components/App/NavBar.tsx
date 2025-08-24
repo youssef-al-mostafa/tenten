@@ -2,7 +2,6 @@ import { Link, useForm, usePage } from '@inertiajs/react'
 import { ChangeEvent, FormEventHandler } from 'react'
 import MiniCartDropDown from './MiniCartDropDown';
 import { PageProps } from '@/types';
-import { Route } from 'lucide-react';
 
 function NavBar() {
     const { auth, departments, totalQuantity, keyword } = usePage<PageProps>().props;
@@ -38,14 +37,19 @@ function NavBar() {
         <>
             <div className="flex my-[20px] gap-6 bg-base-200 items-center w-[90%] mx-auto">
                 <div className="flex text-black">
-                    <Link className="logo bg-transparent hover:bg-transparent border-0 font-integral_cf font-extrabold text-[40px]" href={'/'}>
+                    <Link className="logo bg-transparent hover:bg-transparent border-0 font-integral_cf font-extrabold text-[40px]"
+                          href={route('home')}>
                         Tenten
                     </Link>
                 </div>
                 <div className="menu-nav w-[fit-content] min-w-max flex gap-4 flex-row items-center p-0 font-satoshi font-medium text-[21px] my-auto">
-                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">Seasonal</Link>
-                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">New Arrivals</Link>
-                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">Help</Link>
+                  {NavLinks && NavLinks.map((Item)=>(
+                    <Link key={Item.Name}
+                          className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]'
+                          href={route(Item.Route)}>
+                        {Item.Name}
+                    </Link>
+                  ))}
                 </div>
                 <div className="search-bar min-w-[200px] my-auto w-webkit">
                     <form onSubmit={onSubmit} className="relative flex items-center w-full mt-[0.4rem]">
@@ -138,7 +142,8 @@ function NavBar() {
                     <ul className="menu menu-horizontal px-1 z-20 py-0">
                         {departments.map((department) => (
                             <li key={department.id}>
-                                <Link href={route('product.byDepartment', department.slug)} className="font-medium text-sm text-gray-600 hover:text-gray-800">
+                                <Link href={route('product.byDepartment', department.slug)}
+                                      className="font-medium text-sm text-gray-600 hover:text-gray-800">
                                     {department.name}
                                 </Link>
                             </li>

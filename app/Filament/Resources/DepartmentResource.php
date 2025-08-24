@@ -20,8 +20,8 @@ use Filament\Forms\Set;
 class DepartmentResource extends Resource
 {
     protected static ?string $model = Department::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -46,7 +46,7 @@ class DepartmentResource extends Resource
                     ->sortable()
                     ->searchable()
             ])
-            ->defaultSort('created_at','desc')
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
@@ -64,7 +64,7 @@ class DepartmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            CategoriesRelationManager::class 
+            CategoriesRelationManager::class
         ];
     }
 

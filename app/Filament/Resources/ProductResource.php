@@ -28,10 +28,9 @@ use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
-
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
-
     protected static ?string $navigationIcon = 'heroicon-s-shopping-cart';
+    protected static ?int $navigationSort = 3;
 
     public static function getEloquentQuery(): Builder
     {
@@ -137,7 +136,7 @@ class ProductResource extends Resource
                     ->sortable()
                     ->label('Status')
                     ->badge()
-                    ->colors( ProductStatusEnum::colors()),
+                    ->colors(ProductStatusEnum::colors()),
                 TextColumn::make(name: 'price')
                     ->sortable(),
                 TextColumn::make(name: 'quantity')
@@ -156,9 +155,9 @@ class ProductResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('status')
-                  ->options(ProductStatusEnum::labels()),
+                    ->options(ProductStatusEnum::labels()),
                 SelectFilter::make('department_id')
-                   ->relationship('department', 'name'),
+                    ->relationship('department', 'name'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -188,7 +187,8 @@ class ProductResource extends Resource
             'variation' => Pages\ProductVariation::route('/{record}/variation'),
         ];
     }
-    public static function getRecordSubNavigation(Page $page): array{
+    public static function getRecordSubNavigation(Page $page): array
+    {
         return
             $page->generateNavigationItems([
                 EditProduct::class,

@@ -11,8 +11,8 @@ use Inertia\Inertia;
 
 // Guest Routes
 Route::get('/', [ProductController::class, 'index'])->name('home');
-Route::get('', [])->name('seasonal');
-Route::get('', [])->name('help');
+Route::get('/season', [ProductController::class, 'index'])->name('seasonal');
+Route::get('/help', [ProductController::class, 'index'])->name('help');
 
 //Payment
 Route::controller(CartController::class)->group(function () {
