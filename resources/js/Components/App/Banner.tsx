@@ -62,7 +62,7 @@ const Banner = ({ img, banner_header, property_1_nb, property_1_text, property_2
                                     High-Quality Products
                                 </span>
                             </div>
-                            <div className="w-[0.5px] h-web bg-gray-500"></div>
+                            <div className="w-[1px] h-web bg-gray-500"></div>
                             <div className="flex flex-col text">
                                 <span className="font-satoshi font-bold text-black text-2xl">
                                     30000+

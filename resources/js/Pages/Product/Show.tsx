@@ -11,7 +11,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 interface Props {
     product: Product;
     variationOptions: number[];
-    appName: string; 
+    appName: string;
 }
 
 type ProductForm = {
@@ -227,5 +227,4 @@ function Show({ appName, product, variationOptions }: Props) {
 
     )
 }
-
 export default Show

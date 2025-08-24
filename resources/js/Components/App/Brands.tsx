@@ -1,6 +1,5 @@
 import { Product } from '@/types';
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 
 interface Props {
     product?: Product;
@@ -16,18 +15,46 @@ const Brands = ({ product }: Props) => {
     ];
 
     return (
-        <div className='brands-cont flex gap-[50%] bg-black w-full h-[112px] items-center overflow-hidden'>
-            <div className="brands-animate flex gap-24 w-fit whitespace-nowrap justify-center">
-              {brands.map((brand, index) => (
-                <img
-                  key={`set1-${index}`}
-                  src={brand.src}
-                  alt={brand.alt}
-                  className='h-6 w-auto inline-block' />
-              ))}
+        <>
+            <style>{`
+                @keyframes scroll-infinite {
+                    from {
+                        transform: translateX(0);
+                    }
+                    to {
+                        transform: translateX(calc(-1 * (6rem + 200px) * 5));
+                    }
+                }
+
+                .brands-animate {
+                    animation: scroll-infinite 15s linear infinite;
+                }
+
+                .brands-animate:hover {
+                    animation-play-state: paused;
+                }
+
+                .brand-item {
+                    width: 200px;
+                    margin-right: 6rem;
+                }
+            `}</style>
+
+            <div className="bg-black w-full h-[112px] flex items-center overflow-hidden relative">
+                <div className="brands-animate flex items-center whitespace-nowrap">
+                    {[...brands, ...brands, ...brands, ...brands].map((brand, index) => (
+                        <div key={index} className="brand-item flex justify-center items-center">
+                            <img
+                                src={brand.src}
+                                alt={brand.alt}
+                                className="h-8 w-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                            />
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
-      );
+        </>
+    );
 };
 
 export default Brands;

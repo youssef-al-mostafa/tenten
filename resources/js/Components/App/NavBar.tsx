@@ -14,7 +14,7 @@ function NavBar() {
 
     const onSubmit: FormEventHandler = (e) => {
         e.preventDefault();
-        searchForm.get(url,{
+        searchForm.get(url, {
             preserveScroll: true,
             preserveState: true
         });
@@ -23,29 +23,45 @@ function NavBar() {
     return (
         <>
             <Offer isLoggedIn={!!user} />
-            <div className=" flex my-[20px] gap-6 bg-base-100 items-baseline w-[90%] mx-auto">
+            <div className="flex my-[20px] gap-6 bg-base-200 items-center w-[90%] mx-auto">
                 <div className="flex text-black">
                     <Link className="logo bg-transparent hover:bg-transparent border-0 font-integral_cf font-extrabold text-[40px]" href={'/'}>
                         Tenten
                     </Link>
                 </div>
                 <div className="menu-nav w-[fit-content] min-w-max flex gap-4 flex-row items-center p-0 font-satoshi font-medium text-[21px] my-auto">
-                    <Link className='bg-transparent hover:bg-transparent border-0' href="/">On Sale</Link>
-                    <Link className='bg-transparent hover:bg-transparent border-0' href="/">New Arrivals</Link>
-                    <Link className='bg-transparent hover:bg-transparent border-0' href="/">Brands</Link>
+                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">On Sale</Link>
+                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">New Arrivals</Link>
+                    <Link className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem]' href="/">Brands</Link>
                 </div>
                 <div className="search-bar min-w-[200px] my-auto w-webkit">
-                    <div className="relative flex items-center w-full ">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
+                    <form onSubmit={onSubmit} className="relative flex items-center w-full mt-[0.4rem]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600 z-10">
                             <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd" />
                         </svg>
 
                         <input
-                            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 pl-10 pr-3 py-2 rounded-[50px] transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-                            placeholder="Search" />
-                    </div>
+                            value={searchForm.data.keyword}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => searchForm.setData('keyword', e.target.value)}
+                            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700
+                                       text-sm border-[2px] border-slate-800 pl-10 pr-12 py-2 rounded-[50px]
+                                       transition duration-300 ease 
+                                       shadow-sm focus:shadow"
+                            placeholder="Search"
+                        />
+
+                        <button
+                            type="submit"
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 hover:bg-slate-100
+                                       rounded-full transition-colors duration-200 flex gap-4 align-middle justify-center"
+                            aria-label="Search"
+                        >
+                            {/* <MagnifyingGlassIcon className="size-4 text-slate-600" />
+                            Search */}
+                        </button>
+                    </form>
                 </div>
-                <div className="flex justify-end gap-4 my-auto w-[38%]">
+                <div className="flex justify-end items-center gap-4 my-auto">
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                             <div className="indicator">
@@ -55,65 +71,60 @@ function NavBar() {
                                 <span className="badge badge-sm indicator-item">{totalQuantity}</span>
                             </div>
                         </div>
-                        <form onSubmit={onSubmit} className="join flex-1">
-                            <div className="flex-1">
-                                <input
-                                    value={searchForm.data.keyword}
-                                    onChange={(e: ChangeEvent<HTMLInputElement>) => searchForm.setData('keyword', e.target.value)}
-                                    className="input input-bordered join-item w-full" placeholder="Search" />
-                            </div>
-                            <div className="indicator">
-                                <button className="btn join-item">
-                                    <MagnifyingGlassIcon className={'size-4'} />
-                                    Search
-                                </button>
-                            </div>
-                        </form>
-                        <div className="join">
-                            <div>
-                                <div>
-                                    <input className="input join-item" placeholder="Search" />
-                                </div>
-                            </div>
-                            <div className="indicator">
-                                <button className="btn join-item">Search</button>
-                            </div>
-                        </div>
                         <MiniCartDropDown />
                     </div>
-                    {user && <div className="dropdown dropdown-end">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img
-                                    alt="Tailwind CSS Navbar component"
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+
+                    {user && (
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="User avatar"
+                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                </div>
                             </div>
+                            <ul
+                                tabIndex={0}
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                                <li>
+                                    <Link href={route('profile.edit')} className="justify-between">
+                                        Profile
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={route('logout')}
+                                        method='post'
+                                        as='button'>
+                                        Logout
+                                    </Link>
+                                </li>
+                            </ul>
                         </div>
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li>
-                                <Link href={route('profile.edit')} className="justify-between">
-                                    Profile
-                                </Link>
-                            </li>
-                            <li><Link href={route('logout')}
-                                method='post'
-                                as='button'>Logout</Link></li>
-                        </ul>
-                    </div>}
-                    {!user && <>
-                        <Link href={route('login')} className='btn'>Login</Link>
-                        <Link href={route('register')} className='btn btn-primary'>Sign Up</Link>
-                    </>}
+                    )}
+
+                    {!user && (
+                        <div className="flex items-center gap-3">
+                            <Link
+                                href={route('login')}
+                                className="btn btn-ghost font-satoshi font-medium text-[16px] text-gray-700 hover:text-gray-900 hover:bg-gray-100/50 border-0 px-4 py-2 h-auto min-h-[2.5rem] rounded-lg transition-all duration-200"
+                            >
+                                Login
+                            </Link>
+                            <Link
+                                href={route('register')}
+                                className="btn btn-primary font-satoshi font-medium text-[16px] text-white bg-black hover:bg-gray-800 border-black hover:border-gray-800 px-6 py-2 h-auto min-h-[2.5rem] rounded-lg transition-all duration-200"
+                            >
+                                Sign Up
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </div>
-            <div className="navbar bg-base-100 border-t min-h-4">
+            <div className="navbar bg-base-200 border-t min-h-4 justify-center">
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 z-20 py-0">
                         {departments.map((department) => (
                             <li key={department.id}>
-                                {/* /departments/${department.id} */}
                                 <Link href={route('product.byDepartment', department.slug)} className="font-medium text-sm text-gray-600 hover:text-gray-800">
                                     {department.name}
                                 </Link>

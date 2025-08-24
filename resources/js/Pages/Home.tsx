@@ -1,26 +1,39 @@
 import { PageProps, PaginationProps, Product } from '@/types';
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
-import { ProductItem } from '@/Components/App/ProductItem';
 import Banner from '@/Components/App/Banner';
 import Brands from '@/Components/App/Brands';
-import Carousel_Horizental from '@/Components/Core/Carousel_Horizental';
+import ProductsGrid from '@/Components/App/ProductsGrid';
+import ReviewCarousel from '@/Components/App/ReviewCarousel';
+import TopVendors from '@/Components/App/TopVendors';
+import FeaturedCategories from '@/Components/App/FeaturedCategories';
+import CuratedCollections from '@/Components/App/CuratedCollections';
 
 export default function Home({
     auth,
     products
-}: PageProps<{ products: PaginationProps<Product>}>) {
+}: PageProps<{ products: PaginationProps<Product> }>) {
     return (
         <AppLayout>
             <Head title="Home" />
             <Banner />
             <Brands />
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 p-8">
-               {products.data.map(product => (
-                  <ProductItem product={product} key={product.id}/>
-               ))}
-            </div>
-            <Carousel_Horizental />
+            <CuratedCollections/>
+            <ProductsGrid
+                products={products}
+                sectionTitle="NEW ARRIVALS"
+                emptyMessage="No new arrivals at the moment"
+                showHeader={true}
+                className="bg-transparent"
+                gridCols={{
+                    sm: "grid-cols-1",
+                    md: "md:grid-cols-2",
+                    lg: "lg:grid-cols-4"
+                }}
+            />
+            <TopVendors />
+            <FeaturedCategories />
+            <ReviewCarousel />
         </AppLayout>
     );
 }

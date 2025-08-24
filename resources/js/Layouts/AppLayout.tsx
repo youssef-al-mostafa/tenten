@@ -8,7 +8,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
     const { auth } = usePage<PageProps>().props;
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col bg-base-200">
             <NavBar/>
             <main className="flex-grow">
                 {children}
