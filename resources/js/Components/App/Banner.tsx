@@ -1,30 +1,39 @@
+import { log } from "console";
+
 interface BannerProps {
-  content?: {
-    title?: string;
-    subtitle?: string;
-    button_text?: string;
-    banner_image?: string;
-    analytics?: Array<{
-      name: string;
-      number: string;
-    }>;
-    is_active?: boolean;
-    sort_order?: number;
-  };
+    content?: {
+        title?: string;
+        subtitle?: string;
+        button_text?: string;
+        banner_image?: string;
+        analytics?: Array<{
+            name: string;
+            number: string;
+        }>;
+        is_active?: boolean;
+        sort_order?: number;
+    };
 }
 
 const Banner = ({ content }: BannerProps) => {
     const {
-        title = "FIND CLOTHES THAT MATCHES YOUR STYLE",
-        subtitle = "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
-        button_text = "Shop Now",
-        banner_image = "/images/banner.png",
-        analytics = [
-            { name: "International Brands", number: "200+" },
-            { name: "High-Quality Products", number: "2000+" },
-            { name: "Happy Customers", number: "30000+" }
-        ]
+        title,
+        subtitle,
+        button_text,
+        banner_image,
+        analytics
     } = content || {};
+    console.log('the banner gets', content)
+
+    const getImageUrl = (imagePath?: string) => {
+        //if (!imagePath) return "/images/banner.png";
+
+        // if (imagePath.startsWith('http') || imagePath.startsWith('/')) {
+        //     return imagePath;
+        // }
+
+        return `/storage/${imagePath}`;
+    };
 
     return (
         <div className="bg-base-200 h-[calc(100vh-110px)]">
@@ -40,7 +49,7 @@ const Banner = ({ content }: BannerProps) => {
                         {button_text}
                     </button>
                     <div className="banner-numbers flex gap-4">
-                        {analytics.map((stat, index) => (
+                        {analytics && analytics.map((stat, index) => (
                             <div key={index}>
                                 <div className="flex flex-col text">
                                     <span className="font-satoshi font-bold text-black text-2xl">
@@ -64,7 +73,14 @@ const Banner = ({ content }: BannerProps) => {
                     <svg className='absolute left-0 top-1/2 w-[56px] h-[56px]' viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M52 0C53.7654 27.955 76.0448 50.2347 104 52C76.0448 53.7654 53.7654 76.0448 52 104C50.2347 76.0448 27.955 53.7654 0 52C27.955 50.2347 50.2347 27.955 52 0Z" fill="black" />
                     </svg>
-                    <img alt="Banner Image" src={banner_image} className="h-webkit" />
+                    <img
+                        alt="Banner Image"
+                        src={getImageUrl(banner_image)}
+                        className="h-webkit"
+                        onError={(e) => {
+                            console.error('Error during banner image rendering ', e)
+                        }}
+                    />
                 </div>
             </div>
         </div>

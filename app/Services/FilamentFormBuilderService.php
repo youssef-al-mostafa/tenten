@@ -11,7 +11,9 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Grid;
 use App\Models\Pages as PageModel;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class FilamentFormBuilderService
 {
@@ -29,7 +31,6 @@ class FilamentFormBuilderService
     {
         $schema = [];
 
-        // Basic page info fields
         $schema[] = Section::make('Page Information')
             ->schema([
                 TextInput::make('name')
@@ -37,7 +38,7 @@ class FilamentFormBuilderService
                     ->maxLength(255)
                     ->live(onBlur: true)
                     ->afterStateUpdated(function ($state, callable $set) use ($record) {
-                        if (!$record) { // Only auto-generate slug on create
+                        if (!$record) {
                             $set('slug', Str::slug($state));
                         }
                     }),
@@ -64,7 +65,6 @@ class FilamentFormBuilderService
             ])
             ->columns(2);
 
-        // Dynamic content sections
         if ($record && $record->template_schema) {
             $schema[] = $this->buildContentSections($record->template_schema, $record);
         }
@@ -85,7 +85,6 @@ class FilamentFormBuilderService
             if (isset($templateFields[$sectionKey])) {
                 $sections[] = $this->buildSectionForm($sectionKey, $templateFields[$sectionKey]);
             } else {
-                // Section with no fields (like brands)
                 $sections[] = $this->buildEmptySection($sectionKey);
             }
         }
@@ -102,7 +101,6 @@ class FilamentFormBuilderService
     {
         $fields = [];
 
-        // Add section controls (active/order) first
         $fields[] = Grid::make(2)->schema([
             Toggle::make("content.{$sectionKey}.is_active")
                 ->label('Section Active')
@@ -114,10 +112,8 @@ class FilamentFormBuilderService
                 ->default(0),
         ]);
 
-        // Add dynamic fields based on template definition
         foreach ($fieldDefinitions as $fieldName => $fieldConfig) {
             if ($fieldName === 'analytics' && is_array($fieldConfig)) {
-                // Special handling for analytics (statistics)
                 $fields[] = $this->buildAnalyticsFields($sectionKey, $fieldConfig);
             } else {
                 $fields[] = $this->buildFieldComponent($sectionKey, $fieldName, $fieldConfig);
@@ -179,14 +175,21 @@ class FilamentFormBuilderService
     private function buildFieldComponent(string $sectionKey, string $fieldName, array $fieldConfig): mixed
     {
         $fieldPath = "content.{$sectionKey}.{$fieldName}";
-        $component = match($fieldConfig['type']) {
+        $component = match ($fieldConfig['type']) {
             'string' => TextInput::make($fieldPath),
             'text' => Textarea::make($fieldPath)->rows(3),
-            'image' => FileUpload::make($fieldPath)->image()->disk('public'),
+            'image' => FileUpload::make($fieldPath)
+                ->image()
+                ->disk('public')
+                ->directory("content/{$sectionKey}")
+                ->preserveFilenames()
+                ->getUploadedFileNameForStorageUsing(
+                    fn(TemporaryUploadedFile $file): string =>
+                    $fieldName . '_' . now()->format('Y-m-d_H-i-s') . '.' . $file->getClientOriginalExtension()
+                ),
             default => TextInput::make($fieldPath)
         };
 
-        // Apply field configuration
         $component = $component->label($this->humanizeString($fieldName));
 
         if (isset($fieldConfig['required']) && $fieldConfig['required']) {
@@ -214,7 +217,9 @@ class FilamentFormBuilderService
             $set('template_schema', $template);
             $set('name', $template['name'] ?? $templateName);
         } catch (\Exception $e) {
-            // Handle error - maybe show notification
+            Log::error('Error loading template schema: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
         }
     }
 
