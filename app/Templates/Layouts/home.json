@@ -1,0 +1,127 @@
+{
+  "name": "Home Page Layout",
+  "sections": [
+    "hero_banner",
+    "brands",
+    "seasonal",
+    "new_arrivals",
+    "top_vendors",
+    "featured_categories",
+    "customers_review",
+    "newsletter"
+  ],
+  "fields": {
+    "hero_banner": {
+      "title": {
+        "type": "string",
+        "required": true,
+        "max_length": 100
+      },
+      "subtitle": {
+        "type": "text",
+        "required": true,
+        "max_length": 300
+      },
+      "button_text": {
+        "type": "string",
+        "default": "Shop Now",
+        "max_length": 20
+      },
+      "banner_image": {
+        "type": "image",
+        "required": true
+      },
+      "analytics": {
+        "1": {
+          "name": "string",
+          "number": "integer"
+        },
+        "2": {
+          "name": "string",
+          "number": "integer"
+        },
+        "3": {
+          "name": "string",
+          "number": "integer"
+        }
+      }
+    },
+    "brands": {},
+    "seasonal": {
+      "main_title": {
+        "type": "string",
+        "required": true
+      },
+      "main_subtitle": {
+        "type": "text",
+        "required": true
+      },
+      "section_title": {
+        "type": "string",
+        "required": true
+      },
+      "section_subtitle": {
+        "type": "string",
+        "required": true
+      },
+      "section_description": {
+        "type": "text",
+        "required": true
+      }
+    },
+    "new_arrivals": {
+      "title": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "top_vendors": {
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "view_all_button": {
+        "type": "string",
+        "default": "View All Vendors"
+      }
+    },
+    "featured_categories": {
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "browse_button": {
+        "type": "string",
+        "default": "Browse All Categories"
+      },
+      "bottom_text": {
+        "type": "text",
+        "required": true
+      },
+      "explore_button": {
+        "type": "string",
+        "default": "Explore All Products"
+      }
+    },
+    "customers_review": {
+      "title": {
+        "type": "string",
+        "required": true
+      }
+    },
+    "newsletter": {
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "placeholder_text": {
+        "type": "string",
+        "required": true
+      },
+      "button_text": {
+        "type": "string",
+        "default": "Subscribe to Newsletter"
+      }
+    }
+  }
+}
