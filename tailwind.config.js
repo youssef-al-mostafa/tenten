@@ -24,6 +24,21 @@ export default {
                 webkit: '-webkit-fill-available',
             },
         },
+        keyframes: {
+            'scroll-infinite': {
+                '0%': {
+                    transform: 'translateX(0)',
+                },
+                '100%': {
+                    transform: 'translateX(calc(-1 * (6rem + 200px) * 5))',
+                },
+            },
+        },
+        animation: {
+            'scroll-slow': 'scroll-infinite 20s linear infinite',
+            'scroll-medium': 'scroll-infinite 15s linear infinite',
+            'scroll-fast': 'scroll-infinite 10s linear infinite',
+        },
     },
     plugins: [
         forms,

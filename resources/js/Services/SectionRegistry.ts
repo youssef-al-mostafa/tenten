@@ -3,7 +3,6 @@ import { lazy } from 'react';
 const SECTION_REGISTRY = {
   hero_banner: lazy(() => import('@/Components/App/Banner')),
   brands: lazy(() => import('@/Components/App/Brands')),
-  seasonal: lazy(() => import('@/Components/App/SeasonalMustHaves')),
   new_arrivals: lazy(() => import('@/Components/App/ProductsGrid')),
   top_vendors: lazy(() => import('@/Components/App/TopVendors')),
   featured_categories: lazy(() => import('@/Components/App/FeaturedCategories')),

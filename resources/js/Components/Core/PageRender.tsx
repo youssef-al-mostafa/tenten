@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useState, useMemo } from 'react';
-import { getSectionComponent, getSectionComponentSafe } from '@/Services/SectionRegistry';
+import { getSectionComponentSafe } from '@/Services/SectionRegistry';
 
 interface SectionContent {
   is_active?: boolean;
@@ -97,7 +97,7 @@ export function PageRenderer({
     <>
       {sortedSections.map(({ key, data, Component }) => {
         if (!Component) return null;
-        
+
         return (
           <Suspense
             key={key}
