@@ -10,6 +10,7 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Select;
 use App\Models\Pages as PageModel;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -115,6 +116,9 @@ class FilamentFormBuilderService
         foreach ($fieldDefinitions as $fieldName => $fieldConfig) {
             if ($fieldName === 'analytics' && is_array($fieldConfig)) {
                 $fields[] = $this->buildAnalyticsFields($sectionKey, $fieldConfig);
+            } elseif (isset($fieldConfig['type']) && $fieldConfig['type'] === 'repeater') {
+                // Handle repeater fields
+                $fields[] = $this->buildRepeaterField($sectionKey, $fieldName, $fieldConfig);
             } else {
                 $fields[] = $this->buildFieldComponent($sectionKey, $fieldName, $fieldConfig);
             }
@@ -124,6 +128,80 @@ class FilamentFormBuilderService
             ->schema($fields)
             ->collapsible()
             ->collapsed();
+    }
+
+    /**
+     * Build repeater field component
+     */
+    private function buildRepeaterField(string $sectionKey, string $fieldName, array $fieldConfig): Repeater
+    {
+        $repeaterFields = [];
+        $repeaterFieldDefinitions = $fieldConfig['fields'] ?? [];
+
+        foreach ($repeaterFieldDefinitions as $repeaterFieldName => $repeaterFieldConfig) {
+            $repeaterFields[] = $this->buildSimpleFieldComponent($repeaterFieldName, $repeaterFieldConfig);
+        }
+
+        $repeater = Repeater::make("content.{$sectionKey}.{$fieldName}")
+            ->label($this->humanizeString($fieldName))
+            ->schema($repeaterFields)
+            ->collapsible()
+            ->reorderable()
+            ->cloneable()
+            ->columns(2);
+
+        if (isset($fieldConfig['min_items'])) {
+            $repeater = $repeater->minItems($fieldConfig['min_items']);
+        }
+
+        if (isset($fieldConfig['max_items'])) {
+            $repeater = $repeater->maxItems($fieldConfig['max_items']);
+        }
+
+        $defaultItems = $fieldConfig['default_items'] ?? 1;
+        $repeater = $repeater->defaultItems($defaultItems);
+
+        return $repeater;
+    }
+
+    /**
+     * Build simple field component for repeater items
+     */
+    private function buildSimpleFieldComponent(string $fieldName, array $fieldConfig): mixed
+    {
+        $component = match ($fieldConfig['type']) {
+            'string' => TextInput::make($fieldName),
+            'text' => Textarea::make($fieldName)->rows(3),
+            'number' => TextInput::make($fieldName)->numeric(),
+            'image' => FileUpload::make($fieldName)
+                ->image()
+                ->disk('public')
+                ->directory("content/repeater")
+                ->preserveFilenames(),
+            'select' => Select::make($fieldName)
+                ->options($fieldConfig['options'] ?? []),
+            default => TextInput::make($fieldName)
+        };
+
+        $component = $component->label($this->humanizeString($fieldName));
+
+        if (isset($fieldConfig['required']) && $fieldConfig['required']) {
+            $component = $component->required();
+        }
+
+        if (isset($fieldConfig['default'])) {
+            $component = $component->default($fieldConfig['default']);
+        }
+
+        if (isset($fieldConfig['max_length'])) {
+            $component = $component->maxLength($fieldConfig['max_length']);
+        }
+
+        if (isset($fieldConfig['min']) && isset($fieldConfig['max'])) {
+            $component = $component->minValue($fieldConfig['min'])->maxValue($fieldConfig['max']);
+        }
+
+        return $component;
     }
 
     /**
@@ -161,6 +239,7 @@ class FilamentFormBuilderService
                     ->required(),
                 TextInput::make('number')
                     ->label('Number')
+                    ->numeric()
                     ->required(),
             ])
             ->defaultItems(3)
@@ -178,6 +257,7 @@ class FilamentFormBuilderService
         $component = match ($fieldConfig['type']) {
             'string' => TextInput::make($fieldPath),
             'text' => Textarea::make($fieldPath)->rows(3),
+            'number' => TextInput::make($fieldPath)->numeric(),
             'image' => FileUpload::make($fieldPath)
                 ->image()
                 ->disk('public')
@@ -218,16 +298,17 @@ class FilamentFormBuilderService
             $set('name', $template['name'] ?? $templateName);
         } catch (\Exception $e) {
             Log::error('Error loading template schema: ' . $e->getMessage(), [
-                'exception' => $e
+                'exception' => $e,
+                'template_name' => $templateName,
             ]);
         }
     }
 
     /**
-     * Convert snake_case to Title Case
+     * Convert snake_case to human readable
      */
     private function humanizeString(string $string): string
     {
-        return Str::title(str_replace(['_', '-'], ' ', $string));
+        return Str::title(str_replace('_', ' ', $string));
     }
 }

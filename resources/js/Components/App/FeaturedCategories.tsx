@@ -12,9 +12,20 @@ interface FeaturedCategory {
     gradient: string;
 }
 
-const FeaturedCategories = () => {
+interface FeaturedCategoriesProps {
+    content?: {
+        title?: string;
+        bottom_text?: string;
+        browse_button?: string;
+        explore_button?: string;
+        is_active?: boolean;
+        sort_order?: number;
+    };
+}
 
+const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
     const { departments } = usePage<PageProps>().props;
+    console.log('FeaturedCategories data:', { content, departments });
     const categories: FeaturedCategory[] = [
         {
             id: 1,
@@ -76,10 +87,14 @@ const FeaturedCategories = () => {
         <section className="py-16 bg-white">
             <div className="container mx-auto px-8">
                 <div className="flex items-center justify-between mb-12">
-                    <h2 className="text-4xl font-bold text-gray-900">FEATURED CATEGORIES</h2>
-                    <button className="border border-gray-300 hover:border-gray-400 transition-colors px-6 py-2 rounded-full">
-                        Browse All Categories
-                    </button>
+                    {content?.title && (
+                        <h2 className="text-4xl font-bold text-gray-900">{content.title}</h2>
+                    )}
+                    {content?.browse_button && (
+                        <button className="border border-gray-300 hover:border-gray-400 transition-colors px-6 py-2 rounded-full">
+                            {content.browse_button}
+                        </button>
+                    )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -117,12 +132,16 @@ const FeaturedCategories = () => {
                 </div>
 
                 <div className="text-center mt-12">
-                    <p className="text-gray-600 mb-4">
-                        Discover products from over 30,000+ happy customers across all categories
-                    </p>
-                    <button className="bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors">
-                        Explore All Products
-                    </button>
+                    {content?.bottom_text && (
+                        <p className="text-gray-600 mb-4">
+                            {content.bottom_text}
+                        </p>
+                    )}
+                    {content?.explore_button && (
+                        <button className="bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors">
+                            {content.explore_button}
+                        </button>
+                    )}
                 </div>
             </div>
         </section>

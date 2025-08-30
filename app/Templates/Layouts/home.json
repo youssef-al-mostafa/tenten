@@ -1,6 +1,6 @@
 {
     "name": "Home Page Layout",
-    "allowed_sections": [
+    "sections": [
         "hero_banner",
         "brands",
         "new_arrivals",
@@ -18,7 +18,7 @@
             },
             "subtitle": {
                 "type": "text",
-                "required": false,
+                "required": true,
                 "max_length": 300
             },
             "button_text": {
@@ -46,7 +46,97 @@
             }
         },
         "brands": {
-
+            "items": {
+                "type": "repeater",
+                "fields": {
+                    "name": {
+                        "type": "string",
+                        "required": true,
+                        "max_length": 100
+                    },
+                    "image": {
+                        "type": "image",
+                        "required": true
+                    }
+                },
+                "min_items": 1
+            }
+        },
+        "new_arrivals": {
+            "title": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "top_vendors": {
+            "title": {
+                "type": "string",
+                "required": true
+            },
+            "view_all_button": {
+                "type": "string",
+                "default": "View All Vendors"
+            }
+        },
+        "featured_categories": {
+            "title": {
+                "type": "string",
+                "required": true
+            },
+            "browse_button": {
+                "type": "string",
+                "default": "Browse All Categories"
+            },
+            "bottom_text": {
+                "type": "text",
+                "required": true
+            },
+            "explore_button": {
+                "type": "string",
+                "default": "Explore All Products"
+            }
+        },
+        "customers_review": {
+            "title": {
+                "type": "string",
+                "required": true
+            },
+            "items": {
+                "type": "repeater",
+                "fields": {
+                    "customer_name": {
+                        "type": "string",
+                        "required": true,
+                        "max_length": 100
+                    },
+                    "review_text": {
+                        "type": "text",
+                        "required": true,
+                        "max_length": 500
+                    },
+                    "rating": {
+                        "type": "number",
+                        "required": true,
+                        "min": 1,
+                        "max": 5
+                    }
+                },
+                "min_items": 1
+            }
+        },
+        "newsletter": {
+            "title": {
+                "type": "string",
+                "required": true
+            },
+            "placeholder_text": {
+                "type": "string",
+                "required": true
+            },
+            "button_text": {
+                "type": "string",
+                "default": "Subscribe to Newsletter"
+            }
         }
     }
 }

@@ -9,11 +9,11 @@ interface SectionContent {
 }
 
 interface ProductsGridProps {
+    header?: string;
     products?: PaginationProps<Product>;
     content?: SectionContent;
     emptyMessage?: string;
     className?: string;
-    sectionTitle?: string;
     showHeader?: boolean;
     gridCols?: {
         sm?: string;
@@ -25,10 +25,10 @@ interface ProductsGridProps {
 
 const ProductsGrid = ({
     products,
+    header,
     content,
     emptyMessage = "No products found",
     className = "",
-    sectionTitle = "NEW ARRIVALS",
     showHeader = true,
     gridCols = {
         sm: "grid-cols-1",
@@ -37,6 +37,9 @@ const ProductsGrid = ({
         xl: "xl:grid-cols-4"
     }
 }: ProductsGridProps) => {
+    
+    const actualTitle = typeof content?.title === 'string' ? content.title : header;
+    console.log('ProductsGrid data:', { title: actualTitle, content, header });
 
     if (!products || !products.data) {
         return (
@@ -44,7 +47,7 @@ const ProductsGrid = ({
                 {showHeader && (
                     <div className="mb-12 text-center">
                         <h2 className="font-integral_cf font-extrabold text-black text-4xl mb-4">
-                            {sectionTitle}
+                            {actualTitle}
                         </h2>
                     </div>
                 )}
@@ -79,7 +82,7 @@ const ProductsGrid = ({
             {showHeader && (
                 <div className="mb-12 text-center">
                     <h2 className="font-integral_cf font-extrabold text-black text-4xl mb-4">
-                        {sectionTitle}
+                        {actualTitle}
                     </h2>
                 </div>
             )}

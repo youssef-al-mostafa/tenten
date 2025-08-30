@@ -40,7 +40,13 @@ class SyncTemplatesCommand extends Command
         if (!empty($results['errors'])) {
             $this->error('Errors occurred:');
             foreach ($results['errors'] as $error) {
-                $this->line("  - " . ($error['template'] ?? 'General') . ": " . $error['error']);
+                if (isset($error['template']) && isset($error['error'])) {
+                    $this->line("  - {$error['template']}: {$error['error']}");
+                } elseif (isset($error['general'])) {
+                    $this->line("  - General: {$error['general']}");
+                } else {
+                    $this->line("  - Unknown error: " . json_encode($error));
+                }
             }
         }
 

@@ -1,61 +1,37 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, ReactNode } from 'react';
 
 interface Review {
-    id: number;
-    name: string;
-    stars: number;
-    review: string;
+    review: ReactNode;
+    stars(stars: any): import("react").ReactNode;
+    name: ReactNode;
+    id?: number;
+    customer_name: string;
+    review_text: string;
+    rating: number;
 }
 
 interface Props {
     header?: string;
     reviews?: Review[];
+    content?: {
+        title?: string;
+        items?: Review[];
+    };
 }
 
 const ReviewCarousel = ({
-    header = "OUR HAPPY CUSTOMERS",
-    reviews = [
-        {
-            id: 1,
-            name: "Sarah M.",
-            stars: 5,
-            review: "I'm blown away by the quality and style of the clothes I received from Tenten. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations."
-        },
-        {
-            id: 2,
-            name: "Alex K.",
-            stars: 4,
-            review: "Finding clothes that align with my personal style used to be a challenge until I discovered Tenten. The range of options they offer is truly remarkable."
-        },
-        {
-            id: 3,
-            name: "Jessica L.",
-            stars: 5,
-            review: "Tenten has completely transformed my wardrobe. I can't recommend them enough! The quality is outstanding and the customer service is top-notch."
-        },
-        {
-            id: 4,
-            name: "Michael B.",
-            stars: 4,
-            review: "The variety of styles available at Tenten is impressive. I always find something I love and the prices are very reasonable for the quality you get."
-        },
-        {
-            id: 5,
-            name: "Emily R.",
-            stars: 5,
-            review: "Shopping at Tenten is a breeze. The website is user-friendly and the clothes are top-notch. Fast delivery and excellent packaging too!"
-        },
-        {
-            id: 6,
-            name: "David W.",
-            stars: 4,
-            review: "I appreciate the attention to detail in every piece of clothing I order from Tenten. The fabric quality and stitching are exceptional."
-        }
-    ]
+    header,
+    reviews,
+    content
 }: Props) => {
+    const actualTitle = content?.title || header;
+    const actualReviews = content?.items || reviews;
+
+    console.log('ReviewCarousel data:', { title: actualTitle, items: actualReviews, content });
     const [currentIndex, setCurrentIndex] = useState(0);
     const reviewsPerPage = 3;
-    const totalPages = Math.ceil(reviews.length / reviewsPerPage);
+    const totalPages = actualReviews ? Math.ceil(actualReviews.length / reviewsPerPage) : 0;
+
     const [isHovered, setIsHovered] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -67,12 +43,13 @@ const ReviewCarousel = ({
     }, [isTransitioning, totalPages]);
 
     useEffect(() => {
-        if (currentIndex < totalPages - 1 && !isHovered && !isTransitioning)
-            { const interval = setInterval(() => {
+        if (currentIndex < totalPages - 1 && !isHovered && !isTransitioning) {
+            const interval = setInterval(() => {
                 nextSlide();
-             }, 6000);
-             return () => clearInterval(interval);
-            } },
+            }, 6000);
+            return () => clearInterval(interval);
+        }
+    },
         [isHovered, isTransitioning, currentIndex, totalPages, nextSlide]);
 
     const prevSlide = () => {
@@ -110,11 +87,11 @@ const ReviewCarousel = ({
             className="bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 flex-shrink-0 w-full"
         >
             <h3 className="font-satoshi font-bold text-lg text-black mb-3">
-                {review.name}
+                {review.customer_name || review.name}
             </h3>
-            {renderStars(review.stars)}
+            {renderStars(review.rating)}
             <p className="font-satoshi font-normal text-base leading-relaxed text-black opacity-60">
-                "{review.review}"
+                "{review.review_text || review.review}"
             </p>
         </div>
     );
@@ -127,7 +104,7 @@ const ReviewCarousel = ({
         >
             <div className="flex justify-between items-center mb-12">
                 <h2 className="font-integral_cf font-extrabold text-black text-4xl">
-                    {header}
+                    {actualTitle}
                 </h2>
 
                 <div className="flex gap-4">
@@ -160,7 +137,7 @@ const ReviewCarousel = ({
                 >
                     {Array.from({ length: totalPages }).map((_, pageIndex) => {
                         const startIndex = pageIndex * reviewsPerPage;
-                        const pageReviews = reviews.slice(startIndex, startIndex + reviewsPerPage);
+                        const pageReviews = (actualReviews ?? []).slice(startIndex, startIndex + reviewsPerPage);
 
                         return (
                             <div
