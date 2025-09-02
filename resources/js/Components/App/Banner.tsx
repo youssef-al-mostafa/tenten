@@ -50,7 +50,7 @@ const Banner = ({ content }: BannerProps) => {
                     </button>
                     <div className="banner-numbers flex gap-4">
                         {analytics && analytics.map((stat, index) => (
-                            <div key={index}>
+                            <div key={index} className="flex gap-4">
                                 <div className="flex flex-col text">
                                     <span className="font-satoshi font-bold text-black text-2xl">
                                         {stat.number}
@@ -60,7 +60,7 @@ const Banner = ({ content }: BannerProps) => {
                                     </span>
                                 </div>
                                 {index < analytics.length - 1 && (
-                                    <div className="w-[1px] h-web bg-gray-500"></div>
+                                    <div className="w-[1px] h-full bg-gray-500"></div>
                                 )}
                             </div>
                         ))}

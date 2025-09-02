@@ -32,9 +32,17 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $similarProducts = Product::query()
+            ->published()
+            ->where('department_id', $product->department_id)
+            ->where('id', '!=', $product->id)
+            ->limit(8)
+            ->get();
+
         return Inertia::render('Product/Show', [
             'product' => new ProductResource($product),
-            'variationOptions' => request('options', [])
+            'variationOptions' => request('options', []),
+            'similarProducts' => ProductListResource::collection($similarProducts)
         ]);
     }
 

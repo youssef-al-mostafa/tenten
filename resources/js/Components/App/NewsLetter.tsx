@@ -11,7 +11,6 @@ interface NewsLetterProps {
 }
 
 const NewsLetter = ({ content }: NewsLetterProps) => {
-    console.log('NewsLetter data:', content);
     return (
         <div className="newsletters-wrapper bg-gradient-to-b from-transparent from-0% via-transparent via-50% to-base-200 to-50%">
             <div className="newsletter w-[85%] flex mx-auto bg-black rounded-3xl h-fit px-5 py-7">

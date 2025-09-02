@@ -10,6 +10,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Department extends Model
 {
+    protected $fillable = [
+        'name',
+        'slug', 
+        'meta_title',
+        'meta_description',
+        'active',
+        'description',
+        'image',
+        'color'
+    ];
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class);

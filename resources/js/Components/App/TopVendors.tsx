@@ -7,9 +7,7 @@ interface TopVendor {
     avatar: string;
     rating: number;
     reviewCount: number;
-    productCount: number;
     location: string;
-    badge: string;
     description: string;
     topProducts: {
         id: number;
@@ -29,7 +27,6 @@ interface TopVendorsProps {
 }
 
 const TopVendors = ({ content }: TopVendorsProps) => {
-    console.log('TopVendors data:', content);
     const topVendors: TopVendor[] = [
         {
             id: 1,
@@ -38,9 +35,7 @@ const TopVendors = ({ content }: TopVendorsProps) => {
             avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
             rating: 4.9,
             reviewCount: 2847,
-            productCount: 156,
             location: "New York, USA",
-            badge: "Top Seller",
             description: "Premium fashion and accessories for modern lifestyle",
             topProducts: [
                 {
@@ -70,9 +65,7 @@ const TopVendors = ({ content }: TopVendorsProps) => {
             avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
             rating: 4.8,
             reviewCount: 1923,
-            productCount: 234,
             location: "Milan, Italy",
-            badge: "Verified",
             description: "Luxury designer clothing and haute couture pieces",
             topProducts: [
                 {
@@ -102,9 +95,7 @@ const TopVendors = ({ content }: TopVendorsProps) => {
             avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
             rating: 4.7,
             reviewCount: 1456,
-            productCount: 189,
             location: "London, UK",
-            badge: "Rising Star",
             description: "Contemporary streetwear and urban fashion trends",
             topProducts: [
                 {
@@ -158,9 +149,6 @@ const TopVendors = ({ content }: TopVendorsProps) => {
                                             <h3 className="font-bold text-lg text-gray-900">
                                                 {vendor.name}
                                             </h3>
-                                            <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                                                {vendor.badge}
-                                            </span>
                                         </div>
                                         <p className="text-gray-600 text-sm mb-2">{vendor.storeName}</p>
                                         <div className="flex items-center gap-4 text-sm text-gray-600">
@@ -168,10 +156,6 @@ const TopVendors = ({ content }: TopVendorsProps) => {
                                                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                                                 <span className="font-semibold">{vendor.rating}</span>
                                                 <span>({vendor.reviewCount})</span>
-                                            </div>
-                                            <div className="flex items-center gap-1">
-                                                <Package className="h-4 w-4" />
-                                                <span>{vendor.productCount}</span>
                                             </div>
                                         </div>
                                     </div>

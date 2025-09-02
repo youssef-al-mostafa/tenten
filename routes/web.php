@@ -24,7 +24,7 @@ Route::controller(CartController::class)->group(function () {
 Route::post('/stripe/webhook', [StripeController::class, 'webhook'])->name('stripe.webhook');
 
 //Others
-Route::get('/s/{vendor:store_name}', [VendorController::class, 'profile'])
+Route::get('/vendor/{vendor:store_name}', [VendorController::class, 'profile'])
     ->name('vendor.profile');
 
 // Auth Routes

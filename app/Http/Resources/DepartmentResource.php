@@ -21,6 +21,10 @@ class DepartmentResource extends JsonResource
             'slug' => $this->slug,
             'meta_title' => $this->meta_title,
             'meta_description' => $this->meta_description,
+            'active' => $this->active,
+            'description' => $this->description,
+            'image' => $this->image,
+            'color' => $this->color,
             'categories' => $this->categories->map(function ($category) {
                 return [
                     'id' => $category->id,

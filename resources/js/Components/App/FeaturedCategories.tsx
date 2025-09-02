@@ -26,62 +26,22 @@ interface FeaturedCategoriesProps {
 const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
     const { departments } = usePage<PageProps>().props;
     console.log('FeaturedCategories data:', { content, departments });
-    const categories: FeaturedCategory[] = [
-        {
-            id: 1,
-            name: "Women's Fashion",
-            slug: "womens-fashion",
-            image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&h=400&fit=crop",
-            productCount: 2847,
-            description: "Elegant styles for the modern woman",
-            gradient: "from-pink-500 to-rose-500"
-        },
-        {
-            id: 2,
-            name: "Men's Fashion",
-            slug: "mens-fashion",
-            image: "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=600&h=400&fit=crop",
-            productCount: 1923,
-            description: "Sophisticated looks for every occasion",
-            gradient: "from-blue-500 to-indigo-600"
-        },
-        {
-            id: 3,
-            name: "Children's Wear",
-            slug: "childrens-wear",
-            image: "https://images.unsplash.com/photo-1519278013264-f2b64a6a4c58?w=600&h=400&fit=crop",
-            productCount: 1456,
-            description: "Comfortable and stylish kids clothing",
-            gradient: "from-yellow-500 to-orange-500"
-        },
-        {
-            id: 4,
-            name: "Sportswear",
-            slug: "sportswear",
-            image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
-            productCount: 892,
-            description: "Performance gear for active lifestyle",
-            gradient: "from-green-500 to-teal-600"
-        },
-        {
-            id: 5,
-            name: "Accessories",
-            slug: "accessories",
-            image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=400&fit=crop",
-            productCount: 1234,
-            description: "Complete your look with perfect accessories",
-            gradient: "from-purple-500 to-pink-600"
-        },
-        {
-            id: 6,
-            name: "Footwear",
-            slug: "footwear",
-            image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=400&fit=crop",
-            productCount: 567,
-            description: "Step out in style and comfort",
-            gradient: "from-gray-700 to-gray-900"
-        }
-    ];
+
+    if (!departments?.data || departments.data.length === 0) {
+        return null;
+    }
+
+    const categories: FeaturedCategory[] = departments.data
+        .filter((dept: any) => dept.active)
+        .map((dept: any) => ({
+            id: dept.id,
+            name: dept.name,
+            slug: dept.slug,
+            image: dept.image ? `/storage/${dept.image}` : 'https://via.placeholder.com/600x400',
+            productCount: dept.categories?.length || 0,
+            description: dept.description || dept.name,
+            gradient: dept.color ? dept.color : '#6B7280'
+        }));
 
     return (
         <section className="py-16 bg-white">
@@ -100,13 +60,19 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {categories.map((category) => (
                         <div key={category.id} className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
-                            <div className="relative h-48 overflow-hidden">
+                            <div className="relative h-64 overflow-hidden">
                                 <img
                                     src={category.image}
                                     alt={category.name}
-                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                    className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300"
+                                    loading="lazy"
                                 />
-                                <div className={`absolute inset-0 bg-gradient-to-t ${category.gradient} opacity-70 group-hover:opacity-80 transition-opacity`}></div>
+                                <div 
+                                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70 group-hover:opacity-80 transition-opacity"
+                                    style={{
+                                        background: `linear-gradient(to top, ${category.gradient}CC, ${category.gradient}66, transparent)`
+                                    }}
+                                ></div>
                             </div>
 
                             <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">

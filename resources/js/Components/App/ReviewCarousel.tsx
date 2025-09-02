@@ -27,7 +27,6 @@ const ReviewCarousel = ({
     const actualTitle = content?.title || header;
     const actualReviews = content?.items || reviews;
 
-    console.log('ReviewCarousel data:', { title: actualTitle, items: actualReviews, content });
     const [currentIndex, setCurrentIndex] = useState(0);
     const reviewsPerPage = 3;
     const totalPages = actualReviews ? Math.ceil(actualReviews.length / reviewsPerPage) : 0;

@@ -7,8 +7,11 @@ function NavBar() {
     const { auth, departments, totalQuantity, keyword } = usePage<PageProps>().props;
     const { user } = auth;
 
+    console.log('NavBar departments:', departments, 'type:', typeof departments, 'isArray:', Array.isArray(departments));
+
     const searchForm = useForm<{ keyword: string }>({ keyword: keyword || '' });
     const { url } = usePage();
+    const currentRoute = route().current();
 
     const onSubmit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -35,7 +38,7 @@ function NavBar() {
 
     return (
         <>
-            <div className="flex my-[20px] gap-6 bg-base-200 items-center w-[90%] mx-auto">
+            <div className="flex gap-6 bg-base-200 items-center w-full py-5 px-14">
                 <div className="flex text-black">
                     <Link className="logo bg-transparent hover:bg-transparent border-0 font-integral_cf font-extrabold text-[40px]"
                           href={route('home')}>
@@ -78,7 +81,7 @@ function NavBar() {
                         </button>
                     </form>
                 </div>
-                <div className="flex justify-end items-center gap-4 my-auto">
+                <div className="flex justify-end items-center gap-4 my-auto min-w-max">
                     <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                             <div className="indicator">
@@ -137,20 +140,22 @@ function NavBar() {
                     )}
                 </div>
             </div>
-            <div className="navbar bg-base-200 border-t min-h-4 justify-center">
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1 z-20 py-0">
-                        {departments.map((department) => (
-                            <li key={department.id}>
-                                <Link href={route('product.byDepartment', department.slug)}
-                                      className="font-medium text-sm text-gray-600 hover:text-gray-800">
-                                    {department.name}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
+            {currentRoute === 'home' && (
+                <div className="navbar bg-base-200 border-t min-h-4 justify-center">
+                    <div className="navbar-center hidden lg:flex">
+                        <ul className="menu menu-horizontal px-1 z-20 py-0">
+                            {departments && Array.isArray(departments) && departments.map((department) => (
+                                <li key={department.id}>
+                                    <Link href={route('product.byDepartment', department.slug)}
+                                          className="font-medium text-sm text-gray-600 hover:text-gray-800">
+                                        {department.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     )
 }

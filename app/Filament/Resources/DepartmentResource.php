@@ -9,6 +9,9 @@ use App\Models\Department;
 use Filament\Facades\Filament;
 use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Checkbox;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Resources\Resource;
@@ -34,6 +37,20 @@ class DepartmentResource extends Resource
                     ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
                 TextInput::make('slug')
                     ->required(),
+                Textarea::make('description')
+                    ->rows(3)
+                    ->maxLength(500),
+                FileUpload::make('image')
+                    ->image()
+                    ->disk('public')
+                    ->directory('departments')
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('16:9')
+                    ->imageResizeTargetWidth('1600')
+                    ->imageResizeTargetHeight('900'),
+                ColorPicker::make('color')
+                    ->hex()
+                    ->helperText('Choose a color for the category gradient'),
                 Checkbox::make('active')
             ]);
     }

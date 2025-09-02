@@ -39,7 +39,6 @@ const Brands = ({ content }: Props) => {
         `}
             >
                 {[...brands, ...brands, ...brands, ...brands].map((brand, index) => {
-                    console.log('Rendering brand:', brand, 'src:', brand.src || `/storage/${brand.image}`);
                     return (
                         <div
                             key={index}
