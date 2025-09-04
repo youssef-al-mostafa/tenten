@@ -6,9 +6,6 @@ import { PageProps } from '@/types';
 function NavBar() {
     const { auth, departments, totalQuantity, keyword } = usePage<PageProps>().props;
     const { user } = auth;
-
-    console.log('NavBar departments:', departments, 'type:', typeof departments, 'isArray:', Array.isArray(departments));
-
     const searchForm = useForm<{ keyword: string }>({ keyword: keyword || '' });
     const { url } = usePage();
     const currentRoute = route().current();

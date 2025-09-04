@@ -88,7 +88,15 @@ class DepartmentResource extends Resource
     public static function canViewAny(): bool
     {
         $user = Filament::auth()->user();
-        return $user && $user->roles->contains(fn($role) => in_array($role->name, [RolesEnum::ADMIN->value, RolesEnum::MASTER_ADMIN->value]));
+        return $user && $user->roles->contains(
+            fn($role) => in_array(
+                $role->name,
+                [
+                    RolesEnum::ADMIN->value,
+                    RolesEnum::MASTER_ADMIN->value,
+                ]
+            )
+        );
     }
 
     public static function getPages(): array

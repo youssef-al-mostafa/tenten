@@ -14,8 +14,9 @@ interface Props {
     variationOptions: number[];
     appName: string;
     similarProducts?: {
-        data : Product[];
+        data: Product[];
     };
+    pageContent?: any;
 }
 
 type ProductForm = {
@@ -24,7 +25,7 @@ type ProductForm = {
     price: number | null;
 }
 
-function Show({ appName, product, variationOptions, similarProducts }: Props) {
+function Show({ appName, product, variationOptions, similarProducts, pageContent }: Props) {
     const form = useForm<ProductForm>({
         option_ids: {},
         quantity: 1,
@@ -32,6 +33,10 @@ function Show({ appName, product, variationOptions, similarProducts }: Props) {
     })
     const { url } = usePage();
     const [selectedOptions, setSelectedOptions] = useState<Record<number, VariationTypeOption>>([]);
+
+    const getContent = (section: string, field: string) => {
+        return pageContent?.[section]?.[field] || pageContent?.fields?.[section]?.[field]?.default || '';
+    };
 
     const images = useMemo(() => {
         for (let typeId in selectedOptions) {
@@ -86,7 +91,6 @@ function Show({ appName, product, variationOptions, similarProducts }: Props) {
     useEffect(() => {
         for (let type of product.variationTypes) {
             const selectedOptionId: number = variationOptions[type.id];
-            console.log('this is the selected option id =>', selectedOptionId, type.options);
             chooseOption(
                 type.id,
                 type.options.find(op => op.id == selectedOptionId) || type.options[0],
@@ -212,9 +216,8 @@ function Show({ appName, product, variationOptions, similarProducts }: Props) {
         const idsMap = Object.fromEntries(
             Object.entries(selectedOptions).map(([typeId, option]: [string, VariationTypeOption]) => [typeId, option.id])
         );
-        console.log('the ids Map form the use Effect :', idsMap)
         form.setData('option_ids', idsMap);
-    }, [selectedOptions, form.setData, form]);
+    }, [selectedOptions]);
 
     return (
         <>
@@ -239,8 +242,8 @@ function Show({ appName, product, variationOptions, similarProducts }: Props) {
                             <li><Link href={route('home')} className="hover:text-gray-900">Home</Link></li>
                             <li className="before:content-['/'] before:mx-2">
                                 <Link href={route('product.byDepartment', product.department.slug)}
-                                      className="hover:text-gray-900">
-                                        {product.department.name}
+                                    className="hover:text-gray-900">
+                                    {product.department.name}
                                 </Link>
                             </li>
                             <li className="before:content-['/'] before:mx-2 text-gray-900 font-medium truncate">
@@ -295,7 +298,9 @@ function Show({ appName, product, variationOptions, similarProducts }: Props) {
                                     </div>
 
                                     <div className="mt-8 pt-8 border-t border-gray-200">
-                                        <h2 className="text-xl font-bold text-gray-900 mb-4">Product Details</h2>
+                                        <h2 className="text-xl font-bold text-gray-900 mb-4">
+                                            {getContent('product_details', 'page_title')}
+                                        </h2>
                                         <div className="prose prose-gray max-w-none wysiwyg-output text-gray-700" dangerouslySetInnerHTML={{
                                             __html: product.description
                                         }}></div>
@@ -306,14 +311,15 @@ function Show({ appName, product, variationOptions, similarProducts }: Props) {
                     </div>
                 </div>
             </div>
-            {console.log('the similr products are : ', similarProducts)}
             {similarProducts && similarProducts.data.length > 0 && (
                 <div className="bg-gray-50 py-16">
                     <div className="container mx-auto px-14">
                         <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-gray-900 mb-4">Similar Products</h2>
+                            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                                {getContent('similar_products', 'title')}
+                            </h2>
                             <p className="text-gray-600 max-w-2xl mx-auto">
-                                Discover more products you might like from the same category
+                                {getContent('similar_products', 'description')}
                             </p>
                         </div>
 

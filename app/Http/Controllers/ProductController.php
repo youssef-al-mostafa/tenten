@@ -6,12 +6,20 @@ use App\Http\Resources\DepartmentResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductListResource;
 use App\Models\Department;
+use App\Models\Pages;
 use App\Models\Product;
+use App\Services\TemplateService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
+    protected TemplateService $templateService;
+
+    public function __construct(TemplateService $templateService)
+    {
+        $this->templateService = $templateService;
+    }
     public function index(Request $request)
     {
         $keyword = $request->query(key: 'keyword');
@@ -39,10 +47,22 @@ class ProductController extends Controller
             ->limit(8)
             ->get();
 
+        $page = Pages::where('slug', 'product-details')->active()->first();
+        
+        if ($page) {
+            $pageContent = array_merge(
+                $this->templateService->loadTemplate('product-details'),
+                $page->content ?: []
+            );
+        } else {
+            $pageContent = $this->templateService->loadTemplate('product-details');
+        }
+
         return Inertia::render('Product/Show', [
             'product' => new ProductResource($product),
             'variationOptions' => request('options', []),
-            'similarProducts' => ProductListResource::collection($similarProducts)
+            'similarProducts' => ProductListResource::collection($similarProducts),
+            'pageContent' => $pageContent
         ]);
     }
 

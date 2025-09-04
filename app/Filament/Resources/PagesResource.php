@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\RolesEnum;
 use App\Filament\Resources\PagesResource\Pages;
 use App\Models\Pages as PageModel;
 use App\Services\FilamentFormBuilderService;
+use Filament\Facades\Filament;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -109,6 +111,20 @@ class PagesResource extends Resource
                             ->send();
                     }),
             ]);
+    }
+
+    public static function canViewAny(): bool
+    {
+        $user = Filament::auth()->user();
+        return $user && $user->roles->contains(
+            fn($role) => in_array(
+                $role->name,
+                [
+                    RolesEnum::ADMIN->value,
+                    RolesEnum::MASTER_ADMIN->value,
+                ]
+            )
+        );
     }
 
     public static function getPages(): array

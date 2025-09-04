@@ -1,0 +1,25 @@
+{
+    "name": "Product Details Page Layout",
+    "sections": [
+        "product_details",
+        "similar_products"
+    ],
+    "fields": {
+        "product_details": {
+            "page_title": {
+                "type": "string",
+                "default": "Product Details"
+            }
+        },
+        "similar_products": {
+            "title": {
+                "type": "string",
+                "default": "Similar Products"
+            },
+            "description": {
+                "type": "text",
+                "default": "Discover more products you might like from the same category"
+            }
+        }
+    }
+}
