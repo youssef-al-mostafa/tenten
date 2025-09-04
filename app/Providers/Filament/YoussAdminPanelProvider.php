@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\RolesEnum;
 use Filament\Facades\Filament;
@@ -54,6 +55,7 @@ class YoussAdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
                 'auth',
                 Authenticate::class,
+                EnsureEmailIsVerified::class,
 
             ]);
     }

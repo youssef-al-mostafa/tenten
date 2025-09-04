@@ -10,6 +10,15 @@ use Illuminate\Database\Eloquent\Builder;
 class Vendor extends Model
 {
     protected $primaryKey = 'user_id';
+    
+    protected $fillable = [
+        'user_id',
+        'status',
+        'store_name',
+        'store_description',
+        'store_address',
+        'cover_image',
+    ];
 
     public function getRouteKeyName()
     {

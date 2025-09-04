@@ -14,6 +14,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use SimonHamp\LaravelStripeConnect\Traits\Payable;
 use Spatie\Permission\Models\Role;
 /**
@@ -112,6 +113,10 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function vendor(): HasOne{
         return $this->hasOne(Vendor::class, 'user_id');
+    }
+
+    public function products(): HasMany{
+        return $this->hasMany(Product::class, 'created_by');
     }
 
     public function getStripeAccountId()

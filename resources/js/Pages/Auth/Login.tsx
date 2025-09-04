@@ -3,7 +3,7 @@ import InputError from '@/Components/Core/InputError';
 import InputLabel from '@/Components/Core/InputLabel';
 import PrimaryButton from '@/Components/Core/PrimaryButton';
 import TextInput from '@/Components/Core/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
+import AuthLayout from '@/Layouts/AuthLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
@@ -29,82 +29,93 @@ export default function Login({
     };
 
     return (
-        <GuestLayout>
-            <Head title="Log in" />
+        <AuthLayout>
+            <Head title="Sign In" />
 
             {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
+                <div className="mb-6 alert alert-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>{status}</span>
                 </div>
             )}
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
+            <form onSubmit={submit} className="space-y-6">
+                <div className="space-y-2">
+                    <InputLabel htmlFor="email" value="Email Address" className="text-base-content font-semibold text-sm" />
                     <TextInput
                         id="email"
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-1 block w-full"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData('email', e.target.value)}
+                        placeholder="Enter your email address"
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
+                    <InputError message={errors.email} className="mt-1" />
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
+                <div className="space-y-2">
+                    <InputLabel htmlFor="password" value="Password" className="text-base-content font-semibold text-sm" />
                     <TextInput
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
+                        placeholder="Enter your password"
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
+                    <InputError message={errors.password} className="mt-1" />
                 </div>
 
-                <div className="mt-4 block">
-                    <label className="flex items-center">
-                        <Checkbox
-                            name="remember"
-                            checked={data.remember}
-                            onChange={(e) =>
-                                setData(
-                                    'remember',
-                                    (e.target.checked || false) as false,
-                                )
-                            }
-                        />
-                        <span className="ms-2 text-sm text-gray-600  text-gray-400">
+                <div className="flex items-center justify-between pt-2">
+                    <label className="flex items-center cursor-pointer group">
+                        <div className="relative">
+                            <Checkbox
+                                name="remember"
+                                checked={data.remember}
+                                onChange={(e) =>
+                                    setData(
+                                        'remember',
+                                        (e.target.checked || false) as false,
+                                    )
+                                }
+                                className="w-4 h-4 text-base-content border-base-300 rounded focus:ring-base-content focus:ring-2"
+                            />
+                        </div>
+                        <span className="ml-3 text-sm text-base-content/70 group-hover:text-base-content transition-colors">
                             Remember me
                         </span>
                     </label>
-                </div>
 
-                <div className="mt-4 flex items-center justify-end">
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2  text-gray-400  hover:text-gray-100  focus:ring-offset-gray-800"
+                            className="text-sm text-base-content hover:text-base-content/70 underline font-medium transition-colors"
                         >
-                            Forgot your password?
+                            Forgot password?
                         </Link>
                     )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
                 </div>
+
+                <button 
+                    type="submit"
+                    className="w-full bg-base-content text-base-100 hover:bg-base-content/90 font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+                    disabled={processing}
+                >
+                    {processing ? (
+                        <>
+                            <span className="loading loading-spinner loading-sm"></span>
+                            Signing in...
+                        </>
+                    ) : (
+                        'Sign In'
+                    )}
+                </button>
             </form>
-        </GuestLayout>
+        </AuthLayout>
     );
 }
