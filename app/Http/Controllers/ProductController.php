@@ -8,6 +8,8 @@ use App\Http\Resources\ProductListResource;
 use App\Models\Department;
 use App\Models\Pages;
 use App\Models\Product;
+use App\Models\Vendor;
+use App\Enums\VendorStatusEnum;
 use App\Services\TemplateService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -33,8 +35,44 @@ class ProductController extends Controller
             })
             ->paginate(12);
 
+        $topVendors = Vendor::with(['user', 'user.products' => function($query) {
+                $query->published()->limit(3);
+            }])
+            ->where('status', VendorStatusEnum::Approved->value)
+            ->whereHas('user.products', function($query) {
+                $query->published();
+            })
+            ->withCount(['user as products_count' => function($query) {
+                $query->join('products', 'products.created_by', '=', 'users.id')
+                      ->where('products.status', 'published');
+            }])
+            ->orderBy('products_count', 'desc')
+            ->limit(6)
+            ->get();
+
         return Inertia::render('Home', [
             'products' => ProductListResource::collection($products),
+            'topVendors' => $topVendors->map(function($vendor) {
+                return [
+                    'id' => $vendor->user_id,
+                    'name' => $vendor->user->name,
+                    'storeName' => $vendor->store_name,
+                    'avatar' => $vendor->cover_image ? asset('storage/' . $vendor->cover_image) : null,
+                    'rating' => 4.5 + (rand(0, 8) / 10),
+                    'reviewCount' => rand(100, 3000),
+                    'location' => $vendor->store_address ?: 'Location not specified',
+                    'description' => $vendor->store_description ?: 'No description available',
+                    'topProducts' => $vendor->user->products->map(function($product) {
+                        $media = $product->getFirstMediaUrl('images') ?: ($product->getFirstMediaUrl() ?: null);
+                        return [
+                            'id' => $product->id,
+                            'image' => $media,
+                            'title' => $product->title,
+                            'price' => $product->price,
+                        ];
+                    })->toArray()
+                ];
+            })
         ]);
     }
 

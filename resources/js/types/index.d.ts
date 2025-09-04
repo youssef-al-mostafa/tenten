@@ -16,12 +16,16 @@ export interface User {
 }
 
 export type Vendor = {
+    store_description: any;
+    cover_image: any;
+    created_at: string | number | Date;
     id: number;
     store_name: string;
     store_address: string;
 }
 
 export type PaginationProps<T> = {
+    total: number;
     data : Array<T>;
 }
 
