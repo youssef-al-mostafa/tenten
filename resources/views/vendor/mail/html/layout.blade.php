@@ -50,6 +50,25 @@ width: 100% !important;
 </tr>
 
 {{ $footer ?? '' }}
+
+@if(isset($campaign) && isset($recipientEmail))
+<!-- Custom Footer for Newsletter Campaigns -->
+<tr>
+<td>
+<table class="footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
+<tr>
+<td class="content-cell" align="center" style="padding: 32px;">
+<p style="line-height: 1.5em; margin-top: 0; color: #b0adc5; font-size: 12px; text-align: center;">
+If you no longer want to receive these emails, you can 
+<a href="{{ route('newsletter.unsubscribe', base64_encode($recipientEmail)) }}" style="color: #3869D4; text-decoration: underline;">unsubscribe here</a>.
+</p>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+@endif
+
 </table>
 </td>
 </tr>

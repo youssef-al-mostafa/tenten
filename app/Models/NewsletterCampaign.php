@@ -10,11 +10,13 @@ class NewsletterCampaign extends Model
         'title',
         'content',
         'campaign_type',
+        'recipient_types',
         'recipient_count',
         'sent_at',
     ];
 
     protected $casts = [
         'sent_at' => 'datetime',
+        'recipient_types' => 'array',
     ];
 }

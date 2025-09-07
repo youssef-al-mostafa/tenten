@@ -21,7 +21,10 @@ class NewsletterController extends Controller
                 'subscribed_at' => now(),
             ]);
 
-            return back()->with('newsletter_success', 'Successfully subscribed to our newsletter!');
+            return back()->with('success', [
+                'message' => 'Successfully subscribed to our newsletter!',
+                'time' => time()
+            ]);
 
         } catch (\Exception $e) {
             if (str_contains($e->getMessage(), 'newsletters_email_unique')) {
@@ -34,5 +37,21 @@ class NewsletterController extends Controller
                 'email' => 'Something went wrong. Please try again.'
             ]);
         }
+    }
+
+    public function unsubscribe($email)
+    {
+        $decodedEmail = base64_decode($email);
+        
+        $newsletter = Newsletter::where('email', $decodedEmail)->first();
+        
+        if ($newsletter) {
+            $newsletter->update([
+                'status' => 'inactive',
+                'unsubscribed_at' => now(),
+            ]);
+        }
+
+        return view('newsletter.unsubscribed', ['email' => $decodedEmail]);
     }
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { router, usePage } from '@inertiajs/react'
-import ToastContainer from '../Core/ToastContainer'
 
 interface NewsLetterProps {
     content?: {
@@ -12,50 +11,35 @@ interface NewsLetterProps {
     };
 }
 
-interface ToastData {
-    id: string
-    message: string
-    type: 'success' | 'error' | 'info'
-    duration?: number
-}
-
 const NewsLetter = ({ content }: NewsLetterProps) => {
     const [email, setEmail] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [toasts, setToasts] = useState<ToastData[]>([])
+    const [isSuccess, setIsSuccess] = useState(false)
+    const [isHidden, setIsHidden] = useState(false)
 
     const { props } = usePage()
-    const { errors, flash } = props as any
-
-    const addToast = (message: string, type: 'success' | 'error' | 'info', duration = 4000) => {
-        const id = Date.now().toString()
-        setToasts(prev => [...prev, { id, message, type, duration }])
-    }
-
-    const removeToast = (id: string) => {
-        setToasts(prev => prev.filter(toast => toast.id !== id))
-    }
+    const { errors } = props as any
 
     useEffect(() => {
-        if (flash?.newsletter_success) {
-            addToast(flash.newsletter_success, 'success')
+        if (props.success?.message) {
             setEmail('')
-        } else if (errors?.email) {
-            addToast(errors.email, 'error')
+            setIsSuccess(true)
+            setTimeout(() => {
+                setIsHidden(true)
+            }, 7000)
         }
-    }, [flash, errors])
+    }, [props.success])
+
+    if (isHidden) {
+        return null
+    }
 
     const handleSubmit = (e?: React.FormEvent) => {
         if (e) e.preventDefault()
 
-        if (!email || !email.includes('@')) {
-            addToast('Please enter a valid email address', 'error')
-            return
-        }
-
         setIsSubmitting(true)
 
-        router.post('/newsletter/subscribe', { email }, {
+        router.post(route('newsletter.subscribe'), { email }, {
             preserveScroll: true,
             onFinish: () => {
                 setIsSubmitting(false)
@@ -73,30 +57,48 @@ const NewsLetter = ({ content }: NewsLetterProps) => {
                     </h1>
                 )}
                 <div className='flex flex-col w-[50%] h-fit my-auto items-center justify-center gap-3'>
-                    <form onSubmit={handleSubmit} className='w-full max-w-72'>
-                        <label className="input validator flex justify-center align-middle items-center h-fit w-full rounded-3xl">
-                            <svg className="h-[1em] opacity-50 border-transparent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
-                            <input
-                                className='border-transparent w-full focus:border-transparent focus:shadow-none focus:ring-transparent'
-                                type="email"
-                                placeholder={content?.placeholder_text || ""}
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                    {isSuccess ? (
+                        <div className="flex flex-col items-center justify-center gap-3 w-full max-w-72">
+                            <div className="flex items-center justify-center w-full rounded-3xl bg-white/10 backdrop-blur-sm border border-white/20 p-4">
+                                <svg className="h-6 w-6 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                </svg>
+                                <span className="text-white font-medium">Successfully subscribed!</span>
+                            </div>
+                        </div>
+                    ) : (
+                        <>
+                            <form onSubmit={handleSubmit} className='w-full max-w-72'>
+                                <label className={`input validator flex justify-center align-middle items-center h-fit w-full rounded-3xl ${errors?.email ? 'border-red-500' : ''}`}>
+                                    <svg className="h-[1em] opacity-50 border-transparent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></g></svg>
+                                    <input
+                                        className='border-transparent w-full focus:border-transparent focus:shadow-none focus:ring-transparent'
+                                        type="email"
+                                        placeholder={content?.placeholder_text || ""}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        disabled={isSubmitting}
+                                        required
+                                    />
+                                </label>
+                                {errors?.email && (
+                                    <div className="text-red-500 text-sm mt-1 text-center">
+                                        {errors.email}
+                                    </div>
+                                )}
+                            </form>
+                            <button
+                                type="submit"
+                                onClick={() => handleSubmit()}
+                                className="btn rounded-3xl w-full max-w-72"
                                 disabled={isSubmitting}
-                                required
-                            />
-                        </label>
-                    </form>
-                        <button
-                            type="submit"
-                            onClick={() => handleSubmit()}
-                            className="btn rounded-3xl w-full max-w-72"
-                        >
-                            {isSubmitting ? 'Subscribing...' : content?.button_text || 'Submit'}
-                        </button>
+                            >
+                                {isSubmitting ? 'Subscribing...' : content?.button_text || 'Submit'}
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
-            <ToastContainer toasts={toasts} onRemoveToast={removeToast} />
         </div>
     )
 }

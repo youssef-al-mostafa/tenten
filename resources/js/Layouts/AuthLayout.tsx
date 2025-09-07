@@ -13,7 +13,7 @@ export default function AuthLayout({ children, title = "Welcome back", subtitle 
                 <div className="text-center">
                     <Link href="/" className="inline-block mb-6">
                         <div className="text-4xl font-bold text-base-content hover:text-primary transition-colors">
-                            TenTen
+                            Tenten
                         </div>
                     </Link>
                     <h2 className="text-2xl font-bold text-base-content mb-2">
@@ -23,7 +23,7 @@ export default function AuthLayout({ children, title = "Welcome back", subtitle 
                         {subtitle}
                     </p>
                 </div>
-                
+
                 <div className="bg-base-100 shadow-2xl rounded-3xl p-8 border border-base-300">
                     {children}
                 </div>
@@ -31,8 +31,8 @@ export default function AuthLayout({ children, title = "Welcome back", subtitle 
                 <div className="text-center">
                     <p className="text-sm text-base-content/60">
                         Don't have an account?{' '}
-                        <Link 
-                            href={route('register')} 
+                        <Link
+                            href={route('register')}
                             className="font-semibold text-base-content hover:text-base-content/80 underline transition-colors"
                         >
                             Create one here
