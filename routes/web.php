@@ -2,6 +2,7 @@
 
 use App\Enums\RolesEnum;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
@@ -22,6 +23,9 @@ Route::controller(CartController::class)->group(function () {
     Route::delete('cart/remove/{product}', 'destroy')->name('cart.destroy');
 });
 Route::post('/stripe/webhook', [StripeController::class, 'webhook'])->name('stripe.webhook');
+
+// Newsletter
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->name('newsletter.subscribe');
 
 //Others
 Route::get('/vendor/{vendor:store_name}', [VendorController::class, 'profile'])

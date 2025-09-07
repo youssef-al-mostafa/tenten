@@ -23,8 +23,7 @@ const Banner = ({ content }: BannerProps) => {
         banner_image,
         analytics
     } = content || {};
-    console.log('the banner gets', content)
-
+   
     const getImageUrl = (imagePath?: string) => {
         //if (!imagePath) return "/images/banner.png";
 
