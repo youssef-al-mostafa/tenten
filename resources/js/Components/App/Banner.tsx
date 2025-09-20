@@ -1,4 +1,5 @@
 import { log } from "console";
+import { Link } from '@inertiajs/react';
 
 interface BannerProps {
     content?: {
@@ -44,9 +45,12 @@ const Banner = ({ content }: BannerProps) => {
                     <p className="font-satoshi font-normal text-base leading-snug tracking-normal text-black opacity-60">
                         {subtitle}
                     </p>
-                    <button className="btn bg-black text-white rounded-full w-48 px-15 hover:border-solid hover:border-black hover:bg-white hover:text-black hover:border-3">
+                    <Link
+                        href={route('products.index')}
+                        className="btn bg-black text-white rounded-full w-48 px-15 hover:border-solid hover:border-black hover:bg-white hover:text-black hover:border-3 no-underline text-center"
+                    >
                         {button_text}
-                    </button>
+                    </Link>
                     <div className="banner-numbers flex gap-4">
                         {analytics && analytics.map((stat, index) => (
                             <div key={index} className="flex gap-4">

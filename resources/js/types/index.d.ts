@@ -25,6 +25,7 @@ export type Vendor = {
 }
 
 export type PaginationProps<T> = {
+    links: boolean;
     total: number;
     data : Array<T>;
 }

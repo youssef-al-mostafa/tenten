@@ -12,9 +12,10 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use App\Models\Pages as PageModel;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Container\Attributes\Log as AttributesLog;
 use Illuminate\Support\Str;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Illuminate\Support\Facades\Log;
 
 class FilamentFormBuilderService
 {
@@ -112,12 +113,10 @@ class FilamentFormBuilderService
                 ->numeric()
                 ->default(0),
         ]);
-
         foreach ($fieldDefinitions as $fieldName => $fieldConfig) {
             if ($fieldName === 'analytics' && is_array($fieldConfig)) {
                 $fields[] = $this->buildAnalyticsFields($sectionKey, $fieldConfig);
             } elseif (isset($fieldConfig['type']) && $fieldConfig['type'] === 'repeater') {
-                // Handle repeater fields
                 $fields[] = $this->buildRepeaterField($sectionKey, $fieldName, $fieldConfig);
             } else {
                 $fields[] = $this->buildFieldComponent($sectionKey, $fieldName, $fieldConfig);

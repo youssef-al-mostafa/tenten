@@ -6,12 +6,12 @@ import { ReactNode } from 'react';
 
 export default function AppLayout({ children }: { children: ReactNode }) {
     return (
-        <div className="min-h-screen flex flex-col bg-base-200">
-            <NavBar/>
+        <div className="min-h-screen flex flex-col bg-base-200 overflow-hidden">
+            <NavBar />
             <main className="flex-grow">
                 {children}
             </main>
-            <Footer/>
+            <Footer />
         </div>
     );
 }

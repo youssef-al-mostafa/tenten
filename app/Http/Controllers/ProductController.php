@@ -24,7 +24,11 @@ class ProductController extends Controller
     }
     public function index(Request $request)
     {
-        $keyword = $request->query(key: 'keyword');
+        $keyword = $request->query('keyword');
+        $department = $request->query('department');
+        $sortBy = $request->query('sort', 'newest');
+        $perPage = $request->query('per_page', 12);
+
         $products = Product::query()
             ->published()
             ->when($keyword, function ($query, $keyword) {
@@ -33,47 +37,39 @@ class ProductController extends Controller
                         ->orWhere('description', 'LIKE', "%{$keyword}%");
                 });
             })
-            ->paginate(12);
-
-        $topVendors = Vendor::with(['user', 'user.products' => function($query) {
-                $query->published()->limit(3);
-            }])
-            ->where('status', VendorStatusEnum::Approved->value)
-            ->whereHas('user.products', function($query) {
-                $query->published();
+            ->when($department, function ($query, $department) {
+                $query->whereHas('department', function ($query) use ($department) {
+                    $query->where('slug', $department);
+                });
             })
-            ->withCount(['user as products_count' => function($query) {
-                $query->join('products', 'products.created_by', '=', 'users.id')
-                      ->where('products.status', 'published');
-            }])
-            ->orderBy('products_count', 'desc')
-            ->limit(6)
-            ->get();
+            ->when($sortBy === 'price_low', function ($query) {
+                $query->orderBy('price', 'asc');
+            })
+            ->when($sortBy === 'price_high', function ($query) {
+                $query->orderBy('price', 'desc');
+            })
+            ->when($sortBy === 'name', function ($query) {
+                $query->orderBy('title', 'asc');
+            })
+            ->when($sortBy === 'newest', function ($query) {
+                $query->orderBy('created_at', 'desc');
+            })
+            ->paginate($perPage);
 
-        return Inertia::render('Home', [
+        return Inertia::render('Products/Index', [
             'products' => ProductListResource::collection($products),
-            'topVendors' => $topVendors->map(function($vendor) {
-                return [
-                    'id' => $vendor->user_id,
-                    'name' => $vendor->user->name,
-                    'storeName' => $vendor->store_name,
-                    'avatar' => $vendor->cover_image ? asset('storage/' . $vendor->cover_image) : null,
-                    'rating' => 4.5 + (rand(0, 8) / 10),
-                    'reviewCount' => rand(100, 3000),
-                    'location' => $vendor->store_address ?: 'Location not specified',
-                    'description' => $vendor->store_description ?: 'No description available',
-                    'topProducts' => $vendor->user->products->map(function($product) {
-                        $media = $product->getFirstMediaUrl('images') ?: ($product->getFirstMediaUrl() ?: null);
-                        return [
-                            'id' => $product->id,
-                            'image' => $media,
-                            'title' => $product->title,
-                            'price' => $product->price,
-                        ];
-                    })->toArray()
-                ];
-            })
+            'filters' => [
+                'keyword' => $keyword,
+                'department' => $department,
+                'sort' => $sortBy,
+            ]
         ]);
+    }
+
+
+    public function newArrivals(Request $request)
+    {
+        return redirect()->route('products.index', ['sort' => 'newest']);
     }
 
     public function show(Product $product)
@@ -124,4 +120,5 @@ class ProductController extends Controller
                 'products' => ProductListResource::collection($products),
             ]);
     }
+
 }

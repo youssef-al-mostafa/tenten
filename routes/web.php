@@ -3,6 +3,7 @@
 use App\Enums\RolesEnum;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
@@ -11,9 +12,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 // Guest Routes
-Route::get('/', [ProductController::class, 'index'])->name('home');
-Route::get('/season', [ProductController::class, 'index'])->name('seasonal');
-Route::get('/help', [ProductController::class, 'index'])->name('help');
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/help', [PageController::class, 'help'])->name('help');
 
 //Payment
 Route::controller(CartController::class)->group(function () {

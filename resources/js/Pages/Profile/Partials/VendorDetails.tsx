@@ -71,89 +71,159 @@ function VendorDetails({ className }: Props) {
                 </div>
             }
 
-            <header>
-                <h2 className="flex justify-between mb-8 text-lg font-medium text-gray-900">
-                    Vendor Details
-                    {user.vendor?.status === 'pending' &&
-                        <span className={'badge badge-warning'}>{user.vendor.status_label}</span>}
-                    {user.vendor?.status === 'rejected' &&
-                        <span className={'badge badge-error'}>{user.vendor.status_label}</span>}
-                    {user.vendor?.status === 'approved' &&
-                        <span className={'badge badge-success'}>{user.vendor.status_label}</span>}
-                </h2>
-            </header>
+            <div className="mb-6">
+                <p className="text-gray-600">
+                    {!user.vendor 
+                        ? "Join our marketplace as a vendor to start selling your products."
+                        : "Manage your vendor store settings and payment information."
+                    }
+                </p>
+            </div>
 
             <div>
-                {!user.vendor &&
-                    <button
-                        disabled={processing}
-                        onClick={() => setShowBecomeVendorConfimation(true)}
-                        className="btn btn-primary w-full">
-                        Become a vendor
-                    </button>}
-
-                {user.vendor && (
-                    <>
-                        <form onSubmit={updateVendor}>
-                            <div className="mb-4">
-                                <InputLabel htmlFor='name' value='store name' />
-                                <TextInput id='name'
-                                    className="mt-1 block w-full"
-                                    value={data.store_name}
-                                    onChange={onStoreNameChange}
-                                    required
-                                    isFocused
-                                    autoComplete="name"
-                                />
-                                <InputError message={errors.store_name} className="mt-2" />
+                {!user.vendor ? (
+                    <div className="text-center py-8">
+                        <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h3M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2">Start Selling Today</h3>
+                        <p className="text-gray-600 mb-6">
+                            Become a vendor and reach thousands of customers on our platform
+                        </p>
+                        <button
+                            disabled={processing}
+                            onClick={() => setShowBecomeVendorConfimation(true)}
+                            className="bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {processing ? 'Processing...' : 'Become a Vendor'}
+                        </button>
+                    </div>
+                ) : (
+                    <div className="space-y-8">
+                        <form onSubmit={updateVendor} className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <InputLabel 
+                                        htmlFor='name' 
+                                        value='Store Name'
+                                        className="text-gray-700 font-medium mb-2"
+                                    />
+                                    <TextInput 
+                                        id='name'
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                                        value={data.store_name}
+                                        onChange={onStoreNameChange}
+                                        required
+                                        isFocused
+                                        autoComplete="name"
+                                        placeholder="Enter your store name"
+                                    />
+                                    <InputError message={errors.store_name} className="mt-2" />
+                                </div>
+                                
+                                <div>
+                                    <InputLabel 
+                                        htmlFor='address' 
+                                        value='Store Address'
+                                        className="text-gray-700 font-medium mb-2"
+                                    />
+                                    <textarea 
+                                        id='address'
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors resize-none"
+                                        rows={3}
+                                        value={data.store_address}
+                                        onChange={(e) => setData('store_address', e.target.value)}
+                                        placeholder="Enter your store address"
+                                    />
+                                    <InputError message={errors.store_address} className="mt-2" />
+                                </div>
                             </div>
-                            <div className="mb-4">
-                                <InputLabel htmlFor='address' value='store address' />
-                                <textarea id='address'
-                                    className="textarea textarea-bordered w-full mt-1"
-                                    value={data.store_address}
-                                    onChange={(e) => setData('store_address', e.target.value)}
-                                    placeholder="Your store address"></textarea>
-                                <InputError message={errors.store_address} className="mt-2" />
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <PrimaryButton type='submit' disabled={processing} className="btn btn-primary">
-                                    Update
-                                </PrimaryButton>
+                            
+                            <div className="flex items-center pt-4">
+                                <button
+                                    type='submit' 
+                                    disabled={processing}
+                                    className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {processing ? 'Updating...' : 'Update Store Details'}
+                                </button>
                             </div>
                         </form>
-                        <form action={route('stripe.connect')}
-                            method={'post'}
-                            className={'my-8'}>
-                            <input type="hidden" name="_token" value={token} />
-                            {user.strip_account_active && (
-                                <div className={'text-center text-gray-600 my-4 text-sm'}>
-                                    You are successfully connected to Stripe
+
+                        <div className="border-t border-gray-200 pt-8">
+                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Payment Settings</h3>
+                            
+                            {user.strip_account_active ? (
+                                <div className="bg-green-50 border border-green-200 rounded-lg p-6">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                        </svg>
+                                        <h4 className="text-green-900 font-medium">Stripe Connected</h4>
+                                    </div>
+                                    <p className="text-green-800 text-sm">
+                                        Your Stripe account is successfully connected. You can now receive payments for your sales.
+                                    </p>
+                                </div>
+                            ) : (
+                                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                                    <h4 className="text-yellow-900 font-medium mb-2">Connect Your Stripe Account</h4>
+                                    <p className="text-yellow-800 text-sm mb-4">
+                                        To receive payments for your sales, you need to connect your Stripe account.
+                                    </p>
+                                    <form action={route('stripe.connect')} method={'post'}>
+                                        <input type="hidden" name="_token" value={token} />
+                                        <button 
+                                            type="submit"
+                                            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                                        >
+                                            Connect to Stripe
+                                        </button>
+                                    </form>
                                 </div>
                             )}
-                            <button className="btn btn-primary w-full"
-                                disabled={user.strip_account_active}>
-                                Connect to Stripe
-                            </button>
-                        </form>
-                    </>
+                        </div>
+                    </div>
                 )}
             </div>
 
             <Modal show={showBecomeVendorConfimation} onClose={closeModal}>
-                <form action="" onSubmit={becomeVendor} className="p-8">
-                    <h2 className="text-lg font-medium text-gray-900 ">
-                        Are you sure you want to become a Vendor?
-                    </h2>
-                    <div className="mt-6 flex justify-end">
-                        <SecondaryButton onClick={closeModal}>
-                            Cancel
-                        </SecondaryButton>
-                        <PrimaryButton className="ms-3" disabled={processing}>
-                            Confirm
-                        </PrimaryButton>
+                <div className="p-8">
+                    <div className="text-center mb-6">
+                        <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h3M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                        </div>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                            Become a Vendor
+                        </h2>
+                        <p className="text-gray-600">
+                            Are you ready to start selling on our marketplace?
+                        </p>
                     </div>
-                </form>
+                    
+                    <form onSubmit={becomeVendor}>
+                        <div className="flex justify-center gap-4">
+                            <button
+                                type="button"
+                                onClick={closeModal}
+                                className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {processing ? 'Processing...' : 'Yes, Become a Vendor'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </Modal>
         </section>
     )
