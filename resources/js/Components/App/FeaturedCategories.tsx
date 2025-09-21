@@ -44,30 +44,30 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
         }));
 
     return (
-        <section className="py-16 bg-white">
-            <div className="container mx-auto px-8">
-                <div className="flex items-center justify-between mb-12">
+        <section className="py-8 sm:py-12 lg:py-16 bg-white">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-10 lg:mb-12 gap-4">
                     {content?.title && (
-                        <h2 className="text-4xl font-bold text-gray-900">{content.title}</h2>
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center sm:text-left">{content.title}</h2>
                     )}
                     {content?.browse_button && (
-                        <button className="border border-gray-300 hover:border-gray-400 transition-colors px-6 py-2 rounded-full">
+                        <button className="border border-gray-300 hover:border-gray-400 transition-colors px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base w-full sm:w-auto">
                             {content.browse_button}
                         </button>
                     )}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {categories.map((category) => (
                         <div key={category.id} className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
-                            <div className="relative h-64 overflow-hidden">
+                            <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden">
                                 <img
                                     src={category.image}
                                     alt={category.name}
                                     className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300"
                                     loading="lazy"
                                 />
-                                <div 
+                                <div
                                     className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70 group-hover:opacity-80 transition-opacity"
                                     style={{
                                         background: `linear-gradient(to top, ${category.gradient}CC, ${category.gradient}66, transparent)`
@@ -75,21 +75,21 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
                                 ></div>
                             </div>
 
-                            <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+                            <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 text-white">
                                 <div className="mb-2">
-                                    <h3 className="text-2xl font-bold mb-1">{category.name}</h3>
-                                    <p className="text-sm opacity-90 mb-2">{category.description}</p>
+                                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-1">{category.name}</h3>
+                                    <p className="text-xs sm:text-sm opacity-90 mb-2 line-clamp-2">{category.description}</p>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium">
+                                        <span className="text-xs sm:text-sm font-medium">
                                             {category.productCount.toLocaleString()} Products
                                         </span>
-                                        <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                                        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="absolute top-4 right-4 bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-3 py-1">
-                                <span className="text-white text-sm font-medium">
+                            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1">
+                                <span className="text-white text-xs sm:text-sm font-medium">
                                     {category.productCount > 1000 ? `${Math.floor(category.productCount / 1000)}k+` : category.productCount}
                                 </span>
                             </div>
@@ -97,14 +97,14 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
                     ))}
                 </div>
 
-                <div className="text-center mt-12">
+                <div className="text-center mt-8 sm:mt-10 lg:mt-12">
                     {content?.bottom_text && (
-                        <p className="text-gray-600 mb-4">
+                        <p className="text-gray-600 mb-4 text-sm sm:text-base px-4">
                             {content.bottom_text}
                         </p>
                     )}
                     {content?.explore_button && (
-                        <button className="bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors">
+                        <button className="bg-black text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg hover:bg-gray-800 transition-colors text-sm sm:text-base w-full sm:w-auto">
                             {content.explore_button}
                         </button>
                     )}
