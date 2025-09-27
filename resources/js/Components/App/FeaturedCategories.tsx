@@ -27,11 +27,11 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
     const { departments } = usePage<PageProps>().props;
     console.log('FeaturedCategories data:', { content, departments });
 
-    if (!departments?.data || departments.data.length === 0) {
+    if (!departments || departments.length === 0) {
         return null;
     }
 
-    const categories: FeaturedCategory[] = departments.data
+    const categories: FeaturedCategory[] = departments
         .filter((dept: any) => dept.active)
         .map((dept: any) => ({
             id: dept.id,
