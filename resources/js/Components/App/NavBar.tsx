@@ -32,7 +32,7 @@ function NavBar() {
 
     const NavLinks = [
         {
-            Name: 'Shop2',
+            Name: 'Shop3',
             Route: 'products.index'
         },
         {
@@ -50,19 +50,19 @@ function NavBar() {
             <div className="flex gap-2 sm:gap-3 md:gap-6 bg-base-200 items-center w-full py-2 sm:py-3 md:py-5 px-3 sm:px-4 md:px-14 justify-between">
                 <div className="flex text-black">
                     <Link className="logo bg-transparent hover:bg-transparent border-0 font-integral_cf font-extrabold text-[20px] sm:text-[24px] md:text-[32px] lg:text-[40px]"
-                          href={route('home')}>
+                        href={route('home')}>
                         Tenten
                     </Link>
                 </div>
                 <div className="menu-nav hidden lg:flex w-[fit-content] min-w-max gap-6 xl:gap-9 flex-row
                                items-center p-0 font-satoshi font-medium text-[16px] xl:text-[18px] 2xl:text-[21px] my-auto">
-                  {NavLinks && NavLinks.map((Item)=>(
-                    <Link key={Item.Name}
-                          className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem] transition-colors hover:text-gray-600'
-                          href={route(Item.Route)}>
-                        {Item.Name}
-                    </Link>
-                  ))}
+                    {NavLinks && NavLinks.map((Item) => (
+                        <Link key={Item.Name}
+                            className='bg-transparent hover:bg-transparent border-0 mt-[0.4rem] transition-colors hover:text-gray-600'
+                            href={route(Item.Route)}>
+                            {Item.Name}
+                        </Link>
+                    ))}
                 </div>
                 {/* <div className="search-bar min-w-[200px] my-auto w-webkit">
                     <form onSubmit={onSubmit} className="relative flex items-center w-full mt-[0.4rem]">
@@ -256,7 +256,7 @@ function NavBar() {
                             {departments && Array.isArray(departments) && departments.map((department) => (
                                 <li key={department.id}>
                                     <Link href={route('product.byDepartment', department.slug)}
-                                          className="font-medium text-sm text-gray-600 hover:text-gray-800">
+                                        className="font-medium text-sm text-gray-600 hover:text-gray-800">
                                         {department.name}
                                     </Link>
                                 </li>
