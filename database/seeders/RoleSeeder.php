@@ -14,9 +14,8 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create roles based on the enum
         foreach (RolesEnum::values() as $role) {
-            Role::create(['name' => $role]);
+            Role::firstOrCreate(['name' => $role]);
         }
 
         $this->command->info('Roles created successfully: ' . implode(', ', RolesEnum::values()));
