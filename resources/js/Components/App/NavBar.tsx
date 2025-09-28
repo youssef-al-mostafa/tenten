@@ -32,7 +32,7 @@ function NavBar() {
 
     const NavLinks = [
         {
-            Name: 'Shop5',
+            Name: 'Shop',
             Route: 'products.index'
         },
         {
