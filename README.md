@@ -64,25 +64,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-## notes 
-products of the approved vendors only appear using scope website
 
-## todo 
-when the user is not auth and he add some product to the cart 
-then auth the product in the cart are gone they needed to be 
-moved to the database to the cart in the auth phase
-----------------------------------------------------------------
-when the success message appear when u become a vendor, the number on the cart the number of the item has a zindex high so he appear in top of it to look so much ugly 
---------------------------------------------------------------------
-in profile page when i customer become a vendor, approved message ma ttl3 frontend problem and 
-when he finish the strip process he become connected but the "Your succfully connected to stripe" 
-ma 3am shofa 
--------------------------------------------------------------------
-fi shwyt button 3endon dark mode hone w honik
--------------------------------------------------------------------
-kel docs bas t5als byn2alo 3al readme file 
--------------------------------------------------------------------
-command PayoutVendor will excute once every month to pay to all the vendor their money
 ----------------------------------------------------------------
 Scheduler u should review it because when u go production u should set them the cron job 
 for the outomation scheduling for the payout of vendors 
