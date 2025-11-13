@@ -64,11 +64,3 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-----------------------------------------------------------------
-Scheduler u should review it because when u go production u should set them the cron job 
-for the outomation scheduling for the payout of vendors 
-https://laravel.com/docs/11.x/scheduling#running-the-scheduler
-----------------------------------------------------------------
-make something about the variation type like the first variation type are the default one
-----------------------------------------------------------------
