@@ -24,7 +24,7 @@ const Banner = ({ content }: BannerProps) => {
         banner_image,
         analytics
     } = content || {};
-   
+
     const getImageUrl = (imagePath?: string) => {
         //if (!imagePath) return "/images/banner.png";
 
@@ -47,7 +47,10 @@ const Banner = ({ content }: BannerProps) => {
                     </p>
                     <Link
                         href={route('products.index')}
-                        className="btn bg-black text-white rounded-full w-full sm:w-60 lg:w-48 px-4 sm:px-6 lg:px-15 py-3 sm:py-4 hover:border-solid hover:border-black hover:bg-white hover:text-black hover:border-3 no-underline text-center text-sm sm:text-base font-medium mx-auto lg:mx-0"
+                        className="btn bg-black text-white rounded-full w-full sm:w-60 lg:w-48
+                                   px-4 sm:px-6 lg:px-15 py-3 sm:py-4 hover:border-solid hover:border-black
+                                   hover:bg-white hover:text-black hover:border-3 no-underline text-center
+                                   text-sm font-medium mx-auto lg:mx-0 leading-[0]"
                     >
                         {button_text}
                     </Link>
