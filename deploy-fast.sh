@@ -7,7 +7,10 @@
   git fetch origin >> /var/log/deploy-fast.log 2>&1
   git reset --hard origin/main >> /var/log/deploy-fast.log 2>&1
 
-  # Only rebuild assets
+  # Install/update node dependencies (in case package.json changed)
+  npm install >> /var/log/deploy-fast.log 2>&1
+
+  # Rebuild assets
   npm run build >> /var/log/deploy-fast.log 2>&1
 
   # Clear essential caches
