@@ -52,7 +52,7 @@ const Banner = ({ content }: BannerProps) => {
                                    hover:bg-white hover:text-black hover:border-3 no-underline text-center
                                    text-sm font-medium mx-auto lg:mx-0 leading-[0]"
                     >
-                        {button_text}27
+                        {button_text}28
                     </Link>
                     <div className="banner-numbers flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 mt-4">
                         {analytics && analytics.map((stat, index) => (
