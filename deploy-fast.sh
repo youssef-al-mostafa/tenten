@@ -3,6 +3,9 @@
 
   cd /var/www/tenten
 
+  # Set PATH to include node_modules/.bin 
+  export PATH="/var/www/tenten/node_modules/.bin:$PATH"
+
   # Reset any local changes and force pull from origin
   git fetch origin >> /var/log/deploy-fast.log 2>&1
   git reset --hard origin/main >> /var/log/deploy-fast.log 2>&1
