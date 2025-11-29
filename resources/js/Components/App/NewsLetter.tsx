@@ -94,7 +94,7 @@ const NewsLetter = ({ content }: NewsLetterProps) => {
                                         className='border-transparent bg-transparent w-full focus:border-transparent
                                                    focus:shadow-none focus:ring-transparent text-sm sm:text-base'
                                         type="email"
-                                        placeholder={content?.placeholder_text || "Enter your email"}
+                                        placeholder={content?.placeholder_text}
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         disabled={isSubmitting}
@@ -110,7 +110,12 @@ const NewsLetter = ({ content }: NewsLetterProps) => {
                             <button
                                 type="submit"
                                 onClick={() => handleSubmit()}
-                                className="btn btn-primary rounded-2xl sm:rounded-3xl w-full max-w-sm bg-white text-black hover:bg-gray-100 border-0 font-satoshi font-medium text-sm sm:text-base py-3 sm:py-4 transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                className="btn btn-primary rounded-2xl sm:rounded-3xl w-full
+                                           max-w-sm bg-white text-black hover:bg-gray-100
+                                           border-0 font-satoshi font-medium text-sm sm:text-base
+                                           py-3 sm:py-4 transition-all duration-300 hover:scale-105
+                                           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
+                                           disabled:hover:scale-100"
                                 disabled={isSubmitting}
                             >
                                 {isSubmitting ? (

@@ -131,7 +131,7 @@
             },
             "placeholder_text": {
                 "type": "string",
-                "required": true
+                "required": false
             },
             "button_text": {
                 "type": "string",

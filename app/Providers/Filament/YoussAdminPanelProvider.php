@@ -30,7 +30,7 @@ class YoussAdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('youss-admin')
-            ->path('youss-admin')
+            ->path('admin')
             ->sidebarWidth('14rem')
             ->login()
             ->colors([

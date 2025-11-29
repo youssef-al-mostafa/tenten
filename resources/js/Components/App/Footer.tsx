@@ -41,79 +41,80 @@ const Footer = () => {
                     </div>
                     <div className="footer-col w-full lg:w-[70%] grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
                         <div className="footer-col-1 flex flex-col gap-3">
-                            <h3 className="font-satoshi text-center font-medium text-black text-sm sm:text-base tracking-[2px] sm:tracking-[3px]">
+                            <h3 className="font-satoshi font-medium text-black text-sm
+                                           sm:text-base tracking-[2px] sm:tracking-[3px]">
                                 COMPANY
                             </h3>
                             <ul className="flex flex-col gap-2">
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs sm:text-sm leading-snug tracking-normal text-black opacity-60 hover:opacity-80 transition-opacity">About</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs sm:text-sm leading-snug tracking-normal text-black opacity-60 hover:opacity-80 transition-opacity">About</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs sm:text-sm leading-snug tracking-normal text-black opacity-60 hover:opacity-80 transition-opacity">Features</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs sm:text-sm leading-snug tracking-normal text-black opacity-60 hover:opacity-80 transition-opacity">Features</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs sm:text-sm leading-snug tracking-normal text-black opacity-60 hover:opacity-80 transition-opacity">Works</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs sm:text-sm leading-snug tracking-normal text-black opacity-60 hover:opacity-80 transition-opacity">Works</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs sm:text-sm leading-snug tracking-normal text-black opacity-60 hover:opacity-80 transition-opacity">Career</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs sm:text-sm leading-snug tracking-normal text-black opacity-60 hover:opacity-80 transition-opacity">Career</Link>
                                 </li>
                             </ul>
                         </div>
                         <div className="footer-col-2 flex flex-col gap-3">
-                            <h3 className="font-satoshi text-center font-medium text-black
+                            <h3 className="font-satoshi font-medium text-black
                             text-sm sm:text-base tracking-[2px] sm:tracking-[3px]">
                                 HELP
                             </h3>
                             <ul className="flex flex-col gap-2">
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Customer Support</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Customer Support</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Delivery Details</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Delivery Details</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Terms & Conditions</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Terms & Conditions</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Privacy Policy</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Privacy Policy</Link>
                                 </li>
                             </ul>
                         </div>
                         <div className="footer-col-2 flex flex-col gap-3">
-                            <h3 className="font-satoshi text-center font-medium text-black text-base tracking-[3px]">
+                            <h3 className="font-satoshi font-medium text-black text-base tracking-[3px]">
                                 FAQ
                             </h3>
                             <ul className="flex flex-col gap-2">
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Account</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Account</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Manage Deliveries</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Manage Deliveries</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Orders</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Orders</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Payments</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Payments</Link>
                                 </li>
                             </ul>
                         </div>
                         <div className="footer-col-2 flex flex-col gap-3">
-                            <h3 className="font-satoshi text-center font-medium text-black text-base tracking-[3px]">
+                            <h3 className="font-satoshi font-medium text-black text-base tracking-[3px]">
                                 RESOURCES
                             </h3>
                             <ul className="flex flex-col gap-2">
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Free eBooks</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Free eBooks</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Development Tutorial</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Development Tutorial</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">How to - Blog</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">How to - Blog</Link>
                                 </li>
                                 <li>
-                                    <Link href="#" className="text-center flex justify-center font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Youtube Playlist</Link>
+                                    <Link href="#" className="font-satoshi font-light text-xs leading-snug tracking-normal text-black opacity-60">Youtube Playlist</Link>
                                 </li>
                             </ul>
                         </div>
