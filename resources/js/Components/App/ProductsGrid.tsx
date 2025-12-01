@@ -1,12 +1,6 @@
-import React from 'react'
-import { Product, PaginationProps } from '@/types';
+import { Product, PaginationProps } from '@/Types';
 import { ProductItem } from '@/Components/App/ProductItem';
-
-interface SectionContent {
-  is_active?: boolean;
-  sort_order?: number;
-  [key: string]: unknown;
-}
+import { goToProductsPage } from '@/helpers';
 
 interface ProductsGridProps {
     header?: string;
@@ -37,9 +31,9 @@ const ProductsGrid = ({
         xl: "lg:grid-cols-4"
     }
 }: ProductsGridProps) => {
-    
+
     const actualTitle = typeof content?.title === 'string' ? content.title : header;
-    console.log('ProductsGrid data:', { title: actualTitle, content, header });
+    //console.log('ProductsGrid data:', { title: actualTitle, content, header });
 
     if (!products || !products.data) {
         return (
@@ -55,7 +49,7 @@ const ProductsGrid = ({
                     <div className="text-center py-12 sm:py-16 lg:py-20">
                         <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-6 bg-transparent rounded-full flex items-center justify-center">
                             <svg className="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
                         <h3 className="font-integral_cf font-bold text-black text-xl sm:text-2xl mb-2">
@@ -93,7 +87,7 @@ const ProductsGrid = ({
                         <div className="text-center py-12 sm:py-16 lg:py-20">
                             <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-6 bg-transparent rounded-full flex items-center justify-center">
                                 <svg className="w-8 h-8 sm:w-12 sm:h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M20 7L12 3L4 7M20 7L12 11M20 7V17L12 21M12 11L4 7M12 11V21M4 7V17L12 21" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </div>
                             <h3 className="font-integral_cf font-bold text-black text-xl sm:text-2xl mb-2">
@@ -113,7 +107,11 @@ const ProductsGrid = ({
 
             {products.data.length > 0 && (
                 <div className="text-center mt-8 sm:mt-10 lg:mt-12">
-                    <button className="btn bg-white text-black border-2 border-black rounded-full px-6 sm:px-8 py-2 sm:py-3 font-satoshi font-medium text-sm sm:text-base hover:bg-black hover:text-white transition-all duration-300 w-full sm:w-auto min-w-[200px]">
+                    <button className="btn bg-white text-black border-2 border-black rounded-full
+                                       px-6 sm:px-8 py-2 sm:py-3 font-satoshi font-medium text-sm
+                                       sm:text-base hover:bg-black hover:text-white transition-all
+                                       duration-300 w-full sm:w-auto min-w-[200px]"
+                        onClick={goToProductsPage}>
                         View All Products
                     </button>
                 </div>

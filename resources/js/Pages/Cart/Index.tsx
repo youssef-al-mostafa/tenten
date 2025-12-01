@@ -1,8 +1,8 @@
-import  CartItem  from "@/Components/App/CartItem"
+import CartItem from "@/Components/App/CartItem"
 import { CurrencyFormatter } from "@/Components/Core/CurrencyFormatter"
 import PrimaryButton from "@/Components/Core/PrimaryButton"
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
-import { GroupedCartItems, PageProps } from "@/types"
+import { GroupedCartItems, PageProps } from "@/Types"
 import { CreditCardIcon } from "@heroicons/react/24/outline"
 import { Head, Link } from "@inertiajs/react"
 
@@ -46,7 +46,7 @@ export default function Index({
                                             </div>
                                         </div>
                                         {cartItem.items.map(item => (
-                                           <CartItem item={item} key={item.id} />
+                                            <CartItem item={item} key={item.id} />
                                         ))}
                                     </div>
                                 ))}

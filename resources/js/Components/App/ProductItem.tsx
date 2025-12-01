@@ -1,4 +1,4 @@
-import { Product } from '@/types';
+import { Product } from '@/Types';
 import { Link } from '@inertiajs/react';
 import { CurrencyFormatter } from '../Core/CurrencyFormatter';
 import { useForm } from '@inertiajs/react';
@@ -58,7 +58,7 @@ export const ProductItem = ({ product }: Props) => {
                     <div className="flex flex-wrap gap-1 text-xs sm:text-sm text-gray-600">
                         <span>by</span>
                         <Link href={route('vendor.profile', product.user.store_name)}
-                              className="font-medium hover:text-black transition-colors
+                            className="font-medium hover:text-black transition-colors
                                          duration-200 hover:underline">
                             {product.user.store_name}
                         </Link>

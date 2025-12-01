@@ -1,5 +1,5 @@
 import { productRoute } from '@/helpers';
-import type { CartItem } from '@/types';
+import type { CartItem } from '@/Types';
 import { Link, router, useForm } from '@inertiajs/react';
 import TextInput from '../Core/TextInput';
 import { useState } from 'react';
@@ -28,9 +28,9 @@ const CartItem = ({ item }: Props) => {
         router.patch(route('cart.update', item.product_id), {
             quantity: ev.target.value,
             option_ids: item.option_ids
-        },{
+        }, {
             preserveScroll: true,
-            onError:(errors) => {
+            onError: (errors) => {
                 setError(Object.values(errors)[0])
             }
         })
@@ -54,7 +54,7 @@ const CartItem = ({ item }: Props) => {
                                     <strong className="text-bold">
                                         {option.type.name} :
                                     </strong>
-                                     {' ' + option.option_name}
+                                    {' ' + option.option_name}
                                 </div>
                             ))}
                         </div>

@@ -1,4 +1,4 @@
-import { PageProps, PaginationProps, Product, Vendor } from '@/types';
+import { PageProps, PaginationProps, Product, Vendor } from '@/Types';
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import { ProductItem } from '@/Components/App/ProductItem';
@@ -7,7 +7,7 @@ import { MapPin, Package, Star, Calendar, Share2 } from 'lucide-react';
 function Profile({
     vendor,
     products
-}: PageProps<{vendor: Vendor, products: PaginationProps<Product>}>) {
+}: PageProps<{ vendor: Vendor, products: PaginationProps<Product> }>) {
     const totalProducts = products.data.length;
     const memberSince = new Date(vendor.created_at).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -105,7 +105,7 @@ function Profile({
                             {products.data.length > 0 ? (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                     {products.data.map(product => (
-                                        <ProductItem product={product} key={product.id}/>
+                                        <ProductItem product={product} key={product.id} />
                                     ))}
                                 </div>
                             ) : (

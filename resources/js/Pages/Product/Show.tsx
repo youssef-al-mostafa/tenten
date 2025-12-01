@@ -4,7 +4,7 @@ import { ProductItem } from '@/Components/App/ProductItem';
 import { Carousel } from '@/Components/Core/Carousel';
 import { CurrencyFormatter } from '@/Components/Core/CurrencyFormatter';
 import { arraysAreEqual } from '@/helpers';
-import { Product, VariationTypeOption } from '@/types'
+import { Product, VariationTypeOption } from '@/Types'
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import { error } from 'console';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';

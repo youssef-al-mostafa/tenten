@@ -41,13 +41,17 @@ export default function Login({
 
             <form onSubmit={submit} className="space-y-6">
                 <div className="space-y-2">
-                    <InputLabel htmlFor="email" value="Email Address" className="text-base-content font-semibold text-sm" />
+                    <InputLabel htmlFor="email" value="Email Address"
+                                className="text-base-content font-semibold text-sm" />
                     <TextInput
                         id="email"
                         type="email"
                         name="email"
                         value={data.email}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg
+                                  bg-white text-gray-900 placeholder:text-gray-500
+                                  focus:outline-none focus:ring-2 focus:ring-gray-900
+                                  focus:border-transparent transition-all"
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData('email', e.target.value)}
@@ -101,7 +105,7 @@ export default function Login({
                     )}
                 </div>
 
-                <button 
+                <button
                     type="submit"
                     className="w-full bg-base-content text-base-100 hover:bg-base-content/90 font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
                     disabled={processing}

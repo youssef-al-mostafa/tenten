@@ -1,5 +1,5 @@
 import { Star, MapPin, Package } from 'lucide-react';
-import { router } from '@inertiajs/react';
+import { goToVendorProfile } from '@/helpers';
 
 interface TopVendor {
     id: number;
@@ -131,7 +131,7 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                                 </div>
 
                                 <button
-                                    onClick={() => router.visit(route('vendor.profile', vendor.storeName))}
+                                    onClick={() => goToVendorProfile(vendor.storeName)}
                                     className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition-colors"
                                 >
                                     Visit Store

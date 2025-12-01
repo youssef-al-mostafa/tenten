@@ -1,4 +1,4 @@
-import { PageProps } from '@/types';
+import { PageProps } from '@/Types';
 import { usePage } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 
@@ -25,7 +25,7 @@ interface FeaturedCategoriesProps {
 
 const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
     const { departments } = usePage<PageProps>().props;
-    console.log('FeaturedCategories data:', { content, departments });
+    //console.log('FeaturedCategories data:', { content, departments });
 
     if (!departments || departments.length === 0) {
         return null;

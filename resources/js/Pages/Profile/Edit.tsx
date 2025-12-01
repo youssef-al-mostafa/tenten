@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { PageProps } from '@/types';
+import { PageProps } from '@/Types';
 import { Head, usePage } from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
@@ -38,11 +38,10 @@ export default function Edit({
                                     <p className="text-gray-600">{user.email}</p>
                                     {user.vendor && (
                                         <div className="mt-2">
-                                            <span className={`badge ${
-                                                user.vendor.status === 'approved' ? 'badge-success' :
-                                                user.vendor.status === 'pending' ? 'badge-warning' :
-                                                'badge-error'
-                                            }`}>
+                                            <span className={`badge ${user.vendor.status === 'approved' ? 'badge-success' :
+                                                    user.vendor.status === 'pending' ? 'badge-warning' :
+                                                        'badge-error'
+                                                }`}>
                                                 {user.vendor.status_label}
                                             </span>
                                         </div>

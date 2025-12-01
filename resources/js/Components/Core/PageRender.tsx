@@ -1,12 +1,6 @@
 import { Suspense, useEffect, useState, useMemo } from 'react';
 import { getSectionComponentSafe } from '@/Services/SectionRegistry';
 
-interface SectionContent {
-  is_active?: boolean;
-  sort_order?: number;
-  [key: string]: unknown;
-}
-
 interface PageContent {
   [sectionKey: string]: SectionContent;
 }

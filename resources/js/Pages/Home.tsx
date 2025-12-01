@@ -1,7 +1,7 @@
 
 import AppLayout from '@/Layouts/AppLayout';
 import { Head } from '@inertiajs/react';
-import { PageProps, PaginationProps, Product } from '@/types';
+import { PageProps, PaginationProps, Product } from '@/Types';
 import { PageRenderer } from '@/Components/Core/PageRender';
 
 export default function Home({
@@ -21,7 +21,7 @@ export default function Home({
                 pageSlug="home"
                 initialPageContent={pageContent}
                 additionalProps={{
-                    new_arrivals: { products }, 
+                    new_arrivals: { products },
                     product_showcase: { products },
                     top_vendors: { topVendors },
                 }}

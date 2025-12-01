@@ -1,4 +1,4 @@
-import { PageProps } from '@/types';
+import { PageProps } from '@/Types';
 import NavBar from '@/Components/App/NavBar';
 import Footer from '@/Components/App/Footer';
 import { usePage } from '@inertiajs/react';
