@@ -1,4 +1,4 @@
-import { Image } from '@/Types';
+import { Image } from '@/types';
 import { useEffect, useState } from 'react';
 
 interface Props {

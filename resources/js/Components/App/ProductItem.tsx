@@ -1,4 +1,4 @@
-import { Product } from '@/Types';
+import { Product } from '@/types';
 import { Link } from '@inertiajs/react';
 import { CurrencyFormatter } from '../Core/CurrencyFormatter';
 import { useForm } from '@inertiajs/react';

@@ -1,4 +1,4 @@
-import { Department, PageProps, PaginationProps, Product } from '@/Types';
+import { Department, PageProps, PaginationProps, Product } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import { ProductItem } from '@/Components/App/ProductItem';
@@ -196,10 +196,10 @@ const ProductsIndex = ({ products, departments = { data: [] }, filters }: Produc
                                                 }}
                                                 disabled={!link.url}
                                                 className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${link.active
-                                                        ? 'bg-blue-600 text-white'
-                                                        : link.url
-                                                            ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
-                                                            : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                                    ? 'bg-blue-600 text-white'
+                                                    : link.url
+                                                        ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
+                                                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                                                     }`}
                                                 dangerouslySetInnerHTML={{ __html: link.label }}
                                             />

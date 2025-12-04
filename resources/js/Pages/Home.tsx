@@ -1,7 +1,7 @@
 
 import AppLayout from '@/Layouts/AppLayout';
 import { Head } from '@inertiajs/react';
-import { PageProps, PaginationProps, Product } from '@/Types';
+import { PageProps, PaginationProps, Product } from '@/types';
 import { PageRenderer } from '@/Components/Core/PageRender';
 
 export default function Home({

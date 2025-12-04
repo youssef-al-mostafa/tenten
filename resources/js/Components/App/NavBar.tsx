@@ -1,7 +1,7 @@
 import { Link, useForm, usePage } from '@inertiajs/react'
 import { ChangeEvent, FormEventHandler, useState, useEffect } from 'react'
 import MiniCartDropDown from './MiniCartDropDown';
-import { PageProps } from '@/Types';
+import { PageProps } from '@/types';
 
 function NavBar() {
     const { auth, departments, totalQuantity, keyword } = usePage<PageProps>().props;

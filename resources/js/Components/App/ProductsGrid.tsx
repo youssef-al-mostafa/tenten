@@ -1,4 +1,4 @@
-import { Product, PaginationProps } from '@/Types';
+import { Product, PaginationProps } from '@/types';
 import { ProductItem } from '@/Components/App/ProductItem';
 import { goToProductsPage } from '@/helpers';
 

@@ -1,6 +1,6 @@
 import { CurrencyFormatter } from '@/Components/Core/CurrencyFormatter';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import type { Order, PageProps } from '@/Types';
+import type { Order, PageProps } from '@/types';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Head, Link } from '@inertiajs/react';
 

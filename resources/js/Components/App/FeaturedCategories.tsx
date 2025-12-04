@@ -1,4 +1,4 @@
-import { PageProps } from '@/Types';
+import { PageProps } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 

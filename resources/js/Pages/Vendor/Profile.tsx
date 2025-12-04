@@ -1,4 +1,4 @@
-import { PageProps, PaginationProps, Product, Vendor } from '@/Types';
+import { PageProps, PaginationProps, Product, Vendor } from '@/types';
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import { ProductItem } from '@/Components/App/ProductItem';

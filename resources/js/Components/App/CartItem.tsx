@@ -1,5 +1,5 @@
 import { productRoute } from '@/helpers';
-import type { CartItem } from '@/Types';
+import type { CartItem } from '@/types';
 import { Link, router, useForm } from '@inertiajs/react';
 import TextInput from '../Core/TextInput';
 import { useState } from 'react';

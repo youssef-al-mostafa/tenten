@@ -1,4 +1,4 @@
-import { CartItem } from "./Types";
+import { CartItem } from "./types";
 import { router } from '@inertiajs/react';
 
 export const arraysAreEqual = (arr1: unknown[], arr2: unknown[]): boolean => {

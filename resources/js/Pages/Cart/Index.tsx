@@ -2,7 +2,7 @@ import CartItem from "@/Components/App/CartItem"
 import { CurrencyFormatter } from "@/Components/Core/CurrencyFormatter"
 import PrimaryButton from "@/Components/Core/PrimaryButton"
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
-import { GroupedCartItems, PageProps } from "@/Types"
+import { GroupedCartItems, PageProps } from "@/types"
 import { CreditCardIcon } from "@heroicons/react/24/outline"
 import { Head, Link } from "@inertiajs/react"
 
