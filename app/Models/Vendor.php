@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Vendor extends Model
 {
     protected $primaryKey = 'user_id';
-    
+
     protected $fillable = [
         'user_id',
         'status',
@@ -24,13 +24,24 @@ class Vendor extends Model
     {
         return 'store_name';
     }
-    public function scopeEligibleForPayout(Builder $query): Builder {
+    public function scopeEligibleForPayout(Builder $query): Builder
+    {
         return $query->where('status', VendorStatusEnum::Approved)
-                     ->join('users', 'users.id', '=', 'vendors.user_id')
-                     ->where('users.stripe_account_active', true);
+            ->whereHas('user', function($q) {
+                $q->where('stripe_account_active', true);
+            });
     }
 
-    public function user(): BelongsTo{
+    public function scopeApproved(Builder $query): Builder
+    {
+        return $query->where('status', VendorStatusEnum::Approved)
+            ->whereHas('user', function($q) {
+                $q->where('stripe_account_active', true);
+            });
+    }
+
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 }

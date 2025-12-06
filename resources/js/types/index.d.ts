@@ -16,12 +16,17 @@ export interface User {
 }
 
 export type Vendor = {
-    store_description: any;
-    cover_image: any;
-    created_at: string | number | Date;
-    id: number;
+    user_id: number;
+    status: string;
     store_name: string;
+    store_description: string;
     store_address: string;
+    cover_image: string;
+    created_at: string | number | Date;
+    user?: {
+        id: number;
+        name: string;
+    };
 }
 
 export type PaginationProps<T> = {

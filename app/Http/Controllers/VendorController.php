@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\RolesEnum;
 use App\Enums\VendorStatusEnum;
 use App\Http\Resources\ProductListResource;
+use App\Http\Resources\VendorResource;
 use App\Models\Product;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -13,6 +14,17 @@ use Inertia\Inertia;
 
 class VendorController extends Controller
 {
+    public function allVendors(Request $request)
+    {
+        $vendors = Vendor::approved()
+            ->with('user')
+            ->paginate(15);
+
+        return Inertia::render('Vendor/AllVendors', [
+            'vendors' => VendorResource::collection($vendors)
+        ]);
+    }
+
     public function profile(Request $request, Vendor $vendor)
     {
         $keyword = $request->query(key: 'keyword');

@@ -25,12 +25,16 @@ Route::controller(CartController::class)->group(function () {
 Route::post('/stripe/webhook', [StripeController::class, 'webhook'])->name('stripe.webhook');
 
 // Newsletter
-Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->name('newsletter.subscribe');
-Route::get('/newsletter/unsubscribe/{email}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])
+       ->name('newsletter.subscribe');
+Route::get('/newsletter/unsubscribe/{email}', [NewsletterController::class, 'unsubscribe'])
+       ->name('newsletter.unsubscribe');
 
 //Others
 Route::get('/vendor/{vendor:store_name}', [VendorController::class, 'profile'])
-    ->name('vendor.profile');
+       ->name('vendor.profile');
+Route::get('/vendors', [VendorController::class, 'allVendors'])
+       ->name('vendor.all');
 
 // Auth Routes
 Route::middleware('auth')->group(function () {

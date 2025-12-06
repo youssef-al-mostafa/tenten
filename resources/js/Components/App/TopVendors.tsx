@@ -1,5 +1,5 @@
-import { Star, MapPin, Package } from 'lucide-react';
-import { goToVendorProfile } from '@/helpers';
+import { MapPin } from 'lucide-react';
+import { goToVendorProfile, navigateTo } from '@/helpers';
 
 interface TopVendor {
     id: number;
@@ -26,6 +26,10 @@ interface TopVendorsProps {
         sort_order?: number;
     };
     topVendors?: TopVendor[];
+}
+
+export const goToAllVendorsPage = () => {
+    navigateTo('vendor.all');
 }
 
 const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
@@ -72,7 +76,9 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                         <h2 className="text-4xl font-bold text-gray-900">{content.title}</h2>
                     )}
                     {content?.view_all_button && (
-                        <button className="border border-gray-300 hover:border-gray-400 transition-colors px-6 py-2 rounded-full">
+                        <button className="border border-gray-300 hover:border-gray-400
+                                           transition-colors px-6 py-2 rounded-full"
+                            onClick={goToAllVendorsPage}>
                             {content.view_all_button}
                         </button>
                     )}
@@ -80,10 +86,12 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {topVendors.map((vendor) => (
-                        <div key={vendor.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+                        <div key={vendor.id} className="bg-white rounded-lg shadow-md hover:shadow-lg
+                                                        transition-shadow overflow-hidden">
                             <div className="p-6 flex flex-col justify-between h-full">
                                 <div className="flex items-start gap-4 mb-4">
-                                    <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                    <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center
+                                                    justify-center flex-shrink-0">
                                         {vendor.avatar ? (
                                             <img
                                                 src={vendor.avatar}
@@ -102,11 +110,15 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                                                 {vendor.name}
                                             </h3>
                                         </div>
-                                        <p className="text-gray-600 text-sm mb-2">{vendor.storeName}</p>
+                                        <p className="text-gray-600 text-sm mb-2">
+                                            {vendor.storeName}
+                                        </p>
                                     </div>
                                 </div>
 
-                                <p className="text-gray-600 mb-4">{vendor.description === 'No description available' ? ' ' : vendor.description}</p>
+                                <p className="text-gray-600 mb-4">
+                                    {vendor.description === 'No description available' ? ' ' : vendor.description}
+                                </p>
 
                                 <div className="flex items-center gap-1 text-sm text-gray-500 mb-4">
                                     <MapPin className="h-4 w-4" />
@@ -114,7 +126,9 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                                 </div>
 
                                 <div className="mb-4">
-                                    <h4 className="font-semibold text-sm text-gray-700 mb-2">Top Products</h4>
+                                    <h4 className="font-semibold text-sm text-gray-700 mb-2">
+                                        Top Products
+                                    </h4>
                                     <div className="flex gap-2">
                                         {vendor.topProducts.map((product) => (
                                             <div key={product.id} className="">
@@ -123,8 +137,12 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                                                     alt={product.title}
                                                     className="w-full h-16 object-cover rounded-md mb-1"
                                                 />
-                                                <p className="text-xs text-gray-600 truncate">{product.title}</p>
-                                                <p className="text-xs font-semibold">${product.price}</p>
+                                                <p className="text-xs text-gray-600 truncate">
+                                                    {product.title}
+                                                </p>
+                                                <p className="text-xs font-semibold">
+                                                    ${product.price}
+                                                </p>
                                             </div>
                                         ))}
                                     </div>
@@ -132,8 +150,8 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
 
                                 <button
                                     onClick={() => goToVendorProfile(vendor.storeName)}
-                                    className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition-colors"
-                                >
+                                    className="w-full bg-black text-white py-2 rounded-lg
+                                              hover:bg-gray-800 transition-colors">
                                     Visit Store
                                 </button>
                             </div>
