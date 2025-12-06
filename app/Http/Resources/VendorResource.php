@@ -25,6 +25,16 @@ class VendorResource extends JsonResource
                 'id' => $this->user->id,
                 'name' => $this->user->name,
             ],
+            'topProducts' => $this->whenLoaded('products', function () {
+                return $this->products->map(function ($product) {
+                    return [
+                        'id' => $product->id,
+                        'image' => $product->getFirstMediaUrl('images', 'small'),
+                        'title' => $product->title,
+                        'price' => $product->price,
+                    ];
+                });
+            }),
         ];
     }
 }

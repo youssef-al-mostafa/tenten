@@ -27,6 +27,12 @@ export type Vendor = {
         id: number;
         name: string;
     };
+    topProducts?: {
+        id: number;
+        image: string;
+        title: string;
+        price: number;
+    }[];
 }
 
 export type PaginationProps<T> = {

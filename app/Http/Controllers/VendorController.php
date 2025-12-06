@@ -17,7 +17,14 @@ class VendorController extends Controller
     public function allVendors(Request $request)
     {
         $vendors = Vendor::approved()
-            ->with('user')
+            ->with([
+                'user',
+                'products' => function ($query) {
+                    $query->published()
+                        ->latest()
+                        ->limit(3);
+                }
+            ])
             ->paginate(15);
 
         return Inertia::render('Vendor/AllVendors', [

@@ -82,6 +82,31 @@ const AllVendors = ({ vendors }: PageProps<AllVendorsProps>) => {
                                                 </div>
                                             )}
 
+                                            {vendor.topProducts && vendor.topProducts.length > 0 && (
+                                                <div className="mb-4">
+                                                    <h4 className="font-semibold text-sm text-gray-700 mb-2">
+                                                        Top Products
+                                                    </h4>
+                                                    <div className="flex gap-2">
+                                                        {vendor.topProducts.map((product) => (
+                                                            <div key={product.id} className="">
+                                                                <img
+                                                                    src={product.image}
+                                                                    alt={product.title}
+                                                                    className="w-full h-16 object-cover rounded-md mb-1"
+                                                                />
+                                                                <p className="text-xs text-gray-600 truncate">
+                                                                    {product.title}
+                                                                </p>
+                                                                <p className="text-xs font-semibold">
+                                                                    ${product.price}
+                                                                </p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
                                             <button
                                                 onClick={() => goToVendorProfile(vendor.store_name)}
                                                 className="mt-auto w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition-colors"
