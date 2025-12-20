@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\RolesEnum;
+use App\Notifications\QueuedVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -122,5 +123,13 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     public function getStripeAccountId()
     {
         return $this->stripe_account_id;
+    }
+
+    /**
+     * Send the email verification notification (queued).
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new QueuedVerifyEmail);
     }
 }

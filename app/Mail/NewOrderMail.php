@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -28,7 +29,9 @@ class NewOrderMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Order Mail',
+            from: new Address('noreply@ten-ten.live', 'Tenten'),
+            replyTo: [new Address('youssefalmostafa22331@gmail.com', 'Tenten Support')],
+            subject: 'New Order Notification',
         );
     }
 

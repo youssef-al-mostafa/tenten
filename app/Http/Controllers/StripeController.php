@@ -106,13 +106,13 @@ class StripeController extends Controller
                     # Email - FIX: Get the actual vendor user model
                     $vendorUser = $order->vendorUser()->first();
                     if ($vendorUser) {
-                        Mail::to($vendorUser)->send(new NewOrderMail($order));
+                        Mail::to($vendorUser)->queue(new NewOrderMail($order));
                     } else {
                         Log::error("Vendor user not found for order: " . $order->id);
                     }
                 }
 
-                Mail::to($orders[0]->user()->first())->send(new CheckoutCompleted($orders));
+                Mail::to($orders[0]->user()->first())->queue(new CheckoutCompleted($orders));
 
                 // Mail::to($orders[0]->user)->send(new CheckoutCompleted($orders));
 
