@@ -71,11 +71,13 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                                 <p className="text-gray-600 mb-4">
                                     {vendor.description === 'No description available' ? ' ' : vendor.description}
                                 </p>
+                                {vendor.location &&
+                                    <div className="flex items-center gap-1 text-sm text-gray-500 mb-4">
+                                        <MapPin className="h-4 w-4" />
+                                        <span>{vendor.location}</span>
+                                    </div>
+                                }
 
-                                <div className="flex items-center gap-1 text-sm text-gray-500 mb-4">
-                                    <MapPin className="h-4 w-4" />
-                                    <span>{vendor.location}</span>
-                                </div>
 
                                 <div className="mb-4">
                                     <h4 className="font-semibold text-sm text-gray-700 mb-2">
@@ -83,11 +85,11 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                                     </h4>
                                     <div className="flex gap-2">
                                         {vendor.topProducts.map((product) => (
-                                            <div key={product.id} className="">
+                                            <div key={product.id} className="w-full">
                                                 <img
                                                     src={product.image}
                                                     alt={product.title}
-                                                    className="w-full h-16 object-cover rounded-md mb-1"
+                                                    className="w-fit h-16 object-cover rounded-md mb-1"
                                                 />
                                                 <p className="text-xs text-gray-600 truncate">
                                                     {product.title}
