@@ -76,19 +76,19 @@ const NewsLetter = ({ content }: NewsLetterProps) => {
                                                    ${errors?.email ? 'border-red-500' : 'border-white/20'}`}>
                                     <svg className="h-[1em] opacity-50 border-transparent flex-shrink-0 mr-2
                                                    sm:mr-3"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         viewBox="0 0 24 24">
-                                            <g strokeLinejoin="round"
-                                               strokeLinecap="round"
-                                               strokeWidth="2.5"
-                                               fill="none"
-                                               stroke="currentColor">
-                                                <rect width="20"
-                                                      height="16" x="2" y="4" rx="2">
-                                                </rect>
-                                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7">
-                                                </path>
-                                            </g>
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24">
+                                        <g strokeLinejoin="round"
+                                            strokeLinecap="round"
+                                            strokeWidth="2.5"
+                                            fill="none"
+                                            stroke="currentColor">
+                                            <rect width="20"
+                                                height="16" x="2" y="4" rx="2">
+                                            </rect>
+                                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7">
+                                            </path>
+                                        </g>
                                     </svg>
                                     <input
                                         className='border-transparent bg-transparent w-full focus:border-transparent
@@ -110,10 +110,10 @@ const NewsLetter = ({ content }: NewsLetterProps) => {
                             <button
                                 type="submit"
                                 onClick={() => handleSubmit()}
-                                className="btn btn-primary rounded-2xl sm:rounded-3xl w-full
+                                className="btn h-fit btn-primary rounded-2xl sm:rounded-3xl w-full
                                            max-w-sm bg-white text-black hover:bg-gray-100
                                            border-0 font-satoshi font-medium text-sm sm:text-base
-                                           py-3 sm:py-4 transition-all duration-300 hover:scale-105
+                                           py-3 sm:py-3 transition-all duration-300 hover:scale-105
                                            active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
                                            disabled:hover:scale-100"
                                 disabled={isSubmitting}

@@ -35,6 +35,24 @@ export type Vendor = {
     }[];
 }
 
+export interface TopVendor {
+    id: number;
+    name: string;
+    storeName: string;
+    avatar: string;
+    rating: number;
+    reviewCount: number;
+    location: string;
+    description: string;
+    topProducts: {
+        id: number;
+        image: string;
+        title: string;
+        price: number;
+    }[];
+}
+
+
 export type PaginationProps<T> = {
     links: boolean;
     total: number;

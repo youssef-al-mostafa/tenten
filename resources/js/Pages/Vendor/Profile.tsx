@@ -78,7 +78,8 @@ function Profile({
                                                 alert('Store link copied to clipboard!');
                                             }
                                         }}
-                                        className="bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg transition-colors flex items-center gap-2"
+                                        className="w-fit whitespace-nowrap bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg transition-colors
+                                                   flex items-center gap-2"
                                     >
                                         <Share2 className="w-4 h-4" />
                                         Share Store

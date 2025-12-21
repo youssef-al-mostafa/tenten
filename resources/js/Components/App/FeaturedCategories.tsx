@@ -1,5 +1,5 @@
 import { PageProps } from '@/types';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 
 interface FeaturedCategory {
@@ -59,7 +59,11 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {categories.map((category) => (
-                        <div key={category.id} className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer">
+                        <Link
+                            key={category.id}
+                            href={route('product.byDepartment', category.slug)}
+                            className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer block"
+                        >
                             <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden">
                                 <img
                                     src={category.image}
@@ -93,7 +97,7 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
                                     {category.productCount > 1000 ? `${Math.floor(category.productCount / 1000)}k+` : category.productCount}
                                 </span>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 

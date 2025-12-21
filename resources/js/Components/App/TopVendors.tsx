@@ -1,22 +1,6 @@
 import { MapPin } from 'lucide-react';
 import { goToVendorProfile, navigateTo } from '@/helpers';
-
-interface TopVendor {
-    id: number;
-    name: string;
-    storeName: string;
-    avatar: string;
-    rating: number;
-    reviewCount: number;
-    location: string;
-    description: string;
-    topProducts: {
-        id: number;
-        image: string;
-        title: string;
-        price: number;
-    }[];
-}
+import { TopVendor } from '@/types';
 
 interface TopVendorsProps {
     content?: {
@@ -33,40 +17,8 @@ export const goToAllVendorsPage = () => {
 }
 
 const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
-    const defaultVendors: TopVendor[] = [
-        {
-            id: 1,
-            name: "Fashion Haven",
-            storeName: "@fashionhaven",
-            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-            rating: 4.9,
-            reviewCount: 2847,
-            location: "New York, USA",
-            description: "Premium fashion and accessories for modern lifestyle",
-            topProducts: [
-                {
-                    id: 1,
-                    image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=80&h=80&fit=crop",
-                    title: "Designer Dress",
-                    price: 89.99
-                },
-                {
-                    id: 2,
-                    image: "https://images.unsplash.com/photo-1506629905607-d5e31ad24e04?w=80&h=80&fit=crop",
-                    title: "Summer Blazer",
-                    price: 129.99
-                },
-                {
-                    id: 3,
-                    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=80&h=80&fit=crop",
-                    title: "Casual Sneakers",
-                    price: 79.99
-                }
-            ]
-        }
-    ];
 
-    const topVendors = vendorsData && vendorsData.length > 0 ? vendorsData : defaultVendors;
+    const topVendors = vendorsData && vendorsData.length > 0 ? vendorsData : null;
 
     return (
         <section className="py-16 bg-gray-50">
@@ -85,7 +37,7 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {topVendors.map((vendor) => (
+                    {topVendors?.map((vendor) => (
                         <div key={vendor.id} className="bg-white rounded-lg shadow-md hover:shadow-lg
                                                         transition-shadow overflow-hidden">
                             <div className="p-6 flex flex-col justify-between h-full">
