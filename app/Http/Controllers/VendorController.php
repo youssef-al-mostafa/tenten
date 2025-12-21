@@ -72,6 +72,10 @@ class VendorController extends Controller
         $vendor->store_address = $request->store_address;
         $vendor->save();
 
-        $user->assignRole(RolesEnum::VENDOR);
+        if (!$user->hasRole(RolesEnum::VENDOR)) {
+            $user->assignRole(RolesEnum::VENDOR);
+        }
+
+        return back();
     }
 }
