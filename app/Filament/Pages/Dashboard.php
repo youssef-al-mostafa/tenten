@@ -11,7 +11,6 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
-use Illuminate\Contracts\View\View;
 
 class Dashboard extends BaseDashboard implements HasForms
 {
@@ -26,10 +25,10 @@ class Dashboard extends BaseDashboard implements HasForms
     public function mount(): void
     {
         $user = Filament::auth()->user();
-        
+        /** @var \App\Models\User $user */
         if ($user && $user->hasRole(RolesEnum::VENDOR->value)) {
             $vendor = $user->vendor;
-            
+
             if ($vendor) {
                 if ($vendor->store_name) {
                     try {
@@ -43,7 +42,7 @@ class Dashboard extends BaseDashboard implements HasForms
                     $this->vendorUrl = url('/');
                     $this->qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' . urlencode($this->vendorUrl);
                 }
-                
+
                 $this->data = [
                     'name' => $user->name,
                     'email' => $user->email,
@@ -64,29 +63,41 @@ class Dashboard extends BaseDashboard implements HasForms
                     ->label('Owner Name')
                     ->required()
                     ->maxLength(255),
-                    
+
                 Forms\Components\TextInput::make('email')
                     ->label('Email')
                     ->email()
                     ->required()
                     ->maxLength(255)
                     ->helperText('Changing your email will require email verification to activate your account again.'),
-                    
+
                 Forms\Components\TextInput::make('store_name')
                     ->label('Store Name')
                     ->required()
-                    ->maxLength(255),
-                    
+                    ->maxLength(255)
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $formatted = strtolower(preg_replace('/\s+/', '-', $state));
+                        $set('store_name', $formatted);
+                    })
+                    ->helperText(function ($state) {
+                        if ($state) {
+                            $formatted = ucwords(str_replace('-', ' ', $state));
+                            return "Will be displayed as: {$formatted}";
+                        }
+                        return null;
+                    }),
+
                 Forms\Components\Textarea::make('store_description')
                     ->label('Store Description')
                     ->rows(3)
                     ->maxLength(500),
-                    
+
                 Forms\Components\Textarea::make('store_address')
                     ->label('Store Address')
                     ->rows(2)
                     ->maxLength(255),
-                    
+
                 Forms\Components\FileUpload::make('cover_image')
                     ->label('Cover Image')
                     ->image()
@@ -118,14 +129,14 @@ class Dashboard extends BaseDashboard implements HasForms
         $data = $this->form->getState();
         $user = Filament::auth()->user();
         $vendor = $user->vendor;
-        
+
         $emailChanged = $user->email !== $data['email'];
-        
+        /** @var \App\Models\User $user */
         $user->update([
             'name' => $data['name'],
             'email' => $data['email'],
         ]);
-        
+
         if ($vendor) {
             $vendor->update([
                 'store_name' => $data['store_name'],
@@ -134,23 +145,22 @@ class Dashboard extends BaseDashboard implements HasForms
                 'cover_image' => is_array($data['cover_image']) ? $data['cover_image'][0] ?? null : $data['cover_image'],
             ]);
         }
-        
+
         if ($emailChanged) {
             $user->email_verified_at = null;
             $user->save();
             $user->sendEmailVerificationNotification();
-            
             auth()->logout();
             request()->session()->invalidate();
             request()->session()->regenerateToken();
-            
+
             Notification::make()
                 ->title('Email Changed!')
                 ->body('Please check your new email for verification. You have been logged out for security.')
                 ->warning()
                 ->duration(10000)
                 ->send();
-                
+
             return redirect()->route('login');
         } else {
             Notification::make()
@@ -159,7 +169,7 @@ class Dashboard extends BaseDashboard implements HasForms
                 ->success()
                 ->send();
         }
-        
+
         $this->isEditing = false;
         $this->mount();
     }
@@ -175,8 +185,9 @@ class Dashboard extends BaseDashboard implements HasForms
 
     public function getVendorData(): ?array
     {
+        /** @var \App\Models\User $user */
         $user = Filament::auth()->user();
-        
+
         if (!$user || !$user->hasRole(RolesEnum::VENDOR->value)) {
             return null;
         }

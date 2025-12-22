@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import { ProductItem } from '@/Components/App/ProductItem';
 import { MapPin, Package, Star, Calendar, Share2 } from 'lucide-react';
+import { formatStoreName } from '@/helpers';
 
 function Profile({
     vendor,
@@ -13,6 +14,23 @@ function Profile({
         year: 'numeric',
         month: 'long'
     });
+
+    const handleShareStore = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: `${vendor.store_name} - Store`,
+                    text: `Check out ${vendor.store_name} on TenTen`,
+                    url: window.location.href
+                });
+            } catch (err) {
+                console.log('Error sharing:', err);
+            }
+        } else {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Store link copied to clipboard!');
+        }
+    };
 
     return (
         <AppLayout>
@@ -42,8 +60,13 @@ function Profile({
                                 <div className="flex items-start justify-between">
                                     <div>
                                         <h1 className="text-3xl font-bold text-base-content mb-2">
-                                            {vendor.store_name}
+                                            {formatStoreName(vendor.store_name)}
                                         </h1>
+                                        {vendor.user?.name && (
+                                            <p className="text-base-content/70 text-sm mb-4">
+                                                {vendor.user.name}
+                                            </p>
+                                        )}
                                         <div className="flex items-center gap-1 text-base-content/70 mb-4">
                                             <Calendar className="w-4 h-4" />
                                             <span>Member since {memberSince}</span>
@@ -62,25 +85,9 @@ function Profile({
                                     </div>
 
                                     <button
-                                        onClick={async () => {
-                                            if (navigator.share) {
-                                                try {
-                                                    await navigator.share({
-                                                        title: `${vendor.store_name} - Store`,
-                                                        text: `Check out ${vendor.store_name} on TenTen`,
-                                                        url: window.location.href
-                                                    });
-                                                } catch (err) {
-                                                    console.log('Error sharing:', err);
-                                                }
-                                            } else {
-                                                navigator.clipboard.writeText(window.location.href);
-                                                alert('Store link copied to clipboard!');
-                                            }
-                                        }}
-                                        className="w-fit whitespace-nowrap bg-black text-white hover:bg-gray-800 px-6 py-3 rounded-lg transition-colors
-                                                   flex items-center gap-2"
-                                    >
+                                        onClick={handleShareStore}
+                                        className="w-fit whitespace-nowrap bg-black text-white hover:bg-gray-800
+                                                   px-6 py-3 rounded-lg transition-colors flex items-center gap-2">
                                         <Share2 className="w-4 h-4" />
                                         Share Store
                                     </button>

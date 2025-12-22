@@ -37,3 +37,10 @@ export const goToProductsPage = () => {
 export const goToProductDetails = (productId: number | string) => {
     navigateTo('product.show', productId);
 }
+
+export const formatStoreName = (name: string) => {
+    return name
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}

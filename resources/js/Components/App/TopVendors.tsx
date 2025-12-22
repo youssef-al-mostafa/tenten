@@ -1,5 +1,5 @@
 import { MapPin } from 'lucide-react';
-import { goToVendorProfile, navigateTo } from '@/helpers';
+import { goToVendorProfile, navigateTo, formatStoreName } from '@/helpers';
 import { TopVendor } from '@/types';
 
 interface TopVendorsProps {
@@ -59,11 +59,11 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-1">
                                             <h3 className="font-bold text-lg text-gray-900">
-                                                {vendor.name}
+                                                {formatStoreName(vendor.storeName)}
                                             </h3>
                                         </div>
                                         <p className="text-gray-600 text-sm mb-2">
-                                            {vendor.storeName}
+                                            {vendor.name}
                                         </p>
                                     </div>
                                 </div>

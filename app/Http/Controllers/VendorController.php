@@ -45,6 +45,9 @@ class VendorController extends Controller
                 });
             })
             ->paginate();
+
+        $vendor->load('user:id,name');
+
         return Inertia::render('Vendor/Profile', [
             'vendor' => $vendor,
             'products' => ProductListResource::collection($products),

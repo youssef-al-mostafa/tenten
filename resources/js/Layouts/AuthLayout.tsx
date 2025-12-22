@@ -33,7 +33,7 @@ export default function AuthLayout({ children, title = "Welcome back", subtitle 
                         Don't have an account?{' '}
                         <Link
                             href={route('register')}
-                            className="font-semibold text-base-content hover:text-base-content/80 underline transition-colors"
+                            className="font-semibold text-base-content hover:text-base-content/80 transition-colors"
                         >
                             Create one here
                         </Link>

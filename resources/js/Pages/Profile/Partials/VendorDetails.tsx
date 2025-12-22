@@ -1,11 +1,10 @@
 import InputError from '@/Components/Core/InputError';
 import InputLabel from '@/Components/Core/InputLabel';
 import Modal from '@/Components/Core/Modal';
-import PrimaryButton from '@/Components/Core/PrimaryButton';
-import SecondaryButton from '@/Components/Core/SecondaryButton';
 import TextInput from '@/Components/Core/TextInput';
 import { useForm, usePage } from '@inertiajs/react';
-import React, { FormEventHandler, useState } from 'react'
+import { FormEventHandler, useState } from 'react';
+import { formatStoreName } from '@/helpers';
 
 interface Props {
     className?: string;
@@ -25,9 +24,10 @@ function VendorDetails({ className }: Props) {
         store_address: user.vendor?.store_address,
     });
 
-    const onStoreNameChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        setData('store_name', ev.target.value.toLowerCase().replace(/\s+/g, '-'));
-    }
+    const handleStoreNameChange = (value: string) => {
+        const formatted = value.toLowerCase().replace(/\s+/g, '-');
+        setData('store_name', formatted);
+    };
 
     const becomeVendor: FormEventHandler = (ev) => {
         ev.preventDefault();
@@ -73,7 +73,7 @@ function VendorDetails({ className }: Props) {
 
             <div className="mb-6">
                 <p className="text-gray-600">
-                    {!user.vendor 
+                    {!user.vendor
                         ? "Join our marketplace as a vendor to start selling your products."
                         : "Manage your vendor store settings and payment information."
                     }
@@ -105,31 +105,36 @@ function VendorDetails({ className }: Props) {
                         <form onSubmit={updateVendor} className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <InputLabel 
-                                        htmlFor='name' 
+                                    <InputLabel
+                                        htmlFor='name'
                                         value='Store Name'
                                         className="text-gray-700 font-medium mb-2"
                                     />
-                                    <TextInput 
+                                    <TextInput
                                         id='name'
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
                                         value={data.store_name}
-                                        onChange={onStoreNameChange}
+                                        onChange={(e) => handleStoreNameChange(e.target.value)}
                                         required
                                         isFocused
                                         autoComplete="name"
                                         placeholder="Enter your store name"
                                     />
+                                    {data.store_name && (
+                                        <p className="mt-2 text-sm text-gray-500">
+                                            Will be displayed as: <span className="font-medium text-purple-600">{formatStoreName(data.store_name)}</span>
+                                        </p>
+                                    )}
                                     <InputError message={errors.store_name} className="mt-2" />
                                 </div>
-                                
+
                                 <div>
-                                    <InputLabel 
-                                        htmlFor='address' 
+                                    <InputLabel
+                                        htmlFor='address'
                                         value='Store Address'
                                         className="text-gray-700 font-medium mb-2"
                                     />
-                                    <textarea 
+                                    <textarea
                                         id='address'
                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors resize-none"
                                         rows={3}
@@ -140,10 +145,10 @@ function VendorDetails({ className }: Props) {
                                     <InputError message={errors.store_address} className="mt-2" />
                                 </div>
                             </div>
-                            
+
                             <div className="flex items-center pt-4">
                                 <button
-                                    type='submit' 
+                                    type='submit'
                                     disabled={processing}
                                     className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
@@ -154,7 +159,7 @@ function VendorDetails({ className }: Props) {
 
                         <div className="border-t border-gray-200 pt-8">
                             <h3 className="text-lg font-semibold text-gray-900 mb-4">Payment Settings</h3>
-                            
+
                             {user.strip_account_active ? (
                                 <div className="bg-green-50 border border-green-200 rounded-lg p-6">
                                     <div className="flex items-center gap-3 mb-2">
@@ -175,7 +180,7 @@ function VendorDetails({ className }: Props) {
                                     </p>
                                     <form action={route('stripe.connect')} method={'post'}>
                                         <input type="hidden" name="_token" value={token} />
-                                        <button 
+                                        <button
                                             type="submit"
                                             className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
                                         >
@@ -204,7 +209,7 @@ function VendorDetails({ className }: Props) {
                             Are you ready to start selling on our marketplace?
                         </p>
                     </div>
-                    
+
                     <form onSubmit={becomeVendor}>
                         <div className="flex justify-center gap-4">
                             <button

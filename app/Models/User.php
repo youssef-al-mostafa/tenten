@@ -20,6 +20,12 @@ use SimonHamp\LaravelStripeConnect\Traits\Payable;
 use Spatie\Permission\Models\Role;
 /**
  * @mixin \Spatie\Permission\Traits\HasRoles
+ * @method bool hasRole(string|int|array|\Spatie\Permission\Models\Role|\Illuminate\Support\Collection|\BackedEnum $roles, string|null $guard = null)
+ * @method bool hasAnyRole(string|int|array|\Spatie\Permission\Models\Role|\Illuminate\Support\Collection|\BackedEnum $roles, string|null $guard = null)
+ * @method bool hasAllRoles(string|int|array|\Spatie\Permission\Models\Role|\Illuminate\Support\Collection|\BackedEnum $roles, string|null $guard = null)
+ * @method $this assignRole(string|int|array|\Spatie\Permission\Models\Role|\Illuminate\Support\Collection|\BackedEnum $roles)
+ * @method $this removeRole(string|int|array|\Spatie\Permission\Models\Role|\Illuminate\Support\Collection|\BackedEnum $roles)
+ * @method $this syncRoles(string|int|array|\Spatie\Permission\Models\Role|\Illuminate\Support\Collection|\BackedEnum $roles)
  * @method string|null getStripeAccountId()
  * @method void createStripeAccount(array $options)
  * @method string getStripeAccountLink()
