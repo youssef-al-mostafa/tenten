@@ -50,7 +50,7 @@ class PageController extends Controller
             ->get();
 
         $page = Pages::where('slug', 'home')->active()->first();
-        
+
         if ($page) {
             $pageContent = array_merge(
                 $this->templateService->loadTemplate('home'),
@@ -70,8 +70,8 @@ class PageController extends Controller
                     'avatar' => $vendor->cover_image ? asset('storage/' . $vendor->cover_image) : null,
                     'rating' => 4.5 + (rand(0, 8) / 10),
                     'reviewCount' => rand(100, 3000),
-                    'location' => $vendor->store_address ?: 'Location not specified',
-                    'description' => $vendor->store_description ?: 'No description available',
+                    'location' => $vendor->store_address ?: null,
+                    'description' => $vendor->store_description ?: null,
                     'topProducts' => $vendor->user->products->map(function($product) {
                         $media = $product->getFirstMediaUrl('images') ?: ($product->getFirstMediaUrl() ?: null);
                         return [
@@ -90,7 +90,7 @@ class PageController extends Controller
     public function help()
     {
         $page = Pages::where('slug', 'help')->active()->first();
-        
+
         if ($page) {
             $pageContent = array_merge(
                 $this->templateService->loadTemplate('help'),
@@ -108,7 +108,7 @@ class PageController extends Controller
     public function show(string $slug)
     {
         $page = Pages::where('slug', $slug)->active()->firstOrFail();
-        
+
         $pageContent = array_merge(
             $this->templateService->loadTemplate($page->template_name),
             $page->content ?: []
