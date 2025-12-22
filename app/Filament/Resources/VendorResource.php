@@ -87,7 +87,7 @@ class VendorResource extends Resource
                     ->label('Status')
                     ->options([
                         VendorStatusEnum::Pending->value => 'Pending',
-                        VendorStatusEnum::Approved->value => 'Approved', 
+                        VendorStatusEnum::Approved->value => 'Approved',
                         VendorStatusEnum::Rejected->value => 'Rejected',
                     ])
                     ->selectablePlaceholder(false),

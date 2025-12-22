@@ -25,6 +25,11 @@ class Department extends Model
         return $this->hasMany(Category::class);
     }
 
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public function scopePublished(Builder $query): Builder {
         return $query->where('active', true);
     }

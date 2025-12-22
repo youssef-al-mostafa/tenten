@@ -25,7 +25,6 @@ interface FeaturedCategoriesProps {
 
 const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
     const { departments } = usePage<PageProps>().props;
-    //console.log('FeaturedCategories data:', { content, departments });
 
     if (!departments || departments.length === 0) {
         return null;
@@ -33,25 +32,31 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
 
     const categories: FeaturedCategory[] = departments
         .filter((dept: any) => dept.active)
-        .map((dept: any) => ({
-            id: dept.id,
-            name: dept.name,
-            slug: dept.slug,
-            image: dept.image ? `/storage/${dept.image}` : 'https://via.placeholder.com/600x400',
-            productCount: dept.categories?.length || 0,
-            description: dept.description || dept.name,
-            gradient: dept.color ? dept.color : '#6B7280'
-        }));
+        .map((dept: any) => {
+            console.log('Department:', dept.name, 'products_count:', dept.products_count);
+            return {
+                id: dept.id,
+                name: dept.name,
+                slug: dept.slug,
+                image: dept.image ? `/storage/${dept.image}` : 'https://via.placeholder.com/600x400',
+                productCount: dept.products_count ?? 0,
+                description: dept.description || dept.name,
+                gradient: dept.color ? dept.color : '#6B7280'
+            };
+        });
 
     return (
         <section className="py-8 sm:py-12 lg:py-16 bg-white">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-10 lg:mb-12 gap-4">
                     {content?.title && (
-                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center sm:text-left">{content.title}</h2>
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center sm:text-left">
+                            {content.title}
+                        </h2>
                     )}
                     {content?.browse_button && (
-                        <button className="border border-gray-300 hover:border-gray-400 transition-colors px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base w-full sm:w-auto">
+                        <button className="border border-gray-300 hover:border-gray-400 transition-colors px-4
+                                           sm:px-6 py-2 rounded-full text-sm sm:text-base w-full sm:w-auto">
                             {content.browse_button}
                         </button>
                     )}
@@ -62,17 +67,18 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
                         <Link
                             key={category.id}
                             href={route('product.byDepartment', category.slug)}
-                            className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer block"
-                        >
+                            className="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl
+                                       transition-all duration-300 cursor-pointer block">
                             <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden">
                                 <img
                                     src={category.image}
                                     alt={category.name}
-                                    className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-300"
-                                    loading="lazy"
-                                />
+                                    className="w-full h-full object-cover object-center group-hover:scale-110
+                                               transition-transform duration-300"
+                                    loading="lazy"/>
                                 <div
-                                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-70 group-hover:opacity-80 transition-opacity"
+                                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent
+                                               to-transparent opacity-70 group-hover:opacity-80 transition-opacity"
                                     style={{
                                         background: `linear-gradient(to top, ${category.gradient}CC, ${category.gradient}66, transparent)`
                                     }}
@@ -92,7 +98,8 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
                                 </div>
                             </div>
 
-                            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1">
+                            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white bg-opacity-20 backdrop-blur-sm
+                                            rounded-full px-2 sm:px-3 py-1">
                                 <span className="text-white text-xs sm:text-sm font-medium">
                                     {category.productCount > 1000 ? `${Math.floor(category.productCount / 1000)}k+` : category.productCount}
                                 </span>
@@ -108,7 +115,8 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
                         </p>
                     )}
                     {content?.explore_button && (
-                        <button className="bg-black text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg hover:bg-gray-800 transition-colors text-sm sm:text-base w-full sm:w-auto">
+                        <button className="bg-black text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg hover:bg-gray-800
+                                           transition-colors text-sm sm:text-base w-full sm:w-auto">
                             {content.explore_button}
                         </button>
                     )}

@@ -25,6 +25,7 @@ class DepartmentResource extends JsonResource
             'description' => $this->description,
             'image' => $this->image,
             'color' => $this->color,
+            'products_count' => $this->products_count ?? 0,
             'categories' => $this->categories->map(function ($category) {
                 return [
                     'id' => $category->id,

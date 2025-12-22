@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\ProductStatusEnum;
 use App\Http\Resources\AuthUserResource;
 use App\Http\Resources\DepartmentResource;
 use App\Models\Department;
@@ -38,7 +39,12 @@ class HandleInertiaRequests extends Middleware
         $totalQuantity = $cartService->getTotalQuantity();
         $totalPrice = $cartService->getTotalPrice();
         $cartItems = $cartService->getCartItems();
-        $departement = Department::published()->with('categories')->get();
+        $departement = Department::published()
+            ->with('categories')
+            ->withCount(['products' => function($query) {
+                $query->where('status', ProductStatusEnum::Published);
+            }])
+            ->get();
 
         return array_merge(parent::share($request), [
             'appName' => config('app.name'),

@@ -86,7 +86,7 @@ class ProductResource extends Resource
                         [
                             'blockquote',
                             'bold',
-                            'bulletlist',
+                            'bulletList',
                             'h2',
                             'h3',
                             'italic',
