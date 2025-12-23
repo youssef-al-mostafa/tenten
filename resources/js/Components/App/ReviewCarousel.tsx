@@ -28,7 +28,20 @@ const ReviewCarousel = ({
     const actualReviews = content?.items || reviews;
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const reviewsPerPage = 3;
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const reviewsPerPage = isMobile ? 1 : 3;
     const totalPages = actualReviews ? Math.ceil(actualReviews.length / reviewsPerPage) : 0;
 
     const [isHovered, setIsHovered] = useState(false);

@@ -11,7 +11,8 @@
                         <div class="flex items-center justify-between">
                             <div class="flex gap-6 items-center space-x-4">
                                 <div
-                                    class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center overflow-hidden">
+                                    class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center
+                                           justify-center overflow-hidden">
                                     @if ($vendorData['cover_image'])
                                         <img src="{{ asset('storage/' . $vendorData['cover_image']) }}" alt="Store Cover"
                                             class="w-full h-full object-cover">
@@ -29,7 +30,10 @@
                             </div>
                             @if (!$isEditing)
                                 <button wire:click="edit"
-                                    class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2">
+                                    class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-500
+                                           dark:hover:bg-primary-600 text-white font-medium py-2
+                                           px-4 rounded-lg transition-colors flex items-center
+                                           space-x-2 gap-4">
                                     <x-filament::icon icon="heroicon-o-pencil" class="w-4 h-4" />
                                     <span>Edit Profile</span>
                                 </button>
@@ -43,13 +47,15 @@
 
                             <div class="flex gap-6 space-x-3 mt-6">
                                 <button type="submit"
-                                    class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2">
+                                    class="bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white
+                                           font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2">
                                     <x-filament::icon icon="heroicon-o-check" class="w-4 h-4" />
                                     <span>Save Changes</span>
                                 </button>
 
                                 <button type="button" wire:click="cancelEdit"
-                                    class="bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2">
+                                    class="bg-gray-600 hover:bg-gray-700 dark:bg-gray-500 dark:hover:bg-gray-600 text-white
+                                           font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2">
                                     <x-filament::icon icon="heroicon-o-x-mark" class="w-4 h-4" />
                                     <span>Cancel</span>
                                 </button>
@@ -113,21 +119,25 @@
                         </div>
                     </x-slot>
 
-                    <div class="flex gap-6 items-stretch">
+                    <div class="flex gap-6 items-stretch justify-start">
                         <button onclick="showQrModal()"
                             class="w-1/2 bg-primary-600 hover:bg-primary-700
-               dark:bg-primary-500 dark:hover:bg-primary-600 text-white
-               font-medium px-4 rounded-lg transition-colors flex
-               items-center justify-center space-x-2 h-12">
+                                   dark:bg-primary-500 dark:hover:bg-primary-600 text-white
+                                   font-medium px-4 rounded-lg transition-colors flex
+                                   items-center justify-center space-x-2 h-12 gap-4">
                             <x-filament::icon icon="heroicon-o-qr-code" class="w-5 h-5" />
                             <span>Show QR Code</span>
                         </button>
 
                         <div class="relative w-1/2">
                             <input type="text" value="{{ $vendorUrl }}" readonly id="vendorUrl"
-                                class="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg px-4 text-sm text-gray-950 dark:text-white pr-12 focus:ring-primary-500 focus:border-primary-500 h-12">
+                                class="w-[calc(100% - 28px)] bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600
+                                          rounded-lg px-4 text-sm text-gray-950 dark:text-white pr-12 focus:ring-primary-500
+                                          focus:border-primary-500 h-12">
                             <button onclick="copyToClipboard()"
-                                class="absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors rounded"
+                                class="absolute right-[-4px] top-1/2 transform -translate-y-1/2 p-1.5 text-gray-500
+                                           hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300
+                                           transition-colors rounded"
                                 title="Copy to clipboard" id="copyButton">
                                 <x-filament::icon icon="heroicon-o-clipboard" class="w-6 h-6" />
                             </button>
@@ -138,8 +148,7 @@
         </div>
 
         <div id="qrModal"
-            class="fixed inset-0 bg-gray-950/50 dark:bg-gray-950/75 hidden z-50 flex items-center justify-center p-4"
-            x-data>
+            class="fixed inset-0 bg-gray-950/50 dark:bg-gray-950/75 hidden z-50 items-center justify-center p-4" x-data>
             <x-filament::section class="max-w-md w-full">
                 <x-slot name="heading">
                     <div class="flex justify-between items-center">
@@ -156,7 +165,9 @@
                     <p class="text-sm text-gray-500 dark:text-gray-400">Scan this QR code to visit your store</p>
 
                     <button onclick="downloadQrCode()"
-                        class="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                        class="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700
+                               dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-medium
+                               py-2 px-4 rounded-lg transition-colors">
                         <x-filament::icon icon="heroicon-o-arrow-down-tray" class="w-4 h-4" />
                         <span>Download QR Code</span>
                     </button>
@@ -181,12 +192,16 @@
                 urlInput.setSelectionRange(0, 99999);
 
                 navigator.clipboard.writeText(urlInput.value).then(function() {
-                    copyButton.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
-                    copyButton.className = 'absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-green-500 transition-colors rounded';
+                    copyButton.innerHTML =
+                        '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                    copyButton.className =
+                        'absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-green-500 transition-colors rounded';
 
                     setTimeout(function() {
-                        copyButton.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>';
-                        copyButton.className = 'absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors rounded';
+                        copyButton.innerHTML =
+                            '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>';
+                        copyButton.className =
+                            'absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors rounded';
                     }, 2000);
 
                     @this.call('copyUrl');

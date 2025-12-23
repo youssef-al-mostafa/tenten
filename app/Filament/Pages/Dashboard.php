@@ -150,7 +150,7 @@ class Dashboard extends BaseDashboard implements HasForms
             $user->email_verified_at = null;
             $user->save();
             $user->sendEmailVerificationNotification();
-            auth()->logout();
+            Filament::auth()->logout();
             request()->session()->invalidate();
             request()->session()->regenerateToken();
 

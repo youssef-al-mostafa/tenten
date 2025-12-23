@@ -33,7 +33,6 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
     const categories: FeaturedCategory[] = departments
         .filter((dept: any) => dept.active)
         .map((dept: any) => {
-            console.log('Department:', dept.name, 'products_count:', dept.products_count);
             return {
                 id: dept.id,
                 name: dept.name,
