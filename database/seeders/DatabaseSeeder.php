@@ -22,10 +22,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RoleAndPermissionSeeder::class,
-            DepartmentSeeder::class,
-            CategorySeeder::class,
+            // DepartmentSeeder::class,
+            // CategorySeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            VendorSeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }
