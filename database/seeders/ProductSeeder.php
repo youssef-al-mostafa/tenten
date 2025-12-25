@@ -14,28 +14,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductSeeder extends Seeder
 {
-    /**
-     * Cached department and category IDs (loaded dynamically)
-     */
     private array $departments = [];
     private array $categories = [];
 
-    /**
-     * Image download settings
-     */
-    private bool $downloadImages = true; // Set to false to skip image downloads
-    private int $imagesPerProduct = 1; // Number of images per product
-    private bool $testMode = true; // Set to true to seed only one vendor for testing
+    private bool $downloadImages = true;
+    private int $imagesPerProduct = 1;
+    private bool $testMode = false;
 
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Load departments and categories by slug/name (works on any environment)
         $this->loadDepartmentsAndCategories();
-
-        // Get all vendor users
         $vendors = User::whereHas('vendor')->with('vendor')->get();
 
         if ($vendors->isEmpty()) {
@@ -51,7 +39,6 @@ class ProductSeeder extends Seeder
 
             $this->command->info("Processing vendor: {$storeName}");
 
-            // Skip if not one of our seeded vendors
             $isSeededVendor = str_contains($storeName, 'Marcus') ||
                               str_contains($storeName, 'Bella') ||
                               str_contains($storeName, 'Kids Kingdom') ||
@@ -70,16 +57,13 @@ class ProductSeeder extends Seeder
                 continue;
             }
 
-            // Test mode: only process first vendor
             if ($this->testMode && $vendorCount >= 1) {
                 $this->command->info("Test mode enabled - stopping after first vendor");
                 break;
             }
             $vendorCount++;
 
-            // Determine vendor type and product count based on store name
             $products = match (true) {
-                // SPECIALIZED VENDORS - 25 products each
                 str_contains($storeName, "Marcus Men's Collection") => $this->getMensProducts(25),
                 str_contains($storeName, 'Bella Rosa Boutique') => $this->getWomensProducts(25),
                 str_contains($storeName, 'Kids Kingdom') => $this->getChildrensProducts(25),
@@ -87,7 +71,6 @@ class ProductSeeder extends Seeder
                 str_contains($storeName, 'Sports Pro Gear') => $this->getSportsWearProducts(25),
                 str_contains($storeName, 'Accessory Hub') => $this->getAccessoriesProducts(25),
 
-                // MULTI-DEPARTMENT VENDORS - 35 products each
                 str_contains($storeName, 'Athletic Men') => array_merge(
                     $this->getMensProducts(18),
                     $this->getSportsWearProducts(17)
@@ -105,7 +88,6 @@ class ProductSeeder extends Seeder
                     $this->getFootwearProducts(17, 'sports')
                 ),
 
-                // LARGE DEPARTMENT STORE VENDORS - 80 products each
                 str_contains($storeName, 'Fashion Mart') || str_contains($storeName, 'Trend Haven') => array_merge(
                     $this->getMensProducts(15),
                     $this->getWomensProducts(20),
@@ -118,7 +100,6 @@ class ProductSeeder extends Seeder
                 default => [],
             };
 
-            // Create products for this vendor
             foreach ($products as $productData) {
                 $product = Product::create([
                     'title' => $productData['title'],
@@ -133,7 +114,6 @@ class ProductSeeder extends Seeder
                     'updated_by' => $vendor->id,
                 ]);
 
-                // Attach images if enabled
                 if ($this->downloadImages) {
                     $this->attachProductImages($product, $productData['title']);
                 }
@@ -144,15 +124,11 @@ class ProductSeeder extends Seeder
             $this->command->info("Created " . count($products) . " products for {$storeName}");
         }
 
-        $this->command->info("✓ Total {$productCount} products created successfully!");
+        $this->command->info("Total {$productCount} products created successfully!");
     }
 
-    /**
-     * Load departments and categories from database by slug/name
-     */
     private function loadDepartmentsAndCategories(): void
     {
-        // Load departments by slug
         $depts = Department::whereIn('slug', ['men', 'women', 'accessories', 'children', 'sports-wear', 'footwear'])->get();
 
         $this->departments = [
@@ -164,7 +140,6 @@ class ProductSeeder extends Seeder
             'footwear' => $depts->firstWhere('slug', 'footwear')?->id,
         ];
 
-        // Load categories by name and department
         $menDept = $this->departments['men'];
         $womenDept = $this->departments['women'];
 
@@ -193,36 +168,28 @@ class ProductSeeder extends Seeder
         $this->command->info('✓ Loaded departments and categories dynamically');
     }
 
-    /**
-     * Generate Men's products
-     */
     private function getMensProducts(int $count): array
     {
         $products = [
-            // Shirts & Tops
             ['title' => 'Classic White Dress Shirt', 'description' => 'Timeless white dress shirt perfect for formal occasions and business meetings.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_shirts'] ?? null, 'price' => 59.99],
             ['title' => 'Slim Fit Oxford Shirt', 'description' => 'Contemporary slim fit Oxford shirt in premium cotton fabric.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_shirts'] ?? null, 'price' => 49.99],
             ['title' => 'Casual Linen Shirt', 'description' => 'Breathable linen shirt ideal for casual summer days.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_shirts'] ?? null, 'price' => 45.00],
             ['title' => 'Polo Shirt - Navy Blue', 'description' => 'Classic navy polo shirt with modern fit and premium feel.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_tops'] ?? null, 'price' => 39.99],
             ['title' => 'Graphic T-Shirt Collection', 'description' => 'Trendy graphic tees with unique designs for casual wear.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_tops'] ?? null, 'price' => 24.99],
 
-            // Pants & Bottoms
             ['title' => 'Classic Fit Chino Pants', 'description' => 'Versatile chino pants suitable for both casual and semi-formal settings.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_pants'] ?? null, 'price' => 69.99],
             ['title' => 'Slim Fit Dress Trousers', 'description' => 'Elegant dress trousers with a modern slim fit cut.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_pants'] ?? null, 'price' => 79.99],
             ['title' => 'Denim Jeans - Dark Wash', 'description' => 'Premium denim jeans with classic dark wash finish.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_pants'] ?? null, 'price' => 89.99],
             ['title' => 'Cargo Shorts - Khaki', 'description' => 'Functional cargo shorts perfect for outdoor activities.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_shorts'] ?? null, 'price' => 44.99],
             ['title' => 'Athletic Shorts Set', 'description' => 'Lightweight athletic shorts for sports and training.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_shorts'] ?? null, 'price' => 34.99],
 
-            // Suits & Formal
             ['title' => 'Two-Piece Business Suit', 'description' => 'Professional two-piece suit crafted from premium wool blend.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_suits'] ?? null, 'price' => 399.99],
             ['title' => 'Slim Fit Blazer', 'description' => 'Modern slim fit blazer for sophisticated style.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_suits'] ?? null, 'price' => 189.99],
             ['title' => 'Tuxedo Complete Set', 'description' => 'Complete tuxedo set for special occasions and formal events.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_suits'] ?? null, 'price' => 499.99],
 
-            // Underwear
             ['title' => 'Premium Cotton Boxer Briefs Pack', 'description' => 'Comfortable cotton boxer briefs in multi-pack.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_underwear'] ?? null, 'price' => 29.99],
             ['title' => 'Athletic Performance Underwear', 'description' => 'Moisture-wicking performance underwear for active lifestyles.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_underwear'] ?? null, 'price' => 34.99],
 
-            // Additional variety
             ['title' => 'Flannel Button-Down Shirt', 'description' => 'Cozy flannel shirt perfect for layering in cooler weather.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_shirts'] ?? null, 'price' => 54.99],
             ['title' => 'V-Neck Sweater', 'description' => 'Classic v-neck sweater in soft merino wool.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_tops'] ?? null, 'price' => 74.99],
             ['title' => 'Henley Long Sleeve Shirt', 'description' => 'Casual henley with classic button placket.', 'department_id' => $this->departments['men'], 'category_id' => $this->categories['men_tops'] ?? null, 'price' => 42.99],
@@ -238,46 +205,37 @@ class ProductSeeder extends Seeder
         return array_slice($products, 0, $count);
     }
 
-    /**
-     * Generate Women's products
-     */
     private function getWomensProducts(int $count): array
     {
         $products = [
-            // Dresses
             ['title' => 'Elegant Evening Gown', 'description' => 'Stunning evening gown perfect for formal events and galas.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_dresses'] ?? null, 'price' => 199.99],
             ['title' => 'Floral Summer Dress', 'description' => 'Light and breezy floral print dress for warm weather.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_dresses'] ?? null, 'price' => 79.99],
             ['title' => 'Little Black Dress', 'description' => 'Classic LBD - a wardrobe essential for any occasion.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_dresses'] ?? null, 'price' => 89.99],
             ['title' => 'Maxi Dress - Bohemian Style', 'description' => 'Flowing bohemian maxi dress with intricate patterns.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_dresses'] ?? null, 'price' => 94.99],
             ['title' => 'Cocktail Dress', 'description' => 'Chic cocktail dress for parties and celebrations.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_dresses'] ?? null, 'price' => 119.99],
 
-            // Tops & Blouses
             ['title' => 'Silk Blouse - White', 'description' => 'Luxurious silk blouse for professional elegance.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_tops'] ?? null, 'price' => 89.99],
             ['title' => 'Casual Cotton T-Shirt', 'description' => 'Soft cotton tee perfect for everyday wear.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_tops'] ?? null, 'price' => 29.99],
             ['title' => 'Off-Shoulder Top', 'description' => 'Trendy off-shoulder top for a feminine look.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_tops'] ?? null, 'price' => 44.99],
             ['title' => 'Peplum Blouse', 'description' => 'Flattering peplum style blouse with flare detail.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_tops'] ?? null, 'price' => 54.99],
             ['title' => 'Crop Top - Ribbed', 'description' => 'Modern ribbed crop top for contemporary styling.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_tops'] ?? null, 'price' => 34.99],
 
-            // Bottoms
             ['title' => 'High-Waisted Jeans', 'description' => 'Flattering high-waisted denim jeans with stretch.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_pants'] ?? null, 'price' => 79.99],
             ['title' => 'Wide Leg Trousers', 'description' => 'Sophisticated wide leg trousers for office wear.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_pants'] ?? null, 'price' => 69.99],
             ['title' => 'Pleated Midi Skirt', 'description' => 'Elegant pleated skirt in midi length.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_skirts'] ?? null, 'price' => 59.99],
             ['title' => 'Pencil Skirt - Black', 'description' => 'Classic black pencil skirt for professional settings.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_skirts'] ?? null, 'price' => 49.99],
             ['title' => 'A-Line Skirt', 'description' => 'Versatile A-line skirt suitable for various occasions.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_skirts'] ?? null, 'price' => 54.99],
 
-            // Outerwear
             ['title' => 'Trench Coat - Beige', 'description' => 'Classic beige trench coat for timeless style.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_outerwear'] ?? null, 'price' => 149.99],
             ['title' => 'Leather Jacket', 'description' => 'Edgy leather jacket for a bold statement.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_outerwear'] ?? null, 'price' => 199.99],
             ['title' => 'Wool Blazer', 'description' => 'Professional wool blazer for business attire.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_outerwear'] ?? null, 'price' => 129.99],
             ['title' => 'Puffer Jacket', 'description' => 'Warm puffer jacket for cold weather protection.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_outerwear'] ?? null, 'price' => 109.99],
 
-            // Lingerie & Sleepwear
             ['title' => 'Lace Bra Set', 'description' => 'Delicate lace bra and panty set.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_lingerie'] ?? null, 'price' => 49.99],
             ['title' => 'Silk Pajama Set', 'description' => 'Luxurious silk pajamas for comfortable sleep.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_lingerie'] ?? null, 'price' => 89.99],
             ['title' => 'Cotton Nightgown', 'description' => 'Soft cotton nightgown for restful nights.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_lingerie'] ?? null, 'price' => 39.99],
             ['title' => 'Robe - Satin', 'description' => 'Elegant satin robe for lounging in style.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_lingerie'] ?? null, 'price' => 59.99],
 
-            // Additional variety
             ['title' => 'Wrap Dress', 'description' => 'Flattering wrap dress with adjustable fit.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_dresses'] ?? null, 'price' => 84.99],
             ['title' => 'Cardigan Sweater', 'description' => 'Cozy cardigan perfect for layering.', 'department_id' => $this->departments['women'], 'category_id' => $this->categories['women_tops'] ?? null, 'price' => 64.99],
         ];
@@ -285,9 +243,6 @@ class ProductSeeder extends Seeder
         return array_slice($products, 0, $count);
     }
 
-    /**
-     * Generate Children's products
-     */
     private function getChildrensProducts(int $count): array
     {
         $products = [
@@ -321,9 +276,6 @@ class ProductSeeder extends Seeder
         return array_slice($products, 0, $count);
     }
 
-    /**
-     * Generate Footwear products
-     */
     private function getFootwearProducts(int $count, string $type = 'general'): array
     {
         $products = [
@@ -357,9 +309,6 @@ class ProductSeeder extends Seeder
         return array_slice($products, 0, $count);
     }
 
-    /**
-     * Generate Sports Wear products
-     */
     private function getSportsWearProducts(int $count): array
     {
         $products = [
@@ -393,9 +342,6 @@ class ProductSeeder extends Seeder
         return array_slice($products, 0, $count);
     }
 
-    /**
-     * Generate Accessories products
-     */
     private function getAccessoriesProducts(int $count): array
     {
         $products = [
@@ -429,35 +375,26 @@ class ProductSeeder extends Seeder
         return array_slice($products, 0, $count);
     }
 
-    /**
-     * Attach images to product from Unsplash
-     */
     private function attachProductImages(Product $product, string $title): void
     {
         try {
-            // Determine search keywords based on product title
             $keywords = $this->getImageKeywords($title);
             $this->command->info("  → Downloading image for '{$title}' (keywords: {$keywords})");
 
             for ($i = 0; $i < $this->imagesPerProduct; $i++) {
-                // Download image from Lorem Picsum (reliable placeholder service)
-                // Using random seed based on product ID to get consistent but varied images
                 $seed = $product->id + $i;
                 $imageUrl = "https://picsum.photos/seed/{$seed}/640/480";
                 $this->command->info("    - Fetching from: {$imageUrl}");
 
-                // Disable SSL verification for local development seeding
                 $response = Http::withoutVerifying()->timeout(10)->get($imageUrl);
 
                 if ($response->successful()) {
-                    $this->command->info("    ✓ Download successful ({$response->header('Content-Length')} bytes)");
+                    $this->command->info("Download successful ({$response->header('Content-Length')} bytes)");
 
-                    // Create temporary file
                     $tempPath = 'temp/' . Str::random(40) . '.jpg';
                     Storage::put($tempPath, $response->body());
-                    $this->command->info("    ✓ Saved to temp: {$tempPath}");
+                    $this->command->info("Saved to temp: {$tempPath}");
 
-                    // Add to media library
                     $storagePath = Storage::path($tempPath);
                     $this->command->info("    → Adding to media library from: {$storagePath}");
 
@@ -465,40 +402,32 @@ class ProductSeeder extends Seeder
                         ->preservingOriginal()
                         ->toMediaCollection('images');
 
-                    $this->command->info("    ✓ Media attached! ID: {$media->id}, Path: {$media->getPath()}");
+                    $this->command->info("     Media attached! ID: {$media->id}, Path: {$media->getPath()}");
 
-                    // Clean up temp file
                     Storage::delete($tempPath);
-                    $this->command->info("    ✓ Temp file cleaned up");
+                    $this->command->info("     Temp file cleaned up");
 
-                    // Add small delay to get different images
-                    usleep(300000); // 0.3 seconds
+                    usleep(300000);
                 } else {
-                    $this->command->error("    ✗ Download failed: HTTP {$response->status()}");
+                    $this->command->error("     Download failed: HTTP {$response->status()}");
                 }
             }
 
-            // Verify images were attached
             $imageCount = $product->getMedia('images')->count();
-            $this->command->info("  ✓ Product '{$title}' now has {$imageCount} image(s)");
+            $this->command->info("   Product '{$title}' now has {$imageCount} image(s)");
 
         } catch (\Exception $e) {
-            $this->command->error("  ✗ Failed to download images for: {$title}");
+            $this->command->error("   Failed to download images for: {$title}");
             $this->command->error("    Error: " . $e->getMessage());
             $this->command->error("    File: " . $e->getFile() . ':' . $e->getLine());
         }
     }
 
-    /**
-     * Get appropriate image search keywords based on product title
-     */
     private function getImageKeywords(string $title): string
     {
         $title = strtolower($title);
 
-        // Map product types to search keywords
         $keywordMap = [
-            // Men's clothing
             'shirt' => 'mens-shirt,fashion',
             'polo' => 'polo-shirt,mens-fashion',
             't-shirt' => 'mens-tshirt,casual',
@@ -512,7 +441,6 @@ class ProductSeeder extends Seeder
             'underwear' => 'mens-underwear,fashion',
             'boxer' => 'boxer-briefs,mens',
 
-            // Women's clothing
             'dress' => 'womens-dress,fashion',
             'gown' => 'evening-gown,elegant',
             'blouse' => 'womens-blouse,fashion',
@@ -526,12 +454,10 @@ class ProductSeeder extends Seeder
             'robe' => 'robe,loungewear',
             'cardigan' => 'cardigan,knitwear',
 
-            // Children's
             'kids' => 'kids-clothing,children',
             'boys' => 'boys-clothing,kids',
             'girls' => 'girls-clothing,kids',
 
-            // Footwear
             'shoes' => 'shoes,footwear',
             'sneakers' => 'sneakers,footwear',
             'boots' => 'boots,footwear',
@@ -541,7 +467,6 @@ class ProductSeeder extends Seeder
             'flats' => 'ballet-flats,womens-shoes',
             'cleats' => 'soccer-cleats,sports',
 
-            // Sports wear
             'performance' => 'activewear,sports',
             'athletic' => 'athletic-wear,fitness',
             'yoga' => 'yoga-pants,activewear',
@@ -550,7 +475,6 @@ class ProductSeeder extends Seeder
             'jersey' => 'sports-jersey,athletic',
             'compression' => 'compression-wear,fitness',
 
-            // Accessories
             'belt' => 'leather-belt,accessory',
             'scarf' => 'scarf,fashion-accessory',
             'cap' => 'baseball-cap,hat',
@@ -567,14 +491,12 @@ class ProductSeeder extends Seeder
             'bracelet' => 'bracelet,jewelry',
         ];
 
-        // Find matching keyword
         foreach ($keywordMap as $key => $value) {
             if (str_contains($title, $key)) {
                 return $value;
             }
         }
 
-        // Default fallback
         return 'fashion,clothing';
     }
 }
