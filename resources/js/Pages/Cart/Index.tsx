@@ -61,7 +61,7 @@ export default function Index({
                                 <input type="hidden" name="_token" value={csrf_token} />
                                 <PrimaryButton className="rounded-full">
                                     <CreditCardIcon className="size-6" />
-                                    Proceed to checkout
+                                    Proceed to checkout2
                                 </PrimaryButton>
                             </form>
                         </div>

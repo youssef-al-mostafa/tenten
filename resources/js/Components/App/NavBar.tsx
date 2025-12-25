@@ -210,14 +210,16 @@ function NavBar() {
                             <div className="pt-6 space-y-3 border-t">
                                 <Link
                                     href={route('login')}
-                                    className="block w-full text-center btn btn-ghost font-satoshi font-medium text-gray-700 hover:text-gray-900 py-3"
+                                    className="flex w-full text-center btn btn-ghost font-satoshi
+                                    font-medium text-gray-700 hover:text-gray-900 py-3"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Login
                                 </Link>
                                 <Link
                                     href={route('register')}
-                                    className="block w-full text-center btn btn-primary font-satoshi font-medium text-white bg-black hover:bg-gray-800 py-3"
+                                    className="flex w-full text-center btn btn-primary font-satoshi
+                                    font-medium text-white bg-black hover:bg-gray-800 py-3"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Sign Up
@@ -229,7 +231,8 @@ function NavBar() {
                             <div className="pt-6 space-y-3 border-t">
                                 <Link
                                     href={route('profile.edit')}
-                                    className="block text-lg font-satoshi font-medium text-gray-700 hover:text-gray-900 py-2"
+                                    className="flex text-lg font-satoshi
+                                    font-medium text-gray-700 hover:text-gray-900 py-2"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Profile
@@ -238,7 +241,8 @@ function NavBar() {
                                     href={route('logout')}
                                     method='post'
                                     as='button'
-                                    className="block w-full text-left text-lg font-satoshi font-medium text-red-600 hover:text-red-800 py-2"
+                                    className="flex w-full text-left text-lg
+                                    font-satoshi font-medium text-red-600 hover:text-red-800 py-2"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Logout

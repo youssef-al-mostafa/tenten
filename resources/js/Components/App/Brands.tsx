@@ -47,7 +47,7 @@ const Brands = ({ content }: Props) => {
                             <img
                                 src={brand.src || `/storage/${brand.image}`}
                                 alt={brand.alt || brand.name}
-                                className="h-8 w-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                                className="h-8 w-auto brightness-0 invert opacity-70 hover:opacity-100 transition-opacity duration-300"
                                 onError={(e) => {
                                     console.error('Image failed to load:', brand);
                                     e.currentTarget.style.display = 'none';

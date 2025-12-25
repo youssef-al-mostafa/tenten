@@ -2,6 +2,6 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\Filament\YoussAdminPanelProvider::class,
+    App\Providers\Filament\AdminPanelProvider::class,
     Spatie\Permission\PermissionServiceProvider::class,
 ];

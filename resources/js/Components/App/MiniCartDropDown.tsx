@@ -9,7 +9,8 @@ export const MiniCartDropDowm = () => {
         <>
             <div
                 tabIndex={0}
-                className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-[360px] shadow">
+                className="card card-compact dropdown-content
+                           bg-base-100 z-[25] mt-3 w-[360px] shadow">
                 <div className="card-body">
                     <span className="text-lg font-bold">{totalQuantity} Items</span>
                     <div className="my-4 max-h-[300px] overflow-auto">
@@ -20,8 +21,11 @@ export const MiniCartDropDowm = () => {
                         )}
                         {miniCartItems.map((item) => (
                             <div key={item.id} className="flex gap-4 p-3">
-                                <Link href={route('product.show', item.id)} className='w-16 h-16 flex justify-center items-center'>
-                                 <img src={item.image} alt='Item Image' className='max-w-full max-h-full'/>
+                                <Link href={route('product.show', item.id)}
+                                      className='w-16 h-16 flex justify-center items-center'>
+                                 <img src={item.image}
+                                      alt='Item Image'
+                                      className='max-w-full max-h-full'/>
                                 </Link>
                                 <div className="flex-1">
                                     <h3 className='mb-3 font-semibold'>
@@ -41,9 +45,15 @@ export const MiniCartDropDowm = () => {
                             </div>
                         ))}
                     </div>
-                    <span className="text-lg">Subtotal: <CurrencyFormatter amount={totalPrice}/></span>
+                    <span className="text-lg">
+                        Subtotal: <CurrencyFormatter amount={totalPrice}/>
+                    </span>
                     <div className="card-actions">
-                        <Link href={route('cart.index')} className="btn btn-primary btn-block">View cart</Link>
+                        <Link href={route('cart.index')}
+                              className="btn btn-primary btn-block bg-black
+                                        hover:bg-black focus:bg-black">
+                           View cart
+                        </Link>
                     </div>
                 </div>
             </div>

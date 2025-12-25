@@ -23,7 +23,7 @@ use App\Enums\RolesEnum;
 use Filament\Facades\Filament;
 use App\Models\User;
 
-class YoussAdminPanelProvider extends PanelProvider
+class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
