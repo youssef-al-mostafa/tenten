@@ -1,7 +1,7 @@
-import AuthLayout from '@/Layouts/AuthLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import { Mail, CheckCircle, Home } from 'lucide-react';
+import VerifyLayout from '@/Layouts/VerifyLayout';
 
 export default function VerifyEmail({ status }: { status?: string }) {
     const { post, processing } = useForm({});
@@ -13,7 +13,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
     };
 
     return (
-        <AuthLayout>
+        <VerifyLayout>
             <Head title="Email Verification" />
 
             <div className="text-center mb-8">
@@ -81,6 +81,6 @@ export default function VerifyEmail({ status }: { status?: string }) {
                     </Link>
                 </div>
             </form>
-        </AuthLayout>
+        </VerifyLayout>
     );
 }
