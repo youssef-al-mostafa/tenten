@@ -2,6 +2,7 @@ import { Product } from '@/types';
 import { Link } from '@inertiajs/react';
 import { CurrencyFormatter } from '../Core/CurrencyFormatter';
 import { useForm } from '@inertiajs/react';
+import { formatStoreName } from '@/helpers';
 
 interface Props {
     product: Product;
@@ -60,7 +61,7 @@ export const ProductItem = ({ product }: Props) => {
                         <Link href={route('vendor.profile', product.user.store_name)}
                             className="font-medium hover:text-black transition-colors
                                          duration-200 hover:underline">
-                            {product.user.store_name}
+                            {formatStoreName(product.user.store_name)}
                         </Link>
                         <span>in</span>
                         <Link href="/" className="font-medium hover:text-black transition-colors duration-200 hover:underline">
@@ -74,16 +75,6 @@ export const ProductItem = ({ product }: Props) => {
                         <span className="font-satoshi font-bold text-lg sm:text-xl lg:text-2xl text-black">
                             <CurrencyFormatter amount={product.price} />
                         </span>
-                        <div className="flex items-center gap-1">
-                            <div className="flex">
-                                {[...Array(5)].map((_, i) => (
-                                    <svg key={i} className="w-3 h-3 sm:w-3.5 sm:h-3.5" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M11.5526 0L14.751 6.8872L22.2895 7.80085L16.7278 12.971L18.1884 20.4229L11.5526 16.731L4.91676 20.4229L6.37735 12.971L0.815609 7.80085L8.3541 6.8872L11.5526 0Z" fill={i < 4 ? "#FFC633" : "#E5E7EB"} />
-                                    </svg>
-                                ))}
-                            </div>
-                            <span className="text-xs sm:text-sm text-gray-500 ml-1">4.0</span>
-                        </div>
                     </div>
 
                     <button
