@@ -9,7 +9,7 @@
                             <tr>
                                 <td>
                                     <a href="{{ $url }}" class="button button-{{ $color }}"
-                                        target="_blank" rel="noopener" style="background-color: inherit; color: #fff; text-decoration: none;">{{ $slot }}</a>
+                                        target="_blank" rel="noopener">{{ $slot }}</a>
                                 </td>
                             </tr>
                         </table>
