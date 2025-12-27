@@ -6,7 +6,7 @@ import { Head, Link } from '@inertiajs/react';
 
 const Success = ({ orders }: PageProps<{ orders: Order[] }>) => {
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout showNavBar={false}>
             <Head title="Payment was Completed" />
             <div className="w-[480px] mx-auto py-8 px-4">
                 <div className="flex flex-col gap-2 items-center">
@@ -27,7 +27,7 @@ const Success = ({ orders }: PageProps<{ orders: Order[] }>) => {
                             Order Summary
                         </h3>
                         <div className="flex justify-between mb-2 font-bold">
-                            <div className="text-gray-400">
+                            <div className="text-gray-600">
                                 Seller
                             </div>
                             <div>
@@ -37,7 +37,7 @@ const Success = ({ orders }: PageProps<{ orders: Order[] }>) => {
                             </div>
                         </div>
                         <div className="flex justify-between mb-2">
-                            <div className="text-gray-400">
+                            <div className="text-gray-600">
                                 Order Number
                             </div>
                             <div>
@@ -47,7 +47,7 @@ const Success = ({ orders }: PageProps<{ orders: Order[] }>) => {
                             </div>
                         </div>
                         <div className="flex justify-between mb-3">
-                            <div className="text-gray-400">
+                            <div className="text-gray-600">
                                 Items
                             </div>
                             <div>
@@ -55,18 +55,16 @@ const Success = ({ orders }: PageProps<{ orders: Order[] }>) => {
                             </div>
                         </div>
                         <div className="flex justify-between mb-3">
-                            <div className="text-gray-400">
+                            <div className="text-gray-600">
                                 Total
                             </div>
                             <div>
                                 <CurrencyFormatter amount={order.total_price} />
                             </div>
                         </div>
-                        <div className="flex justify-between mt-4">
-                            <Link href='#' className='btn btn-primary'>
-                                View Order Details
-                            </Link>
-                            <Link href={route('dashboard')} className='btn'>
+                        <div className="flex justify-center mt-4">
+                            <Link href={route('home')}
+                                  className='btn bg-gray-800 text-white hover:bg-gray-700'>
                                 Back to Home
                             </Link>
                         </div>

@@ -53,10 +53,29 @@ export interface TopVendor {
 }
 
 
+export type PaginationLink = {
+    url: string | null;
+    label: string;
+    active: boolean;
+}
+
 export type PaginationProps<T> = {
-    links: boolean;
-    total: number;
-    data : Array<T>;
+    data: Array<T>;
+    links: {
+        first: string;
+        last: string;
+        prev: string | null;
+        next: string | null;
+    };
+    meta: {
+        current_page: number;
+        last_page: number;
+        per_page: number;
+        total: number;
+        from: number;
+        to: number;
+        links: PaginationLink[];
+    };
 }
 
 export type PageProps<

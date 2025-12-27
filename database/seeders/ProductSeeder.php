@@ -19,7 +19,7 @@ class ProductSeeder extends Seeder
 
     private bool $downloadImages = true;
     private int $imagesPerProduct = 1;
-    private bool $testMode = false;
+    private bool $testMode = true;
 
     public function run(): void
     {
@@ -57,7 +57,7 @@ class ProductSeeder extends Seeder
                 continue;
             }
 
-            if ($this->testMode && $vendorCount >= 1) {
+            if ($this->testMode && $vendorCount >= 2) {
                 $this->command->info("Test mode enabled - stopping after first vendor");
                 break;
             }

@@ -1,7 +1,5 @@
-import { PageProps } from '@/types';
 import NavBar from '@/Components/App/NavBar';
 import Footer from '@/Components/App/Footer';
-import { usePage } from '@inertiajs/react';
 import { ReactNode } from 'react';
 
 export default function AppLayout({ children }: { children: ReactNode }) {

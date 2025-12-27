@@ -7,11 +7,14 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Services\CartService;
+use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Stmt\TryCatch;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 use function Pest\Laravel\options;
 
@@ -60,13 +63,20 @@ class CartController extends Controller
     {
         $optionIds = $request->input('option_ids');
 
+        Log::info('Cart Delete Request:', [
+            'product_id' => $product->id,
+            'option_ids_from_request' => $optionIds,
+            'user_id' => $request->user()->id,
+            'all_request_data' => $request->all()
+        ]);
+
         $cartService->removeItemFromCart($product->id, $optionIds);
 
         return back()->with('success', 'Product was removed from cart successfully');
     }
     public function checkout(Request $request, CartService $cartService)
     {
-        \Stripe\Stripe::setApiKey(config('app.stripe_secret'));
+        Stripe::setApiKey(config('app.stripe_secret'));
 
         $vendorId = $request->input('vendor_id');
 
@@ -126,7 +136,7 @@ class CartController extends Controller
                 }
             }
 
-            $session = \Stripe\Checkout\Session::create([
+            $session = Session::create([
                 'customer_email' => $request->user()->email,
                 'line_items' => $lineItems,
                 'mode' => 'payment',
@@ -141,7 +151,7 @@ class CartController extends Controller
 
             DB::commit();
             return redirect($session->url);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error($e);
             DB::rollBack();
             return back()->with('error', $e->getMessage() ?: 'Something went wrong');

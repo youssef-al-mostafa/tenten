@@ -31,7 +31,7 @@ export default function Index({
                                 {Object.values(cartItems).map(cartItem => (
                                     <div key={cartItem.user.id}>
                                         <div className="flex items-center justify-center pb-4 border-b border-gray-300 mb-4">
-                                            <Link href="/" className="underline">
+                                            <Link href="/" className="">
                                                 {cartItem.user.name}
                                             </Link>
                                             <div className="">
@@ -55,11 +55,11 @@ export default function Index({
                     </div>
                     <div className="card bg-white lg:min-w-[260px] order-1 lg:order-2">
                         <div className="card-body">
-                            Subtotal ({totalQuantity} items): &nbsp;
+                            Total ({totalQuantity} items): &nbsp;
                             <CurrencyFormatter amount={totalPrice} />
                             <form action={route('cart.checkout')} method="post">
                                 <input type="hidden" name="_token" value={csrf_token} />
-                                <PrimaryButton className="rounded-full">
+                                <PrimaryButton className="rounded-full flex justify-between gap-3">
                                     <CreditCardIcon className="size-6" />
                                     Proceed to checkout
                                 </PrimaryButton>

@@ -34,10 +34,29 @@ class StripeController extends Controller
             }
         }
 
+        $productsToDelete = [];
+        foreach ($orders as $order) {
+            $productsToDelete = [
+                ...$productsToDelete,
+                ...$order->orderItems->map(fn($item) => $item->product_id)->toArray(),
+            ];
+        }
+
+        CartItem::query()->where('user_id', $user->id)
+            ->whereIn('product_id', $productsToDelete)
+            ->where('saved_for_later', false)
+            ->delete();
+
+        $remainingCartCount = CartItem::query()
+            ->where('user_id', $user->id)
+            ->where('saved_for_later', false)
+            ->sum('quantity');
+
         session()->flash('success', 'Payment was completed successfully.');
 
         return Inertia::render('Stripe/Success', [
             'orders' => OrderViewResource::collection($orders)->collection->toArray(),
+            'totalQuantity' => $remainingCartCount,
         ]);
     }
 

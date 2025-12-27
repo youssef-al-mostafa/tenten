@@ -10,7 +10,7 @@ export const MiniCartDropDowm = () => {
             <div
                 tabIndex={0}
                 className="card card-compact dropdown-content
-                           bg-base-100 z-[25] mt-3 w-[360px] shadow">
+                           bg-base-100 z-[50] mt-3 w-[360px] shadow">
                 <div className="card-body">
                     <span className="text-lg font-bold">{totalQuantity} Items</span>
                     <div className="my-4 max-h-[300px] overflow-auto">

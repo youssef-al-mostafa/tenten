@@ -3,11 +3,10 @@ import { usePage } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode, useEffect, useRef, useState } from 'react';
 
 export default function AuthenticatedLayout({
-    header,
     children,
-}: PropsWithChildren<{ header?: ReactNode }>) {
+    showNavBar = true,
+}: PropsWithChildren<{ header?: ReactNode; showNavBar?: boolean }>) {
     const { props } = usePage();
-    const user = props.auth.user;
 
     const [successMessages, setSuccessMessages] = useState<{ id: number; message: string }[]>([]);
     const timeoutRefs = useRef<{ [key: number]: ReturnType<typeof setTimeout> }>({});
@@ -34,7 +33,7 @@ export default function AuthenticatedLayout({
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <NavBar />
+            {showNavBar && <NavBar />}
             {props.error && <div className="text-red-500">{props.error}</div>}
 
             {successMessages.length > 0 && (

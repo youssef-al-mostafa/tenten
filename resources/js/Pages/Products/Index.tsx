@@ -1,4 +1,4 @@
-import { Department, PageProps, PaginationProps, Product } from '@/types';
+import { Department, PaginationProps, Product } from '@/types';
 import { Head, router, usePage } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import { ProductItem } from '@/Components/App/ProductItem';
@@ -38,7 +38,7 @@ const ProductsIndex = ({ products, departments = { data: [] }, filters }: Produc
             preserveState: true,
             preserveScroll: true,
         });
-    }, [deferredSearchTerm]);
+    }, [deferredSearchTerm, selectedDepartment, sortBy]);
 
     const handleFilterChange = (type: 'department' | 'sort', value: string) => {
         const params: any = {
@@ -181,10 +181,10 @@ const ProductsIndex = ({ products, departments = { data: [] }, filters }: Produc
                                 ))}
                             </div>
 
-                            {Array.isArray(products.links) && products.links.length > 3 && (
+                            {products.meta?.links && Array.isArray(products.meta.links) && products.meta.links.length > 3 && (
                                 <div className="mt-12 flex justify-center">
-                                    <div className="flex items-center space-x-2">
-                                        {products.links.map((link, index) => (
+                                    <div className="flex items-center gap-2">
+                                        {products.meta.links.map((link, index) => (
                                             <button
                                                 key={index}
                                                 onClick={() => {
@@ -195,11 +195,11 @@ const ProductsIndex = ({ products, departments = { data: [] }, filters }: Produc
                                                     }
                                                 }}
                                                 disabled={!link.url}
-                                                className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${link.active
-                                                    ? 'bg-blue-600 text-white'
+                                                className={`min-w-[40px] px-4 py-2 rounded-lg font-satoshi font-medium transition-all duration-200 ${link.active
+                                                    ? 'bg-black text-white shadow-md'
                                                     : link.url
-                                                        ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
-                                                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                                        ? 'bg-white text-gray-700 hover:bg-black hover:text-white border border-gray-300'
+                                                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                                                     }`}
                                                 dangerouslySetInnerHTML={{ __html: link.label }}
                                             />

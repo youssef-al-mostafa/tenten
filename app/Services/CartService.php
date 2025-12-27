@@ -209,13 +209,51 @@ class CartService
         }
         Cookie::queue(self::COOKIE_NAME, json_encode($cartItems), self::COOKIE_LIEFTIME);
     }
-    protected function removeItemFromDatabase(int $productId, array $optionIds): void{
+    protected function removeItemFromDatabase(int $productId, $optionIds): void{
         $userId = Auth::id();
+
+        if (!is_array($optionIds)) {
+            $optionIds = [];
+        }
+
         ksort($optionIds);
-        $cartItem = CartItem::where('user_id', $userId)
+
+        $encodedOptions = json_encode($optionIds);
+
+        $existingItems = CartItem::where('user_id', $userId)
             ->where('product_id', $productId)
-            ->where('variation_type_option_ids', json_encode($optionIds))
-            ->delete();
+            ->get();
+
+        FacadesLog::info('Removing from database:', [
+            'user_id' => $userId,
+            'product_id' => $productId,
+            'option_ids' => $optionIds,
+            'encoded_options' => $encodedOptions,
+            'existing_items' => $existingItems->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'variation_type_option_ids' => $item->variation_type_option_ids,
+                    'type' => gettype($item->variation_type_option_ids)
+                ];
+            })
+        ]);
+
+        $itemToDelete = $existingItems->first(function($item) use ($encodedOptions, $optionIds) {
+            if (empty($optionIds)) {
+                return $item->variation_type_option_ids === null
+                    || $item->variation_type_option_ids === '[]'
+                    || $item->variation_type_option_ids === $encodedOptions;
+            }
+            return $item->variation_type_option_ids === $encodedOptions;
+        });
+
+        $deletedCount = 0;
+        if ($itemToDelete) {
+            $itemToDelete->delete();
+            $deletedCount = 1;
+        }
+
+        FacadesLog::info('Deleted rows:', ['count' => $deletedCount]);
     }
     protected function removeItemFromCookies(int $productId, array $optionIds): void {
         $cartItems = $this->getCartItemsFromCookies();

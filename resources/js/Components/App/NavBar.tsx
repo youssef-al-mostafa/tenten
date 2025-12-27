@@ -1,5 +1,5 @@
 import { Link, useForm, usePage } from '@inertiajs/react'
-import { ChangeEvent, FormEventHandler, useState, useEffect } from 'react'
+import { FormEventHandler, useState, useEffect } from 'react'
 import MiniCartDropDown from './MiniCartDropDown';
 import { PageProps } from '@/types';
 
@@ -64,31 +64,6 @@ function NavBar() {
                         </Link>
                     ))}
                 </div>
-                {/* <div className="search-bar min-w-[200px] my-auto w-webkit">
-                    <form onSubmit={onSubmit} className="relative flex items-center w-full mt-[0.4rem]">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600 z-10">
-                            <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd" />
-                        </svg>
-
-                        <input
-                            value={searchForm.data.keyword}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => searchForm.setData('keyword', e.target.value)}
-                            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700
-                                       text-sm border-[2px] border-slate-800 pl-10 pr-12 py-2 rounded-[50px]
-                                       transition duration-300 ease
-                                       shadow-sm focus:shadow"
-                            placeholder="Search"
-                        />
-
-                        <button
-                            type="submit"
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 hover:bg-slate-100
-                                       rounded-full transition-colors duration-200 flex gap-4 align-middle justify-center"
-                            aria-label="Search"
-                        >
-                        </button>
-                    </form>
-                </div> */}
                 <div className="flex justify-end items-center gap-1 sm:gap-2 md:gap-4 my-auto min-w-max">
                     <button
                         className="btn btn-ghost btn-circle lg:hidden p-1 sm:p-2"

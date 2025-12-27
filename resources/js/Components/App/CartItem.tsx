@@ -11,15 +11,14 @@ interface Props {
 }
 
 const CartItem = ({ item }: Props) => {
-    const deleteForm = useForm({
-        option_ids: item.option_ids
-    })
-
     const [error, setError] = useState('');
 
     const onDeleteClick = () => {
-        deleteForm.delete(route('cart.destroy', item.product_id), {
-            preserveScroll: true
+        router.delete(route('cart.destroy', item.product_id), {
+            preserveScroll: true,
+            data: {
+                option_ids: item.option_ids
+            }
         })
     }
 
