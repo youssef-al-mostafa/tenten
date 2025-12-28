@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductStatusEnum;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -52,6 +53,14 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
+
+        $user->cartItems()->delete();
+
+        $user->products()->update(['status' => ProductStatusEnum::Draft]);
+
+        if ($user->vendor) {
+            $user->vendor->delete();
+        }
 
         $user->delete();
 

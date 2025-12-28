@@ -129,15 +129,14 @@
                             <span>Show QR Code</span>
                         </button>
 
-                        <div class="relative w-1/2">
+                        <div class="flex gap-2 w-1/2">
                             <input type="text" value="{{ $vendorUrl }}" readonly id="vendorUrl"
-                                class="w-[calc(100% - 28px)] bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600
-                                          rounded-lg px-4 text-sm text-gray-950 dark:text-white pr-12 focus:ring-primary-500
+                                class="flex-1 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600
+                                          rounded-lg px-4 text-sm text-gray-950 dark:text-white focus:ring-primary-500
                                           focus:border-primary-500 h-12">
                             <button onclick="copyToClipboard()"
-                                class="absolute right-[-4px] top-1/2 transform -translate-y-1/2 p-1.5 text-gray-500
-                                           hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300
-                                           transition-colors rounded"
+                                class="p-2.5 text-gray-500 dark:text-gray-400
+                                       transition-colors rounded"
                                 title="Copy to clipboard" id="copyButton">
                                 <x-filament::icon icon="heroicon-o-clipboard" class="w-6 h-6" />
                             </button>
@@ -195,13 +194,13 @@
                     copyButton.innerHTML =
                         '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
                     copyButton.className =
-                        'absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-green-500 transition-colors rounded';
+                        'p-2.5 text-green-500 transition-colors rounded';
 
                     setTimeout(function() {
                         copyButton.innerHTML =
                             '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>';
                         copyButton.className =
-                            'absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors rounded';
+                            'p-2.5 text-gray-500 dark:text-gray-400 transition-colors rounded';
                     }, 2000);
 
                     @this.call('copyUrl');

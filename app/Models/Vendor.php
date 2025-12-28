@@ -35,10 +35,21 @@ class Vendor extends Model
 
     public function scopeApproved(Builder $query): Builder
     {
-        return $query->where('status', VendorStatusEnum::Approved)
-            ->whereHas('user', function($q) {
-                $q->where('stripe_account_active', true);
-            });
+        // vendors should only show up if they have an active stripe account
+        // but right now we're using fake vendors for testing so this check is disabled
+        // uncomment this when working with real vendors:
+        // ->whereHas('user', function($q) {
+        //     $q->where('stripe_account_active', true);
+        // });
+
+        return $query->where('status', VendorStatusEnum::Approved);
+    }
+
+    public function scopeHasProducts(Builder $query): Builder
+    {
+        return $query->whereHas('user.products', function($q) {
+            $q->where('status', 'published');
+        });
     }
 
     public function user(): BelongsTo

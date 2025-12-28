@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use App\Enums\RolesEnum;
+use App\Models\CartItem;
+use App\Models\Order;
 use App\Notifications\QueuedVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -124,6 +124,14 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function products(): HasMany{
         return $this->hasMany(Product::class, 'created_by');
+    }
+
+    public function cartItems(): HasMany{
+        return $this->hasMany(CartItem::class, 'user_id');
+    }
+
+    public function orders(): HasMany{
+        return $this->hasMany(Order::class, 'user_id');
     }
 
     public function getStripeAccountId()

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Vendor;
 use App\Enums\VendorStatusEnum;
 use App\Services\TemplateService;
+use App\Services\VendorService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -34,20 +35,7 @@ class PageController extends Controller
             })
             ->paginate(12);
 
-        $topVendors = Vendor::with(['user', 'user.products' => function($query) {
-                $query->published()->limit(3);
-            }])
-            ->where('status', VendorStatusEnum::Approved->value)
-            ->whereHas('user.products', function($query) {
-                $query->published();
-            })
-            ->withCount(['user as products_count' => function($query) {
-                $query->join('products', 'products.created_by', '=', 'users.id')
-                      ->where('products.status', 'published');
-            }])
-            ->orderBy('products_count', 'desc')
-            ->limit(6)
-            ->get();
+        $topVendors = app(VendorService::class)->getTopVendors(6);
 
         $page = Pages::where('slug', 'home')->active()->first();
 

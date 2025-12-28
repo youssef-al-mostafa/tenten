@@ -8,24 +8,16 @@ use App\Http\Resources\ProductListResource;
 use App\Http\Resources\VendorResource;
 use App\Models\Product;
 use App\Models\Vendor;
+use App\Services\VendorService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class VendorController extends Controller
 {
-    public function allVendors(Request $request)
+    public function allVendors(Request $request, VendorService $vendorService)
     {
-        $vendors = Vendor::approved()
-            ->with([
-                'user',
-                'products' => function ($query) {
-                    $query->published()
-                        ->latest()
-                        ->limit(3);
-                }
-            ])
-            ->paginate(15);
+        $vendors = $vendorService->getVendors(paginate: true, perPage: 15);
 
         return Inertia::render('Vendor/AllVendors', [
             'vendors' => VendorResource::collection($vendors)
@@ -54,10 +46,11 @@ class VendorController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, VendorService $vendorService)
     {
         $user = $request->user();
-        $request->validate([
+
+        $validated = $request->validate([
             'store_name' => [
                 'required',
                 'regex:/^[a-z0-9-]+$/',
@@ -68,16 +61,8 @@ class VendorController extends Controller
             'store_name.regex' => 'Store name must only contain lowercase alphanumeric characters and hyphens.',
             'store_name.unique' => 'Store name already exists.',
         ]);
-        $vendor = $user->vendor ?: new Vendor();
-        $vendor->user_id = $user->id;
-        $vendor->status = VendorStatusEnum::Approved->value;
-        $vendor->store_name = $request->store_name;
-        $vendor->store_address = $request->store_address;
-        $vendor->save();
 
-        if (!$user->hasRole(RolesEnum::VENDOR)) {
-            $user->assignRole(RolesEnum::VENDOR);
-        }
+        $vendorService->createOrUpdateVendor($user, $validated);
 
         return back();
     }
