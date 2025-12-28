@@ -23,7 +23,7 @@ export default function Home({
                 additionalProps={{
                     new_arrivals: { products },
                     product_showcase: { products },
-                    top_vendors: { topVendors },
+                    top_vendors: { topVendors: topVendors?.data || topVendors },
                 }}
             />
         </AppLayout>

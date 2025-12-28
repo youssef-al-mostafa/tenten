@@ -93,20 +93,6 @@ const ReviewCarousel = ({
         );
     };
 
-    const renderReviewCard = (review: Review) => (
-        <div
-            key={review.id}
-            className="bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 flex-shrink-0 w-full"
-        >
-            <h3 className="font-satoshi font-bold text-lg text-black mb-3">
-                {review.customer_name || review.name}
-            </h3>
-            {renderStars(review.rating)}
-            <p className="font-satoshi font-normal text-base leading-relaxed text-black opacity-60">
-                "{review.review_text || review.review}"
-            </p>
-        </div>
-    );
 
     return (
         <div
@@ -157,7 +143,20 @@ const ReviewCarousel = ({
                                 className="w-full flex-shrink-0"
                             >
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {pageReviews.map(renderReviewCard)}
+                                    {pageReviews.map((review, idx) => (
+                                        <div
+                                            key={review.id || idx}
+                                            className="bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 flex-shrink-0 w-full"
+                                        >
+                                            <h3 className="font-satoshi font-bold text-lg text-black mb-3">
+                                                {review.customer_name || review.name}
+                                            </h3>
+                                            {renderStars(review.rating)}
+                                            <p className="font-satoshi font-normal text-base leading-relaxed text-black opacity-60">
+                                                "{review.review_text || review.review}"
+                                            </p>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         );

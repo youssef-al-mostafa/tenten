@@ -39,12 +39,10 @@ export interface TopVendor {
     id: number;
     name: string;
     storeName: string;
-    avatar: string;
-    rating: number;
-    reviewCount: number;
-    location: string;
-    description: string;
-    topProducts: {
+    avatar: string | null;
+    location: string | null;
+    description: string | null;
+    topProducts?: {
         id: number;
         image: string;
         title: string;

@@ -17,7 +17,6 @@ export const goToAllVendorsPage = () => {
 }
 
 const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
-
     const topVendors = vendorsData && vendorsData.length > 0 ? vendorsData : null;
 
     return (

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\RolesEnum;
 use App\Enums\VendorStatusEnum;
-use App\Http\Resources\ProductListResource;
+use App\Http\Resources\ProductResource;
 use App\Http\Resources\VendorResource;
 use App\Models\Product;
 use App\Models\Vendor;
@@ -42,7 +42,7 @@ class VendorController extends Controller
 
         return Inertia::render('Vendor/Profile', [
             'vendor' => $vendor,
-            'products' => ProductListResource::collection($products),
+            'products' => ProductResource::collection($products),
         ]);
     }
 

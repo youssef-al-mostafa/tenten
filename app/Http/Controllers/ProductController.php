@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\DepartmentResource;
 use App\Http\Resources\ProductResource;
-use App\Http\Resources\ProductListResource;
 use App\Models\Department;
 use App\Models\Pages;
 use App\Models\Product;
@@ -57,7 +56,7 @@ class ProductController extends Controller
             ->paginate($perPage);
 
         return Inertia::render('Products/Index', [
-            'products' => ProductListResource::collection($products),
+            'products' => ProductResource::collection($products),
             'filters' => [
                 'keyword' => $keyword,
                 'department' => $department,
@@ -74,15 +73,23 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        $product->load([
+            'user.vendor',
+            'department',
+            'variationTypes.options.media',
+            'variation'
+        ]);
+
         $similarProducts = Product::query()
             ->published()
+            ->with(['user.vendor', 'department'])
             ->where('department_id', $product->department_id)
             ->where('id', '!=', $product->id)
             ->limit(8)
             ->get();
 
         $page = Pages::where('slug', 'product-details')->active()->first();
-        
+
         if ($page) {
             $pageContent = array_merge(
                 $this->templateService->loadTemplate('product-details'),
@@ -95,7 +102,7 @@ class ProductController extends Controller
         return Inertia::render('Product/Show', [
             'product' => new ProductResource($product),
             'variationOptions' => request('options', []),
-            'similarProducts' => ProductListResource::collection($similarProducts),
+            'similarProducts' => ProductResource::collection($similarProducts),
             'pageContent' => $pageContent
         ]);
     }
@@ -117,7 +124,7 @@ class ProductController extends Controller
 
             return Inertia::render ('Department/Index', [
                 'department' => new DepartmentResource ($department),
-                'products' => ProductListResource::collection($products),
+                'products' => ProductResource::collection($products),
             ]);
     }
 
