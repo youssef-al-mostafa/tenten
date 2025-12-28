@@ -16,16 +16,17 @@ class VendorService
         bool $paginate = false,
         int $perPage = 15,
         string $orderBy = 'created_at',
-        string $orderDirection = 'desc'
+        string $orderDirection = 'desc',
+        int $productsLimit = 3
     ): Collection|LengthAwarePaginator {
         $query = Vendor::approved()
             ->hasProducts()
             ->with([
                 'user',
-                'products' => function ($query) {
+                'user.products' => function ($query) use ($productsLimit) {
                     $query->published()
                         ->latest()
-                        ->limit(3);
+                        ->limit($productsLimit);
                 }
             ])
             ->withCount(['user as products_count' => function($query) {

@@ -1,8 +1,8 @@
 import { PageProps, PaginationProps, Vendor } from '@/types';
 import { Head, router } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
-import { MapPin, Store } from 'lucide-react';
-import { goToVendorProfile } from '@/helpers';
+import { Store } from 'lucide-react';
+import VendorCard from '@/Components/App/VendorCard';
 
 interface AllVendorsProps extends Record<string, unknown> {
     vendors: PaginationProps<Vendor>;
@@ -38,90 +38,14 @@ const AllVendors = ({ vendors }: PageProps<AllVendorsProps>) => {
                         <>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {vendors.data.map((vendor) => (
-                                    <div
-                                        key={vendor.user_id}
-                                        className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden"
-                                    >
-                                        <div className="p-6 flex flex-col h-full">
-                                            <div className="flex items-start gap-4 mb-4">
-                                                <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                                                    {vendor.cover_image ? (
-                                                        <img
-                                                            src={`/storage/${vendor.cover_image}`}
-                                                            alt={vendor.store_name}
-                                                            className="w-full h-full rounded-full object-cover"
-                                                        />
-                                                    ) : (
-                                                        <span className="text-xl font-bold text-gray-600">
-                                                            {vendor.store_name.charAt(0).toUpperCase()}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <div className="flex-1">
-                                                    <h3 className="font-bold text-lg text-gray-900 mb-1">
-                                                        {vendor.store_name}
-                                                    </h3>
-                                                    {vendor.user && (
-                                                        <p className="text-gray-600 text-sm">
-                                                            by {vendor.user.name}
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            {vendor.store_description && (
-                                                <p className="text-gray-600 mb-4 line-clamp-2">
-                                                    {vendor.store_description}
-                                                </p>
-                                            )}
-
-                                            {vendor.store_address && (
-                                                <div className="flex items-center gap-1 text-sm text-gray-500 mb-4">
-                                                    <MapPin className="h-4 w-4" />
-                                                    <span>{vendor.store_address}</span>
-                                                </div>
-                                            )}
-
-                                            {vendor.topProducts && vendor.topProducts.length > 0 && (
-                                                <div className="mb-4">
-                                                    <h4 className="font-semibold text-sm text-gray-700 mb-2">
-                                                        Top Products
-                                                    </h4>
-                                                    <div className="flex gap-2">
-                                                        {vendor.topProducts.map((product) => (
-                                                            <div key={product.id} className="">
-                                                                <img
-                                                                    src={product.image}
-                                                                    alt={product.title}
-                                                                    className="w-full h-16 object-cover rounded-md mb-1"
-                                                                />
-                                                                <p className="text-xs text-gray-600 truncate">
-                                                                    {product.title}
-                                                                </p>
-                                                                <p className="text-xs font-semibold">
-                                                                    ${product.price}
-                                                                </p>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            <button
-                                                onClick={() => goToVendorProfile(vendor.store_name)}
-                                                className="mt-auto w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition-colors"
-                                            >
-                                                Visit Store
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <VendorCard key={vendor.user_id} vendor={vendor} maxProducts={6} />
                                 ))}
                             </div>
 
-                            {Array.isArray(vendors.links) && vendors.links.length > 3 && (
+                            {vendors.meta?.links && Array.isArray(vendors.meta.links) && vendors.meta.links.length > 3 && (
                                 <div className="mt-12 flex justify-center">
-                                    <div className="flex items-center space-x-2">
-                                        {vendors.links.map((link, index) => (
+                                    <div className="flex items-center gap-2">
+                                        {vendors.meta.links.map((link, index) => (
                                             <button
                                                 key={index}
                                                 onClick={() => {
@@ -132,13 +56,12 @@ const AllVendors = ({ vendors }: PageProps<AllVendorsProps>) => {
                                                     }
                                                 }}
                                                 disabled={!link.url}
-                                                className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 ${
-                                                    link.active
-                                                        ? 'bg-black text-white'
-                                                        : link.url
-                                                        ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
-                                                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                                }`}
+                                                className={`min-w-[40px] px-4 py-2 rounded-lg font-satoshi font-medium transition-all duration-200 ${link.active
+                                                    ? 'bg-black text-white shadow-md'
+                                                    : link.url
+                                                        ? 'bg-white text-gray-700 hover:bg-black hover:text-white border border-gray-300'
+                                                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                                    }`}
                                                 dangerouslySetInnerHTML={{ __html: link.label }}
                                             />
                                         ))}

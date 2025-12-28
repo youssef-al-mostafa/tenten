@@ -25,8 +25,8 @@ class VendorResource extends JsonResource
                 'id' => $this->user->id,
                 'name' => $this->user->name,
             ],
-            'topProducts' => $this->whenLoaded('products', function () {
-                return $this->products->map(function ($product) {
+            'topProducts' => $this->when($this->relationLoaded('user') && $this->user->relationLoaded('products'), function () {
+                return $this->user->products->map(function ($product) {
                     return [
                         'id' => $product->id,
                         'image' => $product->getFirstMediaUrl('images', 'small'),

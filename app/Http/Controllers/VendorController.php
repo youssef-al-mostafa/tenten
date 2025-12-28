@@ -17,7 +17,7 @@ class VendorController extends Controller
 {
     public function allVendors(Request $request, VendorService $vendorService)
     {
-        $vendors = $vendorService->getVendors(paginate: true, perPage: 15);
+        $vendors = $vendorService->getVendors(paginate: true, perPage: 15, productsLimit: 6);
 
         return Inertia::render('Vendor/AllVendors', [
             'vendors' => VendorResource::collection($vendors)
