@@ -53,7 +53,7 @@ class PageController extends Controller
 
         return Inertia::render('Home', [
             'products' => ProductResource::collection($products),
-            'topVendors' => VendorResource::collection($topVendors),
+            'topVendors' => VendorResource::collection($topVendors)->resolve(),
             'pageContent' => $pageContent
         ]);
     }

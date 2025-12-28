@@ -10,7 +10,7 @@ export default function Home({
     pageContent
 }: PageProps<{
     products: PaginationProps<Product>;
-    topVendors?: any[] | { data: any[] };
+    topVendors?: any[];
     pageContent?: any;
 }>) {
     return (
@@ -23,7 +23,7 @@ export default function Home({
                 additionalProps={{
                     new_arrivals: { products },
                     product_showcase: { products },
-                    top_vendors: { topVendors: topVendors?.data || topVendors },
+                    top_vendors: { topVendors },
                 }}
             />
         </AppLayout>
