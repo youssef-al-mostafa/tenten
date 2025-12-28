@@ -15,12 +15,12 @@ interface VendorCardProps {
         name?: string;
         storeName?: string;
         store_name?: string;
-        avatar?: string;
-        cover_image?: string;
-        description?: string;
-        store_description?: string;
-        location?: string;
-        store_address?: string;
+        avatar?: string | null;
+        cover_image?: string | null;
+        description?: string | null;
+        store_description?: string | null;
+        location?: string | null;
+        store_address?: string | null;
         topProducts?: Product[];
         user?: {
             id: number;
