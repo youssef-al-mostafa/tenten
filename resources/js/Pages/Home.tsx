@@ -10,7 +10,7 @@ export default function Home({
     pageContent
 }: PageProps<{
     products: PaginationProps<Product>;
-    topVendors?: any[];
+    topVendors?: any[] | { data: any[] };
     pageContent?: any;
 }>) {
     return (
