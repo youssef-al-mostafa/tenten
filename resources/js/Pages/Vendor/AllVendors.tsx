@@ -11,14 +11,14 @@ interface AllVendorsProps extends Record<string, unknown> {
 const AllVendors = ({ vendors }: PageProps<AllVendorsProps>) => {
     return (
         <AppLayout>
-            <Head title="All Vendors">
+            <Head title="All Stores">
                 <meta name="description" content="Discover all our verified vendors. Browse stores and find unique products from trusted sellers." />
             </Head>
 
             <div className="bg-gray-50 min-h-screen">
                 <div className="container mx-auto px-8 py-12">
                     <div className="mb-12">
-                        <h1 className="text-4xl font-bold text-gray-900 mb-3">All Vendors</h1>
+                        <h1 className="text-4xl font-bold text-gray-900 mb-3">All Stores</h1>
                         <p className="text-gray-600">
                             Discover amazing stores from verified vendors
                         </p>

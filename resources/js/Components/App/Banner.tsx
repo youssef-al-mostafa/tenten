@@ -1,4 +1,3 @@
-import { log } from "console";
 import { Link } from '@inertiajs/react';
 
 interface BannerProps {
@@ -26,11 +25,11 @@ const Banner = ({ content }: BannerProps) => {
     } = content || {};
 
     const getImageUrl = (imagePath?: string) => {
-        //if (!imagePath) return "/images/banner.png";
+        if (!imagePath) return null;
 
-        // if (imagePath.startsWith('http') || imagePath.startsWith('/')) {
-        //     return imagePath;
-        // }
+        if (imagePath.startsWith('http') || imagePath.startsWith('/')) {
+            return imagePath;
+        }
 
         return `/storage/${imagePath}`;
     };
@@ -72,22 +71,25 @@ const Banner = ({ content }: BannerProps) => {
                         ))}
                     </div>
                 </div>
-                <div className='relative flex items-end h-full w-full lg:w-auto order-1 lg:order-2 mb-6 lg:mb-0'>
-                    <svg className='absolute right-4 sm:right-8 lg:right-0 top-8 sm:top-12 lg:top-14 w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] lg:w-[104px] lg:h-[104px] opacity-80' viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M52 0C53.7654 27.955 76.0448 50.2347 104 52C76.0448 53.7654 53.7654 76.0448 52 104C50.2347 76.0448 27.955 53.7654 0 52C27.955 50.2347 50.2347 27.955 52 0Z" fill="black" />
-                    </svg>
-                    <svg className='absolute left-4 sm:left-8 lg:left-0 top-1/2 w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] lg:w-[56px] lg:h-[56px] opacity-80' viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M52 0C53.7654 27.955 76.0448 50.2347 104 52C76.0448 53.7654 53.7654 76.0448 52 104C50.2347 76.0448 27.955 53.7654 0 52C27.955 50.2347 50.2347 27.955 52 0Z" fill="black" />
-                    </svg>
-                    <img
-                        alt="Banner Image"
-                        src={getImageUrl(banner_image)}
-                        className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto lg:mx-0 h-auto object-contain"
-                        onError={(e) => {
-                            console.error('Error during banner image rendering ', e)
-                        }}
-                    />
-                </div>
+                {banner_image && (
+                    <div className='relative flex items-end h-full w-full lg:w-auto order-1 lg:order-2 mb-6 lg:mb-0'>
+                        <svg className='absolute right-4 sm:right-8 lg:right-0 top-8 sm:top-12 lg:top-14 w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] lg:w-[104px] lg:h-[104px] opacity-80' viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M52 0C53.7654 27.955 76.0448 50.2347 104 52C76.0448 53.7654 53.7654 76.0448 52 104C50.2347 76.0448 27.955 53.7654 0 52C27.955 50.2347 50.2347 27.955 52 0Z" fill="black" />
+                        </svg>
+                        <svg className='absolute left-4 sm:left-8 lg:left-0 top-1/2 w-[32px] h-[32px] sm:w-[40px] sm:h-[40px] lg:w-[56px] lg:h-[56px] opacity-80' viewBox="0 0 104 104" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M52 0C53.7654 27.955 76.0448 50.2347 104 52C76.0448 53.7654 53.7654 76.0448 52 104C50.2347 76.0448 27.955 53.7654 0 52C27.955 50.2347 50.2347 27.955 52 0Z" fill="black" />
+                        </svg>
+                        <img
+                            alt="Banner Image"
+                            src={getImageUrl(banner_image) || ''}
+                            className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto lg:mx-0 h-auto object-contain"
+                            onError={(e) => {
+                                console.error('Banner image failed to load:', banner_image);
+                                e.currentTarget.style.display = 'none';
+                            }}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     );

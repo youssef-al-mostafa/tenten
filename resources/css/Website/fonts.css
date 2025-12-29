@@ -62,84 +62,84 @@
 /* Integral CF font */
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-regular.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-regularoblique.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-regularoblique.otf') format('opentype');
     font-weight: 400;
     font-style: italic;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-medium.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-medium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-mediumoblique.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-mediumoblique.otf') format('opentype');
     font-weight: 500;
     font-style: italic;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-demibold.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-demibold.otf') format('opentype');
     font-weight: 600;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-demiboldoblique.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-demiboldoblique.otf') format('opentype');
     font-weight: 600;
     font-style: italic;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-bold.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-boldoblique.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-boldoblique.otf') format('opentype');
     font-weight: 700;
     font-style: italic;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-extrabold.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-extrabold.otf') format('opentype');
     font-weight: 800;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-extraboldoblique.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-extraboldoblique.otf') format('opentype');
     font-weight: 800;
     font-style: italic;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-heavy.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-heavy.otf') format('opentype');
     font-weight: 900;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'Integral CF';
-    src: url('/resources/fonts/integralcf/Fontspring-DEMO-integralcf-heavyoblique.otf') format('opentype');
+    src: url('/resources/fonts/integral_cf/Fontspring-DEMO-integralcf-heavyoblique.otf') format('opentype');
     font-weight: 900;
     font-style: italic;
     font-display: swap;
