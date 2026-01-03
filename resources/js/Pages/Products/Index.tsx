@@ -16,7 +16,6 @@ interface ProductsIndexProps {
 
 const ProductsIndex = ({ products, departments = { data: [] }, filters }: ProductsIndexProps) => {
     const { props } = usePage();
-    const appName = props.appName || 'TenTen';
 
     const [searchTerm, setSearchTerm] = useState(filters.keyword || '');
     const [selectedDepartment, setSelectedDepartment] = useState(filters.department || '');
@@ -83,13 +82,19 @@ const ProductsIndex = ({ products, departments = { data: [] }, filters }: Produc
                 <meta name="description" content="Discover all our amazing products from various vendors. Find exactly what you're looking for with our filtering and search options." />
             </Head>
 
-            <div className="bg-base-200 border-b border-gray-100 sticky top-0 z-40 shadow-sm">
-                <div className="container mx-auto px-6 py-6">
+            <div className="container bg-base-200 sticky top-0 z-40 mb-4 border-0 right-0 left-0 mx-auto w-[90%] pt-9">
+                <div className="container mx-auto py-6">
                     <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
                         <div className="relative flex-1 max-w-md">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                <svg className="h-5 w-5 text-gray-400"
+                                     fill="none"
+                                     stroke="currentColor"
+                                     viewBox="0 0 24 24">
+                                    <path strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth="2"
+                                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
                             </div>
                             <input
@@ -151,8 +156,8 @@ const ProductsIndex = ({ products, departments = { data: [] }, filters }: Produc
                 </div>
             </div>
 
-            <div className="bg-base-200 min-h-screen">
-                <div className="container mx-auto px-6 py-12">
+            <div className="bg-base-200 min-h-screen pb-11">
+                <div className="container mx-auto w-[90%]">
 
                     {products.data.length === 0 ? (
                         <div className="text-center py-20">

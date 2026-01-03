@@ -58,23 +58,6 @@ class PageController extends Controller
         ]);
     }
 
-    public function help()
-    {
-        $page = Pages::where('slug', 'help')->active()->first();
-
-        if ($page) {
-            $pageContent = array_merge(
-                $this->templateService->loadTemplate('help'),
-                $page->content ?: []
-            );
-        } else {
-            $pageContent = $this->templateService->loadTemplate('help');
-        }
-
-        return Inertia::render('Help', [
-            'pageContent' => $pageContent
-        ]);
-    }
 
     public function show(string $slug)
     {

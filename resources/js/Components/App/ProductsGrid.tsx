@@ -58,7 +58,7 @@ const ProductsGrid = ({
     ].filter(Boolean).join(" ");
 
     return (
-        <section className={`w-[90%] max-w-[1600px] mx-auto py-8 sm:py-12 lg:py-16 ${className}`}>
+        <section className={`w-[90%] container mx-auto py-8 sm:py-12 lg:py-16 ${className}`}>
             {showHeader && (
                 <div className="mb-8 sm:mb-10 lg:mb-12 text-center">
                     <h2 className="font-integral_cf font-extrabold text-black text-2xl sm:text-3xl lg:text-4xl mb-4">

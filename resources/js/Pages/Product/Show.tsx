@@ -4,6 +4,7 @@ import { ProductItem } from '@/Components/App/ProductItem';
 import { Carousel } from '@/Components/Core/Carousel';
 import { CurrencyFormatter } from '@/Components/Core/CurrencyFormatter';
 import { arraysAreEqual } from '@/helpers';
+import AppLayout from '@/Layouts/AppLayout';
 import { Product, VariationTypeOption } from '@/types'
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import { error } from 'console';
@@ -220,7 +221,7 @@ function Show({ appName, product, variationOptions, similarProducts, pageContent
     }, [selectedOptions]);
 
     return (
-        <>
+        <AppLayout>
             <Head>
                 <title>{product.title}</title>
                 <meta name="title" content={(product.meta_title || product.title).toString()} />
@@ -234,9 +235,8 @@ function Show({ appName, product, variationOptions, similarProducts, pageContent
                 <meta property="og:type" content="product" />
                 <meta property="og :site_name" content={appName} />
             </Head>
-            <NavBar />
-            <div className="bg-base-200 min-h-screen">
-                <div className="container mx-auto px-14 py-8">
+            <div className="bg-base-200">
+                <div className="container mx-auto py-8 w-[90%]">
                     <nav className="text-sm breadcrumbs mb-6">
                         <ul className="flex items-center space-x-2 text-gray-600">
                             <li><Link href={route('home')} className="hover:text-gray-900">Home</Link></li>
@@ -260,8 +260,8 @@ function Show({ appName, product, variationOptions, similarProducts, pageContent
                                 </div>
                             </div>
 
-                            <div className="col-span-5 p-8 bg-base-200">
-                                <div className="max-w-lg">
+                            <div className="col-span-5 p-8 pr-0 bg-base-200">
+                                <div className="">
                                     <div className="mb-4">
                                         <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-4">
                                             {product.department.name}
@@ -313,7 +313,7 @@ function Show({ appName, product, variationOptions, similarProducts, pageContent
             </div>
             {similarProducts && similarProducts.data.length > 0 && (
                 <div className="bg-gray-50 py-16">
-                    <div className="container mx-auto px-14">
+                    <div className="container mx-auto w-[90%]">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl font-bold text-gray-900 mb-4">
                                 {getContent('similar_products', 'title')}
@@ -332,8 +332,10 @@ function Show({ appName, product, variationOptions, similarProducts, pageContent
                         <div className="text-center mt-12">
                             <Link
                                 href={route('product.byDepartment', product.department.slug)}
-                                className="inline-flex items-center px-6 py-3 bg-white border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 hover:border-gray-400 transition-all duration-200"
-                            >
+                                className="btn bg-white text-black border-2 border-black rounded-full
+                                           px-6 sm:px-8 py-2 sm:py-3 font-satoshi font-medium text-sm
+                                           sm:text-base hover:bg-black hover:text-white transition-all
+                                           duration-300 w-fit mx-auto mt-[3rem] flex">
                                 View All in {product.department.name}
                                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -343,7 +345,7 @@ function Show({ appName, product, variationOptions, similarProducts, pageContent
                     </div>
                 </div>
             )}
-        </>
+        </AppLayout>
 
     )
 }

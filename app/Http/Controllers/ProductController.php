@@ -55,8 +55,11 @@ class ProductController extends Controller
             })
             ->paginate($perPage);
 
+        $departments = Department::published()->orderBy('name')->get();
+
         return Inertia::render('Products/Index', [
             'products' => ProductResource::collection($products),
+            'departments' => DepartmentResource::collection($departments),
             'filters' => [
                 'keyword' => $keyword,
                 'department' => $department,

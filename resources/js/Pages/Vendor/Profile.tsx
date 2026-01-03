@@ -36,9 +36,8 @@ function Profile({
         <AppLayout>
             <Head title={`${vendor.store_name} - Store Profile`} />
 
-            <div className="bg-base-200">
-                <div className="pt-8 pb-8 px-8">
-                    <div className="max-w-7xl mx-auto">
+            <div className="bg-base-200 min-h-screen">
+                <div className="container mx-auto py-8">
                         <div className="flex items-start gap-6 mb-8">
                             <div className="flex-shrink-0">
                                 <div className="w-20 h-20 rounded-full bg-base-200 flex items-center justify-center shadow-lg">
@@ -128,7 +127,6 @@ function Profile({
                                 </div>
                             )}
                         </div>
-                    </div>
                 </div>
             </div>
         </AppLayout>

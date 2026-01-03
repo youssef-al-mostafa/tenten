@@ -13,7 +13,6 @@ use Inertia\Inertia;
 
 // Guest Routes
 Route::get('/', [PageController::class, 'home'])->name('home');
-Route::get('/help', [PageController::class, 'help'])->name('help');
 
 //Payment
 Route::controller(CartController::class)->group(function () {
@@ -45,7 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['verified'])->group(function () {
 
         Route::get('/dashboard', function () {
-            return Inertia::render('Dashboard');
+            return redirect()->route('home');
         })->name('dashboard');
 
         Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');

@@ -46,7 +46,7 @@ const FeaturedCategories = ({ content }: FeaturedCategoriesProps) => {
 
     return (
         <section className="py-8 sm:py-12 lg:py-16 bg-white">
-            <div className="container mx-auto px-0 w-[90%] max-w-[1600px]">
+            <div className="container mx-auto px-0 w-[90%]">
                 <div className="flex flex-col sm:flex-row items-center justify-between
                                 mb-8 sm:mb-10 lg:mb-12 gap-4">
                     {content?.title && (

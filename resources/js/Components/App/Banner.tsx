@@ -35,10 +35,10 @@ const Banner = ({ content }: BannerProps) => {
     };
 
     return (
-        <div className="bg-base-200 max-w-[1600px] min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh]
-                        lg:h-[calc(100vh-110px)] mx-auto">
+        <div className="bg-base-200 container min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh]
+                        lg:h-[calc(100vh-110px)] mx-auto w-[90%]">
             <div className="flex flex-col lg:flex-row justify-between items-center max-w-full p-0 h-full
-                            w-[90%] px-0  py-8 lg:py-0 mx-auto">
+                            w-full px-0  py-8 lg:py-0 mx-auto">
                 <div className="banner-content flex flex-col gap-4 sm:gap-6 lg:gap-7 h-fit my-auto w-full
                                 lg:w-[41%] text-center lg:text-left order-2 lg:order-1">
                     <h1 className='leading font-sans font-extrabold text-black text-2xl sm:text-3xl

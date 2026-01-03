@@ -95,7 +95,7 @@ const ReviewCarousel = ({
 
     return (
         <div
-            className="w-[90%] mx-auto py-8"
+            className="container w-[90%] mx-auto py-8"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}>
             <div className="flex justify-between items-center mb-12">

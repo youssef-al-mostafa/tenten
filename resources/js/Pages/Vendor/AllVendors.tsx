@@ -15,8 +15,8 @@ const AllVendors = ({ vendors }: PageProps<AllVendorsProps>) => {
                 <meta name="description" content="Discover all our verified vendors. Browse stores and find unique products from trusted sellers." />
             </Head>
 
-            <div className="bg-gray-50 min-h-screen">
-                <div className="container mx-auto px-8 py-12">
+            <div className="bg-base-200 min-h-screen">
+                <div className="container w-[90%] mx-auto py-12">
                     <div className="mb-12">
                         <h1 className="text-4xl font-bold text-gray-900 mb-3">All Stores</h1>
                         <p className="text-gray-600">
@@ -38,7 +38,7 @@ const AllVendors = ({ vendors }: PageProps<AllVendorsProps>) => {
                         <>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                 {vendors.data.map((vendor) => (
-                                    <VendorCard key={vendor.user_id} vendor={vendor} maxProducts={6} />
+                                    <VendorCard key={vendor.user_id} vendor={vendor} maxProducts={5} />
                                 ))}
                             </div>
 

@@ -16,7 +16,7 @@ export default function Index({
         <>
             <Head title="Product" />
             <AuthenticatedLayout>
-                <div className="container mx-auto p-8 flex flex-col lg:flex-row gap-4">
+                <div className="container mx-auto py-8 flex flex-col lg:flex-row gap-4 w-[90%]">
                     <div className="card flex-1 bg-white order-2 lg:order-1">
                         <div className="card-body">
                             <h2 className="text-lg font-bold">
@@ -30,17 +30,17 @@ export default function Index({
                                 )}
                                 {Object.values(cartItems).map(cartItem => (
                                     <div key={cartItem.user.id}>
-                                        <div className="flex items-center justify-center pb-4 border-b border-gray-300 mb-4">
-                                            <Link href="/" className="">
+                                        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pb-4 border-b border-gray-300 mb-4">
+                                            <Link href="/" className="font-semibold">
                                                 {cartItem.user.name}
                                             </Link>
-                                            <div className="">
+                                            <div className="w-full sm:w-auto">
                                                 <form action={route('cart.checkout')} method="post">
                                                     <input type="hidden" name="_token" value={csrf_token} />
                                                     <input type="hidden" name="vendor_id" value={cartItem.user.id} />
-                                                    <button className="btn btn-sm btn-ghost">
-                                                        <CreditCardIcon className="size-6" />
-                                                        Pay Only for this seller
+                                                    <button className="btn btn-sm btn-ghost w-full sm:w-auto">
+                                                        <CreditCardIcon className="size-5 sm:size-6" />
+                                                        <span className="text-xs sm:text-sm">Pay Only for this seller</span>
                                                     </button>
                                                 </form>
                                             </div>
@@ -55,13 +55,15 @@ export default function Index({
                     </div>
                     <div className="card bg-white lg:min-w-[260px] order-1 lg:order-2">
                         <div className="card-body">
-                            Total ({totalQuantity} items): &nbsp;
-                            <CurrencyFormatter amount={totalPrice} />
+                            <div className="text-sm sm:text-base">
+                                Total ({totalQuantity} items): &nbsp;
+                                <CurrencyFormatter amount={totalPrice} />
+                            </div>
                             <form action={route('cart.checkout')} method="post">
                                 <input type="hidden" name="_token" value={csrf_token} />
-                                <PrimaryButton className="rounded-full flex justify-between gap-3">
-                                    <CreditCardIcon className="size-6" />
-                                    Proceed to checkout
+                                <PrimaryButton className="rounded-full flex justify-center items-center gap-2 sm:gap-3 w-full">
+                                    <CreditCardIcon className="size-5 sm:size-6" />
+                                    <span className="text-sm sm:text-base">Proceed to checkout</span>
                                 </PrimaryButton>
                             </form>
                         </div>

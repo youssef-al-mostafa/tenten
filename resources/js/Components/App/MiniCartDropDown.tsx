@@ -10,7 +10,8 @@ export const MiniCartDropDowm = () => {
             <div
                 tabIndex={0}
                 className="card card-compact dropdown-content
-                           bg-base-100 z-[50] mt-3 w-[360px] shadow">
+                           bg-base-100 z-[50] mt-3 w-[90vw] max-w-[360px] shadow
+                           absolute left-1/2 -translate-x-[80%] sm:left-auto sm:translate-x-0 sm:right-0">
                 <div className="card-body">
                     <span className="text-lg font-bold">{totalQuantity} Items</span>
                     <div className="my-4 max-h-[300px] overflow-auto">
@@ -27,13 +28,13 @@ export const MiniCartDropDowm = () => {
                                       alt='Item Image'
                                       className='max-w-full max-h-full'/>
                                 </Link>
-                                <div className="flex-1">
-                                    <h3 className='mb-3 font-semibold'>
+                                <div className="flex-1 min-w-0">
+                                    <h3 className='mb-3 font-semibold line-clamp-2'>
                                         <Link href={route('product.show', item.id)}>
                                             {item.title}
                                         </Link>
                                     </h3>
-                                    <div className="flex justify-between text-sm ">
+                                    <div className="flex justify-between text-sm">
                                         <div className="">
                                             Quantity: {item.quantity}
                                         </div>

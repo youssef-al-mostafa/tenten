@@ -8,35 +8,35 @@ const Success = ({ orders }: PageProps<{ orders: Order[] }>) => {
     return (
         <AuthenticatedLayout showNavBar={false}>
             <Head title="Payment was Completed" />
-            <div className="w-[480px] mx-auto py-8 px-4">
+            <div className="max-w-[480px] w-full mx-auto py-8 px-4">
                 <div className="flex flex-col gap-2 items-center">
-                    <div className="text-6xl text-emerald-600">
-                        <CheckCircleIcon className='size-24' />
+                    <div className="text-emerald-600">
+                        <CheckCircleIcon className='size-16 sm:size-24' />
                     </div>
-                    <div className="text-3xl">
+                    <div className="text-xl sm:text-3xl font-semibold text-center">
                         Payment was Completed
                     </div>
                 </div>
-                <div className="my-6 text-lg">
+                <div className="my-6 text-sm sm:text-lg text-center sm:text-left">
                     Thanks for your purchase.
                     Your payment was completed successfully.
                 </div>
                 {orders.map(order => (
-                    <div key={order.id} className="bg-white rounded-lg p-6 mb-4">
-                        <h3 className="text-3xl mb-3">
+                    <div key={order.id} className="bg-white rounded-lg p-4 sm:p-6 mb-4">
+                        <h3 className="text-xl sm:text-3xl mb-3 font-semibold">
                             Order Summary
                         </h3>
-                        <div className="flex justify-between mb-2 font-bold">
+                        <div className="flex justify-between mb-2 font-bold text-sm sm:text-base">
                             <div className="text-gray-600">
                                 Seller
                             </div>
-                            <div>
+                            <div className="text-right">
                                 <Link href='#' className='hover:underline'>
                                     {order.vendorUser.store_name}
                                 </Link>
                             </div>
                         </div>
-                        <div className="flex justify-between mb-2">
+                        <div className="flex justify-between mb-2 text-sm sm:text-base">
                             <div className="text-gray-600">
                                 Order Number
                             </div>
@@ -46,7 +46,7 @@ const Success = ({ orders }: PageProps<{ orders: Order[] }>) => {
                                 </Link>
                             </div>
                         </div>
-                        <div className="flex justify-between mb-3">
+                        <div className="flex justify-between mb-3 text-sm sm:text-base">
                             <div className="text-gray-600">
                                 Items
                             </div>
@@ -54,7 +54,7 @@ const Success = ({ orders }: PageProps<{ orders: Order[] }>) => {
                                 {order.orderItems.length}
                             </div>
                         </div>
-                        <div className="flex justify-between mb-3">
+                        <div className="flex justify-between mb-3 text-sm sm:text-base">
                             <div className="text-gray-600">
                                 Total
                             </div>
@@ -64,7 +64,7 @@ const Success = ({ orders }: PageProps<{ orders: Order[] }>) => {
                         </div>
                         <div className="flex justify-center mt-4">
                             <Link href={route('home')}
-                                  className='btn bg-gray-800 text-white hover:bg-gray-700'>
+                                  className='btn btn-sm sm:btn-md bg-gray-800 text-white hover:bg-gray-700'>
                                 Back to Home
                             </Link>
                         </div>

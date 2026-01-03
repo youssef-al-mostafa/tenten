@@ -20,7 +20,7 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
     const topVendors = vendorsData && vendorsData.length > 0 ? vendorsData : null;
 
     return (
-        <section className="mx-auto w-[90%] max-w-[1600px] py-16 bg-transparent">
+        <section className="mx-auto w-[90%] container py-16 bg-transparent">
             <div className="container">
                 <div className="flex items-center justify-center mb-12">
                     {content?.title && (

@@ -22,26 +22,28 @@ const index = ({
                 <meta property="og: site_name" content={appName} />
             </Head>
 
-            <div className="container mx-auto">
-                <div className="hero bg-base-200 min-h-[120px]">
-                    <div className="hero-content text-center">
-                        <div className="max-w-lg">
-                            <h1 className="text-5xl font-bold">
-                                {department.name}
-                            </h1>
+            <div className="bg-base-200 min-h-screen">
+                <div className="container mx-auto w-[90%] py-8">
+                    <div className="hero min-h-[120px]">
+                        <div className="hero-content text-center">
+                            <div className="max-w-lg">
+                                <h1 className="text-5xl font-bold">
+                                    {department.name}
+                                </h1>
+                            </div>
                         </div>
                     </div>
+
+                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mt-8">
+                        {products.data.length === 0 && <div className="py-16 px-8 text-centertext-gray-300 text-3xl">
+                           No products found
+                        </div>}
+
+                       {products.data.map(product => (
+                          <ProductItem product={product} key={product.id} />
+                        ))}
+                    </div>
                 </div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 p-8">
-                {products.data.length === 0 && <div className="py-16 px-8 text-centertext-gray-300 text-3xl">
-                    No products found
-                </div>}
-
-                {products.data.map(product => (
-                    <ProductItem product={product} key={product.id} />
-                ))}
             </div>
         </AppLayout>
     );
