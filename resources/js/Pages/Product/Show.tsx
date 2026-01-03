@@ -3,7 +3,7 @@ import NavBar from '@/Components/App/NavBar';
 import { ProductItem } from '@/Components/App/ProductItem';
 import { Carousel } from '@/Components/Core/Carousel';
 import { CurrencyFormatter } from '@/Components/Core/CurrencyFormatter';
-import { arraysAreEqual } from '@/helpers';
+import { arraysAreEqual, formatStoreName } from '@/helpers';
 import AppLayout from '@/Layouts/AppLayout';
 import { Product, VariationTypeOption } from '@/types'
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
@@ -263,7 +263,8 @@ function Show({ appName, product, variationOptions, similarProducts, pageContent
                             <div className="col-span-5 p-8 pr-0 bg-base-200">
                                 <div className="">
                                     <div className="mb-4">
-                                        <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-4">
+                                        <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800
+                                                         text-sm font-medium rounded-full mb-4">
                                             {product.department.name}
                                         </span>
                                         <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">{product.title}</h1>
@@ -273,7 +274,7 @@ function Show({ appName, product, variationOptions, similarProducts, pageContent
                                                 href={route('vendor.profile', product.user.store_name)}
                                                 className='ml-2 font-semibold text-blue-600 hover:text-blue-700 hover:underline'
                                             >
-                                                {product.user.store_name}
+                                                {formatStoreName(product.user.store_name)}
                                             </Link>
                                         </div>
                                     </div>

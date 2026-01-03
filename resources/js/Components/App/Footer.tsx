@@ -9,9 +9,9 @@ const Footer = () => {
                              mx-auto mb-6 gap-8 lg:gap-0 lg:mb-3 w-[90%]">
                 <div className="footer-col w-full lg:w-[22%] flex flex-col gap-4
                                 sm:gap-6 lg:gap-7 text-center lg:text-left">
-                    <Link className="logo bg-transparent hover:bg-transparent
-                                     border-0 font-integral_cf font-extrabold text-[24px]
-                                     sm:text-[28px] lg:text-[33px] text-black"
+                    <Link className="logo bg-transparent hover:bg-transparent border-0 font-satoshi
+                                     font-extrabold transition-all duration-300 text-[18px] sm:text-[20px]
+                                     md:text-[24px] lg:text-[35px] text-black"
                           href={'/'}>
                         {footerData.brandInfo.name}
                     </Link>
