@@ -37,10 +37,10 @@ function Profile({
             <Head title={`${vendor.store_name} - Store Profile`} />
 
             <div className="bg-base-200 min-h-screen">
-                <div className="container mx-auto py-8">
+                <div className="container mx-auto py-8 w-[90%]">
                         <div className="flex items-start gap-6 mb-8">
                             <div className="flex-shrink-0">
-                                <div className="w-20 h-20 rounded-full bg-base-200 flex items-center justify-center shadow-lg">
+                                <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg">
                                     {vendor.cover_image ? (
                                         <img
                                             src={`/storage/${vendor.cover_image}`}
