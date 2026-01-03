@@ -46,7 +46,6 @@ const ReviewCarousel = ({
 
     const [isHovered, setIsHovered] = useState(false);
     const [isTransitioning, setIsTransitioning] = useState(false);
-    const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const nextSlide = useCallback(() => {
         if (isTransitioning) return;
         setIsTransitioning(true);
@@ -96,12 +95,12 @@ const ReviewCarousel = ({
 
     return (
         <div
-            className="w-[90%] mx-auto py-16"
+            className="w-[90%] mx-auto py-8"
             onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
+            onMouseLeave={() => setIsHovered(false)}>
             <div className="flex justify-between items-center mb-12">
-                <h2 className="font-integral_cf font-extrabold text-black text-4xl">
+                <h2 className="font-integral_cf font-extrabold text-black
+                               text-2xl sm:text-3xl lg:text-4xl flex text-center">
                     {actualTitle}
                 </h2>
 
@@ -109,7 +108,9 @@ const ReviewCarousel = ({
                     <button
                         onClick={prevSlide}
                         disabled={isTransitioning}
-                        className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-black hover:bg-black hover:text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                        className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center
+                                   justify-center hover:border-black hover:bg-black hover:text-white
+                                   transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15 19L8 12L15 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>

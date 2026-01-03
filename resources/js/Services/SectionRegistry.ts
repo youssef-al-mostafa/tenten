@@ -7,7 +7,6 @@ const SECTION_REGISTRY = {
   top_vendors: lazy(() => import('@/Components/App/TopVendors')),
   featured_categories: lazy(() => import('@/Components/App/FeaturedCategories')),
   customers_review: lazy(() => import('@/Components/App/ReviewCarousel')),
-  newsletter: lazy(() => import('@/Components/App/NewsLetter')),
 } as const;
 
 export type SectionKey = keyof typeof SECTION_REGISTRY;

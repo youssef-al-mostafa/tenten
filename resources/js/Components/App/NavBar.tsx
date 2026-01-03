@@ -62,11 +62,11 @@ const NavBar = () => {
 
     return (
         <>
-            <div className={`fixed top-0 left-0 right-0 z-50 flex gap-2 sm:gap-3 md:gap-6 bg-base-200
-                             items-center w-full justify-between transition-all duration-300 py-1 sm:py-2
-                             md:py-3 px-3 sm:px-4 md:px-14 ${isScrolled ? 'shadow-md' : ''}`}>
+            <div className={`max-w-[1600px] mx-auto fixed top-0 left-0 right-0 z-50 flex gap-2 sm:gap-3 md:gap-6 bg-base-200
+                             items-center justify-between transition-all duration-300 py-1 sm:py-2
+                             md:py-3 px-[5%] w-full ${isScrolled ? 'shadow-md' : ''}`}>
                 <div className="flex text-black">
-                    <Link className="logo bg-transparent hover:bg-transparent border-0 font-integral_cf
+                    <Link className="logo bg-transparent hover:bg-transparent border-0 font-satoshi
                                      font-extrabold transition-all duration-300 text-[18px] sm:text-[20px]
                                      md:text-[24px] lg:text-[35px]"
                         href={route('home')}>
@@ -296,8 +296,7 @@ const NavBar = () => {
                 className={`navbar fixed top-[73px] left-0 right-0 z-40 bg-base-200 border-t min-h-4
                             justify-center overflow-hidden transition-all duration-300
                             ease-in-out ${isDepartmentsOpen ? 'max-h-16 opacity-100' : 'max-h-0 opacity-0'}`}
-                onMouseLeave={() => setIsDepartmentsOpen(false)}
-            >
+                onMouseLeave={() => setIsDepartmentsOpen(false)}>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 z-20 py-0">
                         {departments && Array.isArray(departments) && departments.map((department) => (
@@ -305,8 +304,7 @@ const NavBar = () => {
                                 <Link
                                     href={route('product.byDepartment', department.slug)}
                                     className="font-medium text-sm text-gray-600 hover:text-gray-800"
-                                    onClick={() => setIsDepartmentsOpen(false)}
-                                >
+                                    onClick={() => setIsDepartmentsOpen(false)}>
                                     {department.name}
                                 </Link>
                             </li>

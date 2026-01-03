@@ -17,4 +17,10 @@ export default defineConfig({
             '@': path.resolve(__dirname, './resources/js'),
         },
     },
+    server: {
+        fs: {
+            allow: ['.']
+        }
+    },
+    publicDir: 'public',
 });

@@ -35,10 +35,14 @@ const Banner = ({ content }: BannerProps) => {
     };
 
     return (
-        <div className="bg-base-200 min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] lg:h-[calc(100vh-110px)]">
-            <div className="flex flex-col lg:flex-row justify-between items-center max-w-full p-0 h-full w-[90%] mx-auto py-8 lg:py-0">
-                <div className="banner-content flex flex-col gap-4 sm:gap-6 lg:gap-7 h-fit my-auto w-full lg:w-[41%] text-center lg:text-left order-2 lg:order-1">
-                    <h1 className='leading font-integral_cf font-extrabold text-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl'>
+        <div className="bg-base-200 max-w-[1600px] min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh]
+                        lg:h-[calc(100vh-110px)] mx-auto">
+            <div className="flex flex-col lg:flex-row justify-between items-center max-w-full p-0 h-full
+                            w-[90%] px-0  py-8 lg:py-0 mx-auto">
+                <div className="banner-content flex flex-col gap-4 sm:gap-6 lg:gap-7 h-fit my-auto w-full
+                                lg:w-[41%] text-center lg:text-left order-2 lg:order-1">
+                    <h1 className='leading font-sans font-extrabold text-black text-2xl sm:text-3xl
+                                   md:text-4xl lg:text-5xl xl:text-[3.25rem]'>
                         {title}
                     </h1>
                     <p className="font-satoshi font-normal text-sm sm:text-base md:text-lg leading-snug tracking-normal text-black opacity-60 max-w-md mx-auto lg:mx-0">

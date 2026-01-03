@@ -2,7 +2,8 @@ import { Link } from '@inertiajs/react'
 
 const Footer = () => {
     return (
-        <div className="footer relative flex flex-col gap-2 bg-base-100 w-full h-fit pt-6 sm:pt-8 lg:pt-10 pb-5 mt-6 sm:mt-9">
+        <div className="footer relative flex flex-col gap-2 bg-white w-full
+                        h-fit pt-6 sm:pt-8 lg:pt-10 pb-5">
             <div className="footer-main flex flex-col lg:flex-row justify-between w-[90%] sm:w-[85%] mx-auto mb-6 gap-8 lg:gap-0 lg:mb-3">
                 <div className="footer-col w-full lg:w-[22%] flex flex-col gap-4 sm:gap-6 lg:gap-7 text-center lg:text-left">
                     <Link className="logo bg-transparent hover:bg-transparent

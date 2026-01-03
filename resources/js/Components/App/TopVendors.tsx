@@ -20,18 +20,14 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
     const topVendors = vendorsData && vendorsData.length > 0 ? vendorsData : null;
 
     return (
-        <section className="py-16 bg-gray-50">
-            <div className="container mx-auto px-8">
-                <div className="flex items-center justify-between mb-12">
+        <section className="mx-auto w-[90%] max-w-[1600px] py-16 bg-transparent">
+            <div className="container">
+                <div className="flex items-center justify-center mb-12">
                     {content?.title && (
-                        <h2 className="text-4xl font-bold text-gray-900">{content.title}</h2>
-                    )}
-                    {content?.view_all_button && (
-                        <button className="border border-gray-300 hover:border-gray-400
-                                           transition-colors px-6 py-2 rounded-full"
-                            onClick={goToAllVendorsPage}>
-                            {content.view_all_button}
-                        </button>
+                        <h2 className="font-integral_cf font-extrabold text-black
+                                       text-2xl sm:text-3xl lg:text-4xl text-center">
+                            {content.title}
+                        </h2>
                     )}
                 </div>
 
@@ -41,6 +37,15 @@ const TopVendors = ({ content, topVendors: vendorsData }: TopVendorsProps) => {
                     ))}
                 </div>
             </div>
+            {content?.view_all_button && (
+                <button className="btn bg-white text-black border-2 border-black rounded-full
+                                   px-6 sm:px-8 py-2 sm:py-3 font-satoshi font-medium text-sm
+                                   sm:text-base hover:bg-black hover:text-white transition-all
+                                   duration-300 w-full sm:w-auto min-w-[200px] mx-auto mt-[3rem] flex"
+                    onClick={goToAllVendorsPage}>
+                    {content.view_all_button}
+                </button>
+            )}
         </section>
     );
 };

@@ -6,8 +6,7 @@
         "new_arrivals",
         "top_vendors",
         "featured_categories",
-        "customers_review",
-        "newsletter"
+        "customers_review"
     ],
     "fields": {
         "hero_banner": {
@@ -88,8 +87,7 @@
                 "default": "Browse All Categories"
             },
             "bottom_text": {
-                "type": "text",
-                "required": true
+                "type": "text"
             },
             "explore_button": {
                 "type": "string",
@@ -122,20 +120,6 @@
                     }
                 },
                 "min_items": 1
-            }
-        },
-        "newsletter": {
-            "title": {
-                "type": "string",
-                "required": true
-            },
-            "placeholder_text": {
-                "type": "string",
-                "required": false
-            },
-            "button_text": {
-                "type": "string",
-                "default": "Subscribe to Newsletter"
             }
         }
     }
